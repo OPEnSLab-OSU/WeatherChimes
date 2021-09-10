@@ -49,8 +49,8 @@ Loom::Manager Feather{};
 
 
 //Need to declare these prior to running code!
-char ssid[] = "NETGEAR33";    // your network SSID (name)
-char pass[] = "tinybolt321";    // your network password (use for WPA, or use as key for WEP)
+char ssid[] = SECRETS_SSID;    // your network SSID (name)
+char pass[] = SECRETS_PASS;    // your network password (use for WPA, or use as key for WEP)
 
 int status = WL_IDLE_STATUS;
 
@@ -69,8 +69,8 @@ MqttClient mqttClient(wifiClient);
 const char broker[] = "8acfd6649bcd41f888ba886f128790ae.s1.eu.hivemq.cloud";   // public HiveMQ broker "broker.hivemq.com";
 int        port     = 8883;      //Secure Port for MQTT, 1883 may not work with HiveMQ, need to test
 String     topic  = "";      //MQTT topic that is being subcribed to in Pass-through Node.js file
-String     HiveMQ_username = "WeatherChimes";
-String     HiveMQ_password = "B1gchime";
+String     HiveMQ_username = SECRETS_HiveMQ_username;
+String     HiveMQ_password = SECRETS_HiveMQ_password;
 #define DATAPIN 11         // change to the proper pin in which SDI12 is connected to on the Feather M0
 SDI12 mySDI12(DATAPIN);
 
