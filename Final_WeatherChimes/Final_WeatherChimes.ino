@@ -250,11 +250,6 @@ JsonObject parse_for_send(JsonObject internal)
   JsonArray arr = internal["contents"].as<JsonArray>(); //get the sensor data JSON
   Serial.println("begin test data");
 
-  MQTT_connect(); //connect to the MQTT client
-  mqttClient.poll();
-  // call poll() regularly to allow the library to send MQTT keep alives which
-  // avoids being disconnected by the broker
-
   //creates JSON TO BE PUBLISHED 
   DynamicJsonDocument JSONencoder(1024); //JSON document to be written on
   JsonObject root = JSONencoder.to<JsonObject>(); //location of data in doc
@@ -371,6 +366,11 @@ void loop()
   Feather.get_device_name(name); // "name" will be one topic level that the data is published to on HiveMQ
   String groupName = String(name + String(Feather.get_instance_num()));
   String topic = String(String("Chime/") + groupName + String("/data"));
+
+  MQTT_connect(); //connect to the MQTT client
+  mqttClient.poll();
+  // call poll() regularly to allow the library to send MQTT keep alives which
+  // avoids being disconnected by the broker
 
   //display data
     Serial.print("Sending message to topic: ");
