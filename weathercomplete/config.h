@@ -1,7 +1,7 @@
 "{\
   'general':\
   {\
-    'name':'Device',\   
+    'name':'WeatherChimes',\   
     'instance':1,\
     'interval':2000\
   },\
@@ -12,7 +12,11 @@
     },\
     {\
       'name':'SD',\
-      'params':[true,1000,10,'test',true]\
+      'params':[true,1000,10,'chimes',true]\
+    },\
+    {\
+      'name':'DS3231',\
+      'params':[10, false, true]\
     },\
     {\
       'name':'SHT31D',\

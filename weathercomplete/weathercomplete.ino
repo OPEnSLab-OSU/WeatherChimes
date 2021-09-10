@@ -9,7 +9,6 @@
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
-
 #include <Loom.h>
 #include <String.h>
 #include "SDI12.h"
@@ -20,10 +19,10 @@ const char* json_config =
 ;
 
 // In Tools menu, set:
-// Internet  > Disabled
+// Internet  > Enabled
 // Sensors   > Enabled
 // Radios    > Disabled
-// Actuators > Enabled
+// Actuators > Disabled
 // Max       > Disabled
 
 using namespace Loom;
@@ -196,7 +195,6 @@ void loop()
   package_decagon();
 
   Feather.display_data();
-  Feather.get<Loom::SD>()->log();
-//  getSD(Feather).log();
+  getSD(Feather).log();
   Feather.pause();
 }
