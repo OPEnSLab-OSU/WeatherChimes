@@ -1,0 +1,22 @@
+"{\
+  'general':\
+  {\
+    'name':'Rij',\
+    'instance':3,\
+    'interval':2000\
+  },\
+  'components':[\
+    {\
+      'name':'Analog',\
+      'params':'default'\
+    },\
+    {\
+      'name':'Multiplexer',\
+      'params':'default'\
+     },\
+    {\
+      'name':'WiFi',\
+      'params':[SECRET_USERNAME,SECRET_PASS]\
+    }\
+  ]\
+}"
