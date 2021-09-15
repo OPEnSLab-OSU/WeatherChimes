@@ -15,6 +15,14 @@
       'params':[true,1000,10,'chimes',true]\
     },\
     {\
+      'name':'InterruptManager',\
+      'params':[0]\
+    },\
+    {\
+      'name':'SleepManager',\
+      'params':[true,false,1]\
+    },\
+    {\
       'name':'DS3231',\
       'params':[10, false, true]\
     },\
