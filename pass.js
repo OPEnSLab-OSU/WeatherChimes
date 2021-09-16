@@ -41,8 +41,10 @@ mqttclient.on('error', function (error) {
 mqttclient.on('message', function (topic, message) {
   // Called each time a message is received
   console.log('Received message:', topic, message.toString());
-
-  database(message);
+  var split_topic = topic.split("/")
+  console.log("Device is " + split_topic[1]);
+  var device = split_topic[1]
+  database(message, device);
 });
 
 // subscribe to topic 'my/test/topic'
@@ -50,7 +52,7 @@ mqttclient.on('message', function (topic, message) {
 //"Chimes/+/data" will also work 
 mqttclient.subscribe('Chime/#');
 
-function database(message){
+function database(message, collection){
     console.log("enter database function");
     MongoClient.connect(uri, function(err, db) {
       console.log("send");
@@ -68,7 +70,8 @@ function database(message){
       console.log(typeof json);
       console.log(json);
       var myobj = json;
-      dbo.collection("HiveMQTT").insertOne(myobj, function(err, result) {
+    //dbo.collection(collection)  <-- put this in line below
+      dbo.collection(collection).insertOne(myobj, function(err, result) {
         if (err) throw err;
         console.log("1 document inserted");
         //console.log(result.insertedId);

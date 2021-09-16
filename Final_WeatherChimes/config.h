@@ -17,10 +17,6 @@
     {\
       'name':'SHT31D',\
       'params':'default'\
-    },\
-    {\
-      'name':'WiFi',\
-      'params':['NETGEAR33',SECRETS_PASS]\
     }\
   ]\
 }"

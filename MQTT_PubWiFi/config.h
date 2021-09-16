@@ -1,0 +1,31 @@
+"{\
+	'general':\
+	{\
+		'device_name':'Chime',\
+		'instance_num':1,\
+		'interval':2000\
+	},\
+	'components':[\
+		{\
+      'name':'TSL2591',\
+      'params':'default'\
+    },\
+    {\
+      'name':'SHT31D',\
+      'params':'default'\
+    },\
+		{\
+			'name':'WiFi',\
+			'params':['NETGEAR33','tinybolt321']\
+		},\
+		{\
+			'name':'MQTT_Pub',\
+			'params':[\
+				'MQTT',\
+				'8acfd6649bcd41f888ba886f128790ae.s1.eu.hivemq.cloud',\
+        'WeatherChimes',\
+        'B1gchime'\
+			]\
+		}\
+	]\
+}"

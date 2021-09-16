@@ -23,6 +23,8 @@
 #include <ArduinoMqttClient.h>
 #include "SDI12.h"
 
+#include "arduino_secrets.h"
+
 //Configuration file
 const char* json_config =
 #include "config.h"
@@ -234,6 +236,7 @@ void MQTT_connect() {
     Serial.println("Failed to connect to HiveMQ, Retrying");
     Serial.print(".");
     Serial.println(mqttClient.connectError());
+    mqttClient.connect(broker, port);
     delay(3000);
   } 
 
@@ -314,7 +317,7 @@ void setup()
 
   WiFi.setPins(WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
 
-  while (!Serial);
+  //while (!Serial); // cause hang error
   Serial.begin(115200);
 
   Serial.println(F("Adafruit MQTT demo for WINC1500"));
