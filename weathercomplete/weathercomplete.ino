@@ -12,6 +12,7 @@
 #include <Loom.h>
 #include <String.h>
 #include "SDI12.h"
+#include "MQTT.h"
 
 // Include configuration
 const char* json_config =
@@ -176,6 +177,51 @@ void setup_decagon(){
   }
 }
 
+// Interrupt Functions
+void ISR_pin12()
+{
+  detachInterrupt(12);
+  flag = true;
+}
+
+
+void MQTT_send(){
+//Finds json to be parsed
+  JsonObject internal = Feather.internal_json(); 
+
+  JsonObject all_sensor_data = parse_for_send(internal);
+   
+  int sizeOfJSON = 1024; //JSONencoder.capacity();
+  char JSONmessageBuffer[sizeOfJSON];
+  serializeJson(all_sensor_data, JSONmessageBuffer,sizeOfJSON); // needs 3rd parameter when using c -string
+  serializeJsonPretty(all_sensor_data, Serial);
+  
+  //Serial.print(all_sensor_data);
+  
+  char name[20];
+  Feather.get_device_name(name); // "name" will be one topic level that the data is published to on HiveMQ
+  String groupName = String(name + String(Feather.get_instance_num()));
+  String topic = String(String("Chime/") + groupName + String("/data"));
+
+  MQTT_connect(); //connect to the MQTT client
+  mqttClient.poll();
+  // call poll() regularly to allow the library to send MQTT keep alives which
+  // avoids being disconnected by the broker
+
+  //display data
+    Serial.print("Sending message to topic: ");
+    Serial.println(topic);
+    Serial.print(JSONmessageBuffer);
+
+
+    
+  // send message, the Print interface can be used to set the message contents
+    mqttClient.beginMessage(topic);
+    mqttClient.print(JSONmessageBuffer); //correctly formatted data
+    mqttClient.endMessage();
+
+}
+
 void setup()
 {
   while(!Serial);
@@ -191,6 +237,8 @@ void setup()
   Feather.print_config();
 
   getInterruptManager(Feather).register_ISR(12,ISR_pin12, LOW, ISR_Type::IMMEDIATE);
+
+  Wifi_setup();
 
   LPrintln("\n ** Setup Complete ** ");
 }
@@ -223,6 +271,7 @@ void loop()
 
   Feather.display_data();
   getSD(Feather).log();
+  MQTT_send();
   //Feather.pause();
   
   getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0, 0, 0, 5));
@@ -243,11 +292,5 @@ void loop()
   getSleepManager(Feather).sleep();
   while (!flag); //waits for an interrupt flag
   
-}
-
-// Interrupt Functions
-void ISR_pin12()
-{
-  detachInterrupt(12);
-  flag = true;
+  
 }

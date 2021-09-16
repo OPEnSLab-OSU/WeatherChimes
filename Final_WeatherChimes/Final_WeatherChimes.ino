@@ -317,7 +317,7 @@ void setup()
 
   WiFi.setPins(WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
 
-  //while (!Serial); // cause hang error
+  //while (!Serial); // cause hang error?
   Serial.begin(115200);
 
   Serial.println(F("Adafruit MQTT demo for WINC1500"));

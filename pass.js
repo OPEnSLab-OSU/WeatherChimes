@@ -44,6 +44,7 @@ mqttclient.on('message', function (topic, message) {
   var split_topic = topic.split("/")
   console.log("Device is " + split_topic[1]);
   var device = split_topic[1]
+  //if topic starts with Errors, dont send
   database(message, device);
 });
 
