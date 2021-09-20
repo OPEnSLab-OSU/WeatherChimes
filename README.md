@@ -8,6 +8,7 @@
 ## Setting Up HiveMQ Broker
 Create a new HiveMQ Broker at this link https://console.hivemq.cloud/  
 MQTT basics: https://www.hivemq.com/mqtt-essentials/
+Testing connection to the broker: http://www.hivemq.com/demos/websocket-client/
 
 ## Setting Up MongodB Database
 MongodB Manual: https://docs.mongodb.com/manual/  
@@ -20,7 +21,7 @@ After the cluster is created there will be a connect button.
 Follow the steps to create admin access to the database. 
 After an admin account is made, chose connect to an application and from the drop down menu choose Node.js.  
 Make sure the check box saying "Include full driver code example" is not checked.  
-Copy the text from the "@" to the "/". This will be used in later steps referred to as the MongoDB unique server text.  
+Copy the text from the "@" to the "/". This will be used in later steps referred to as the MongodB unique cluster text.  
 
 ## Pass Through Script
 The Pass Through Script needs be run on server for the duration of data collection for a project.  
@@ -30,6 +31,27 @@ After Node is installed you will need to install using mqtt and mongodb node pac
 For mqtt: `npm install mqtt --save` https://www.npmjs.com/package/mqtt#install  
 For mongodb: `npm install mongodb` https://www.w3schools.com/nodejs/nodejs_mongodb.asp  
 Once these packages are installed we can change some variables in the [pass.js file](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/pass.js)  
+
+This block of code is near the top of the pass.js file
+```
+const Mongo_username = "";
+const Mongo_password = "";
+const Mongo_database = "";
+const Mongo_unique_cluster_variable = "";
+
+const HiveMQ_username = "";
+const HiveMQ_password = "";
+const HiveMQ_broker = "";
+
+```
+- Insert your MongodB admin username into the quotes for `Mongo_username` this can be found on the MongodB Project main page in the Database Access tab on the left side of the screen
+- Insert your MongodB admin password into the quotes for `Mongo_password`
+- Choose a name for the Database you want to send data from devices too, for WeatherChimes use `"Chime"`
+- Insert your MongodB MongodB unique cluster text into the quotes for `Mongo_unique_cluster_variable`
+
+- Insert your HiveMQ admin username into the quotes for `HiveMQ_username` This can be found in https://console.hivemq.cloud/ -> Manage Cluster -> Access Management
+- Insert your HiveMQ admin password into the quotes for `HiveMQ_password`
+- Insert your HiveMQ broker link into the quotes for `HiveMQ_broker` This can be found in https://console.hivemq.cloud/ -> Manage Cluster -> Overview, Hostname
 
 
 ## MQTT Dirty Integration for Loom
