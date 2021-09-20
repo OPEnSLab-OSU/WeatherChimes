@@ -2,12 +2,12 @@ const { MongoClient, ObjectId } = require("mongodb");
 var mqtt = require('mqtt');
 
 
-var Mongo_username = "admin";
-var Mongo_password = "adminpass";
-var Mongo_database = "Chimes";
+const Mongo_username = "admin";
+const Mongo_password = "adminpass";
+const Mongo_database = "Chime";
 const HiveMQ_username = "WeatherChimes";
 const HiveMQ_password = "B1gchime";
-
+const HiveMQ_broker = '8acfd6649bcd41f888ba886f128790ae.s1.eu.hivemq.cloud';
 
 //uri used to access OPEnS' MongodB
 const uri =
@@ -18,7 +18,7 @@ const uri =
 //const mongoclient = new MongoClient(uri);
 
 var options = {
-    host: '8acfd6649bcd41f888ba886f128790ae.s1.eu.hivemq.cloud', //OPEnS' HiveMQ broker
+    host: HiveMQ_broker, //OPEnS' HiveMQ broker
     port: 8883, //secure server port
     protocol: 'mqtts',
     username: HiveMQ_username, //HiveMQ_username
@@ -44,13 +44,14 @@ mqttclient.on('message', function (topic, message) {
   var split_topic = topic.split("/")
   console.log("Device is " + split_topic[1]);
   var device = split_topic[1]
-  //if topic starts with Errors, dont send
-  database(message, device);
+  if (!(split_topic[1].startsWith("Error"))){ // if there is an Error with the topic do not send
+    database(message, device);
+  }  
 });
 
 // subscribe to topic 'my/test/topic'
 //# in MQTT is a multi level subsribe to everything after the defined topics
-//"Chimes/+/data" will also work 
+//"Chime/+/data" will also work 
 mqttclient.subscribe('Chime/#');
 
 function database(message, collection){
@@ -58,21 +59,20 @@ function database(message, collection){
     MongoClient.connect(uri, function(err, db) {
       console.log("send");
       if (err) throw err;
-      var dbo = db.db(Mongo_database);
+      var dbo = db.db(Mongo_database); // choose which database to send data to
 
       // get a timestamp
       var id = ObjectId();
-      var time = id.getTimestamp();
-      var ts = new Date().getTime();
-      message_string = message.toString();
+      var ts = new Date().getTime(); // get local time of server running this script
+      message_string = message.toString(); // get data from HiveMQ
       message_string = message_string.substr(0, message_string.length-1);
-      message_string = message_string + `, \"ts\": ${ts} }`;
+      message_string = message_string + `, \"ts\": ${ts} }`; // add time to the data being sent to MongodB
       let json = JSON.parse(message_string);
       console.log(typeof json);
       console.log(json);
       var myobj = json;
-    //dbo.collection(collection)  <-- put this in line below
-      dbo.collection(collection).insertOne(myobj, function(err, result) {
+      dbo.collection(collection).insertOne(myobj, function(err, result) { 
+        //Put data into collection of database. Collection is the second topic level of the mqtt topic, the device name
         if (err) throw err;
         console.log("1 document inserted");
         //console.log(result.insertedId);
