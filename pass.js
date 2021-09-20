@@ -5,13 +5,15 @@ var mqtt = require('mqtt');
 const Mongo_username = "admin";
 const Mongo_password = "adminpass";
 const Mongo_database = "Chime";
+const Mongo_unique_cluster_variable = "remotetest.cls7o.mongodb.net";
+
 const HiveMQ_username = "WeatherChimes";
 const HiveMQ_password = "B1gchime";
-const HiveMQ_broker = '8acfd6649bcd41f888ba886f128790ae.s1.eu.hivemq.cloud';
+const HiveMQ_broker = "8acfd6649bcd41f888ba886f128790ae.s1.eu.hivemq.cloud";
 
 //uri used to access OPEnS' MongodB
 const uri =
-`mongodb+srv://${Mongo_username}:${Mongo_password}@remotetest.cls7o.mongodb.net/${Mongo_database}?retryWrites=true&w=majority`;
+`mongodb+srv://${Mongo_username}:${Mongo_password}@${Mongo_unique_cluster_variable}/${Mongo_database}?retryWrites=true&w=majority`;
 
 //`mongodb+srv://${Mongo_username}:${Mongo_password}>@remotetest.cls7o.mongodb.net/${Mongo_database}?retryWrites=true&w=majority`;
 
