@@ -231,7 +231,7 @@ void setup()
   digitalWrite(6, HIGH); // Sets pin 6, the pin with the 5V rail, to output and enables the rail
 
   Feather.begin_LED();
-  Feather.begin_serial(true,true);
+  Feather.begin_serial(true);
   setup_decagon();
   Feather.parse_config(json_config);
   Feather.print_config();

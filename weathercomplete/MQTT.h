@@ -12,8 +12,8 @@
 
 
 //Need to declare these prior to running code!
-char ssid[] = "NETGEAR33";    // your network SSID (name)
-char pass[] = "tinybolt321";    // your network password (use for WPA, or use as key for WEP)
+char ssid[] = "OSU_Access";    // your network SSID (name)
+char pass[] = "";    // your network password (use for WPA, or use as key for WEP)
 
 int status = WL_IDLE_STATUS;
 
@@ -35,7 +35,6 @@ String     topic  = "";      //MQTT topic that is being subcribed to in Pass-thr
 String     HiveMQ_username = "WeatherChimes";
 String     HiveMQ_password = "B1gchime";
 /************************* Code *********************************/
-
 
 void MQTT_connect() {
   int8_t ret;

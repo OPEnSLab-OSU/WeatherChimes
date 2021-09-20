@@ -1,7 +1,7 @@
 "{\
   'general':\
   {\
-    'name':'WeatherChimes',\   
+    'name':'Chime',\   
     'instance':1,\
     'interval':2000\
   },\
