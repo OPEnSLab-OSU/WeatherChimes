@@ -1,4 +1,7 @@
 # WeatherChimes
+## Completed Rij Dorfman, Winnie Woo, Jonah Bidermann, and Carter Peene
+
+WeatherChimes is an Internet of Things (IoT) project that uses OPEns Lab API: Loom, to send weather data from an arduino Feather M0 to [Max](https://cycling74.com/products/max). Much Like a wind chime converts wind information into sound, WeatherChimes strives to use a variety of weather sensors to gather data and then process that information into media like light and sound for users.
 
 ## Flow Chart of Data
 ![WeatherChimesFlowChart](https://user-images.githubusercontent.com/44516223/134070618-015b09d8-83c5-4a15-a480-e0deb71371de.jpg)
@@ -122,13 +125,15 @@ After the cluster is created there will be a connect button.
 Follow the steps to create admin access to the database. 
 After an admin account is made, chose connect to an application and from the drop down menu choose Node.js.  
 Make sure the check box saying "Include full driver code example" is not checked.  
-Copy the text from the "@" to the "/". This will be used in later steps referred to as the MongodB unique cluster text.  
+Copy the text from the "@" to before the second ".". This will be used in later steps referred to as the MongodB unique cluster variable.  
+         - Example: ...@**examplecluster.3na0r**.mongodb.net/...
 
 ## Pass Through Script
 The Pass Through Script needs be run on server for the duration of data collection for a project.  
 To get the pass through script working properly you will have to install some external packages and change some variables within Pass.js pertaining to your project set-up.  
-The first step is to install Node.js. https://nodejs.org/en/download/  
-After Node is installed you will need to install using mqtt and mongodb node packages using the node package manager `npm`  
+The first step is to install Node.js which can be installed here: https://nodejs.org/en/download/ and node package manager (npm) which can be installed here: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm  
+
+After Node and npm is installed you will need to install using mqtt and mongodb node packages using the node package manager `npm`  
 For mqtt: `npm install mqtt --save` https://www.npmjs.com/package/mqtt#install  
 For mongodb: `npm install mongodb` https://www.w3schools.com/nodejs/nodejs_mongodb.asp  
 Once these packages are installed we can change some variables in the [pass.js file](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/pass.js)  
@@ -137,7 +142,6 @@ This block of code is near the top of the pass.js file
 ```
 const Mongo_username = "";
 const Mongo_password = "";
-const Mongo_database = "";
 const Mongo_unique_cluster_variable = "";
 
 const HiveMQ_username = "";
@@ -148,7 +152,6 @@ const HiveMQ_broker = "";
 - Insert your MongodB admin username into the quotes for `Mongo_username`
   - This can be found on the MongodB Project main page in the Database Access tab on the left side of the screen
 - Insert your MongodB admin password into the quotes for `Mongo_password`
-- Choose a name for the Database you want to send data from devices too, for WeatherChimes use `"Chime"`
 - Insert your MongodB MongodB unique cluster text into the quotes for `Mongo_unique_cluster_variable`
 
 - Insert your HiveMQ admin username into the quotes for `HiveMQ_username` 
