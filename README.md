@@ -31,7 +31,7 @@ The picture below shows a completed WeatherChimes device
 - 2.5mm bolts
 - Male / Female Headers  (x2 male, x3 females)
 - Base plate
-- 
+
 ### Tool list:
 
 - Soldering iron / solder
@@ -114,10 +114,10 @@ Create a new HiveMQ Broker at this link https://console.hivemq.cloud/
 MQTT basics: https://www.hivemq.com/mqtt-essentials/
 Testing connection to the broker: http://www.hivemq.com/demos/websocket-client/
 
-## Setting Up MongodB Database
-MongodB Manual: https://docs.mongodb.com/manual/  
-**For OPEnS Lab Projects**: Communicate with Chet to gain access to the OPEnS Lab MongodB organization.  
-**Other**: Create a new organization in MongodB, https://mongodb.com  
+## Setting Up MongoDB Database
+MongoDB Manual: https://docs.mongodb.com/manual/  
+**For OPEnS Lab Projects**: Communicate with Chet to gain access to the OPEnS Lab MongoDB organization.  
+**Other**: Create a new organization in MongoDB, https://mongodb.com  
 
 Once you have access to an organization, create a project.  
 In the project create cluster.  
@@ -125,13 +125,14 @@ After the cluster is created there will be a connect button.
 Follow the steps to create admin access to the database. 
 After an admin account is made, chose connect to an application and from the drop down menu choose Node.js.  
 Make sure the check box saying "Include full driver code example" is not checked.  
-Copy the text from the "@" to before the second ".". This will be used in later steps referred to as the MongodB unique cluster variable.  
-         - Example: ...@**examplecluster.3na0r**.mongodb.net/...
+Copy the text from the "@" to before the second ".". This will be used in later steps referred to as the MongoDB unique cluster variable.  
+- Example: ...@**examplecluster.3na0r**.mongodb.net/...
 
 ## Pass Through Script
 The Pass Through Script needs be run on server for the duration of data collection for a project.  
 To get the pass through script working properly you will have to install some external packages and change some variables within Pass.js pertaining to your project set-up.  
-The first step is to install Node.js which can be installed here: https://nodejs.org/en/download/ and node package manager (npm) which can be installed here: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm  
+The first step is to install Node.js which can be installed here: https://nodejs.org/en/download/  
+and node package manager (npm) which can be installed here: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm  
 
 After Node and npm is installed you will need to install using mqtt and mongodb node packages using the node package manager `npm`  
 For mqtt: `npm install mqtt --save` https://www.npmjs.com/package/mqtt#install  
@@ -149,10 +150,10 @@ const HiveMQ_password = "";
 const HiveMQ_broker = "";
 
 ```
-- Insert your MongodB admin username into the quotes for `Mongo_username`
-  - This can be found on the MongodB Project main page in the Database Access tab on the left side of the screen
-- Insert your MongodB admin password into the quotes for `Mongo_password`
-- Insert your MongodB MongodB unique cluster text into the quotes for `Mongo_unique_cluster_variable`
+- Insert your MongoDB admin username into the quotes for `Mongo_username`
+  - This can be found on the MongoDB Project main page in the Database Access tab on the left side of the screen
+- Insert your MongoDB admin password into the quotes for `Mongo_password`
+- Insert your MongoDB unique cluster text into the quotes for `Mongo_unique_cluster_variable`
 
 - Insert your HiveMQ admin username into the quotes for `HiveMQ_username` 
   - This can be found in https://console.hivemq.cloud/ -> Manage Cluster -> Access Management
@@ -160,9 +161,9 @@ const HiveMQ_broker = "";
 - Insert your HiveMQ broker link into the quotes for `HiveMQ_broker`
    - This can be found in https://console.hivemq.cloud/ -> Manage Cluster -> Overview, Hostname
 
-The Pass through script works by connecting to the HiveMQ broker for you project and the MongodB database you are storing data for your project. When ever a meassage is receved to the HiveMQ broker the message contents is passed into the `database()` function along with the second MQTT topic level. The `database()` function uses parses the message contents to send as the contents of a document in MongodB and uses the passed topic level as the name of the collection the data will be stored under.
+The Pass through script works by connecting to the HiveMQ broker for you project and the MongoDB database you are storing data for your project. When ever a meassage is receved to the HiveMQ broker the message contents is passed into the `database()` function along with the second MQTT topic level. The `database()` function uses parses the message contents to send as the contents of a document in MongoDB and uses the passed topic level as the name of the collection the data will be stored under.
 
-For the use in WeatherChimes, the second topic level is the name of the device. The data being sent through the HiveMQ database is in a format that does not need to be altered so it is passed through and parse into a json that MongodB can read and store.
+For the use in WeatherChimes, the first topic level to be the name of the database, and the second topic level is the name of the device and also the na,e of the collection withing the database on MongoDB. The data being sent through the HiveMQ database is in a format that does not need to be altered, so it is passed through and parses it into a json that MongoDB can read and store.
 
 
 ## MQTT Dirty Integration for Loom
@@ -222,13 +223,13 @@ void MQTT_send(){
 
 
 ## Max Patch set-up and usage
-The main goal of setting up all of the MQTT connectivity and MongodB storage of data was to create a seamless functionality to read data into [Max](https://cycling74.com/products/max). 
+The main goal of setting up all of the MQTT connectivity and MongoDB storage of data was to create a seamless functionality to read data into [Max](https://cycling74.com/products/max). 
 
 ### Setting up the Max Patch
 
-The MongodB Connection Max Patch uses a Node.js script to connect to a database and recieve live updated information.  
+The MongoDB Connection Max Patch uses a Node.js script to connect to a database and recieve live updated information.  
 To have the Node.js script running properly ensure that Node is installed. You can do that [here]( https://nodejs.org/en/download/).  
-If this is your first time using the MongodB Max Patch and Node is installed click the the `Setup` button on the patch to install the necessary packages to run the main script for the patch.  
+If this is your first time using the MongoDB Max Patch and Node is installed click the the `Setup` button on the patch to install the necessary packages to run the main script for the patch.  
 
 The Setup button is installing the node package manager (npm) and the mongodb node package.   
 NPM can also be installed here: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm  
@@ -237,14 +238,15 @@ mongodb node package can be installed using the line `npm install --mongodb`
 ### Using the Max Patch
 After completing the setup the user can now use the Max Patch.
 
-To use the MongodB Connect Max Patch, the user must input four peices of information
-1. MongodB admin username
-2. MongodB admin password
-3. The name of the database they would like to connect to, it should be the name of database in Pass through script. **Example: Chime**
-4. The name of the device (collection) they would like to connect to. This is declared in the config file of the weathercomplete .ino **Example: Chime1**
+To use the MongoDB Connect Max Patch, the user must input four peices of information
+1. MongoDB admin username
+2. MongoDB admin password
+3. MongDB unique cluster variable can be found here: https://github.com/OPEnSLab-OSU/WeatherChimes#setting-up-mongodb-database
+4. The name of the database they would like to connect to, it should be the name of database in Pass through script. **Example: Chime**
+5. The name of the device (collection) they would like to connect to. This is declared in the config file of the weathercomplete .ino **Example: Chime1**
 
 
-After all of this information is typed into the corresponding boxes, click Send, which begins the script and connects to the MongodB database
+After all of this information is typed into the corresponding boxes, click Send, which begins the script and connects to the MongoDB database
 
 Data will be streamed out of the outlet of the patch, and can be used seamlessly with the Loom Sensor Max Patch to read data.
 
