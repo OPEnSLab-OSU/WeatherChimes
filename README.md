@@ -44,14 +44,21 @@ const HiveMQ_password = "";
 const HiveMQ_broker = "";
 
 ```
-- Insert your MongodB admin username into the quotes for `Mongo_username` this can be found on the MongodB Project main page in the Database Access tab on the left side of the screen
+- Insert your MongodB admin username into the quotes for `Mongo_username`
+  - This can be found on the MongodB Project main page in the Database Access tab on the left side of the screen
 - Insert your MongodB admin password into the quotes for `Mongo_password`
 - Choose a name for the Database you want to send data from devices too, for WeatherChimes use `"Chime"`
 - Insert your MongodB MongodB unique cluster text into the quotes for `Mongo_unique_cluster_variable`
 
-- Insert your HiveMQ admin username into the quotes for `HiveMQ_username` This can be found in https://console.hivemq.cloud/ -> Manage Cluster -> Access Management
+- Insert your HiveMQ admin username into the quotes for `HiveMQ_username` 
+  - This can be found in https://console.hivemq.cloud/ -> Manage Cluster -> Access Management
 - Insert your HiveMQ admin password into the quotes for `HiveMQ_password`
-- Insert your HiveMQ broker link into the quotes for `HiveMQ_broker` This can be found in https://console.hivemq.cloud/ -> Manage Cluster -> Overview, Hostname
+- Insert your HiveMQ broker link into the quotes for `HiveMQ_broker`
+   - This can be found in https://console.hivemq.cloud/ -> Manage Cluster -> Overview, Hostname
+
+The Pass through script works by connecting to the HiveMQ broker for you project and the MongodB database you are storing data for your project. When ever a meassage is receved to the HiveMQ broker the message contents is passed into the `database()` function along with the second MQTT topic level. The `database()` function uses parses the message contents to send as the contents of a document in MongodB and uses the passed topic level as the name of the collection the data will be stored under.
+
+For the use in WeatherChimes, the second topic level is the name of the device. The data being sent through the HiveMQ database is in a format that does not need to be altered so it is passed through and parse into a json that MongodB can read and store.
 
 
 ## MQTT Dirty Integration for Loom
@@ -107,3 +114,16 @@ void MQTT_send(){
 }
 ```
 6. In your `Loop` function call `MQTT_send()` using the line: `MQTT_send();`
+
+
+## Max Patch set-up and usage
+The main goal of setting up all of the MQTT connectivity and MongodB storage of data was to create a seamless functionality to read data into [Max](https://cycling74.com/products/max). 
+
+The MongodB Connection Max Patch uses a Node.js script to connect to a database and recieve live updated information.  
+To have the Node.js script running properly ensure that Node is installed. You can do that [here]( https://nodejs.org/en/download/).  
+If this is your first time using the MongodB Max Patch and Node is installed click the the `Setup` button on the patch to install the necessary packages to run the main script for the patch.  
+
+The Setup button is installing the node package manager (npm) and the mongodb node package. 
+NPM can also be installed here: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+mongodb node package can be installed using the line `npm install --mongodb`
+
