@@ -4,16 +4,11 @@ var mqtt = require('mqtt');
 
 const Mongo_username = "admin";
 const Mongo_password = "adminpass";
-const Mongo_database = "Chime";
-const Mongo_unique_cluster_variable = "remotetest.cls7o.mongodb.net";
+const Mongo_unique_cluster_variable = "remotetest.cls7o";
 
 const HiveMQ_username = "WeatherChimes";
 const HiveMQ_password = "B1gchime";
 const HiveMQ_broker = "8acfd6649bcd41f888ba886f128790ae.s1.eu.hivemq.cloud";
-
-//uri used to access OPEnS' MongodB
-const uri =
-`mongodb+srv://${Mongo_username}:${Mongo_password}@${Mongo_unique_cluster_variable}/${Mongo_database}?retryWrites=true&w=majority`;
 
 //`mongodb+srv://${Mongo_username}:${Mongo_password}>@remotetest.cls7o.mongodb.net/${Mongo_database}?retryWrites=true&w=majority`;
 
@@ -46,8 +41,14 @@ mqttclient.on('message', function (topic, message) {
   var split_topic = topic.split("/")
   console.log("Device is " + split_topic[1]);
   var device = split_topic[1]
+  var Mongo_database = split_topic[0];
+
+  //uri used to access OPEnS' MongodB
+  const uri =
+  `mongodb+srv://${Mongo_username}:${Mongo_password}@${Mongo_unique_cluster_variable}.mongodb.net/${Mongo_database}?retryWrites=true&w=majority`;
+
   if (!(split_topic[1].startsWith("Error"))){ // if there is an Error with the topic do not send
-    database(message, device);
+    send_to_database(message, Mongo_database, device, uri);
   }  
 });
 
@@ -56,7 +57,7 @@ mqttclient.on('message', function (topic, message) {
 //"Chime/+/data" will also work 
 mqttclient.subscribe('Chime/#');
 
-function database(message, collection){
+function send_to_database(message, Mongo_database, collection, uri){
     console.log("enter database function");
     MongoClient.connect(uri, function(err, db) {
       console.log("send");

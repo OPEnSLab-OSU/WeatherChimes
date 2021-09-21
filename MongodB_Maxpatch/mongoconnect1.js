@@ -1,12 +1,11 @@
-const mqtt = require('mqtt');
 const maxApi = require('max-api');
 const { MongoClient} = require("mongodb");
 
 maxApi.post("before connect"); 
 
-maxApi.addHandler('connect', (Mongo_username, Mongo_password, Mongo_database, device) => { 
+maxApi.addHandler('connect', (Mongo_username, Mongo_password, Mongo_unique_cluster_variable, Mongo_database, device) => { 
     maxApi.post("connected");
-    const uri = `mongodb+srv://${Mongo_username}:${Mongo_password}@remotetest.cls7o.mongodb.net/${Mongo_database}?retryWrites=true&w=majority`;
+    const uri = `mongodb+srv://${Mongo_username}:${Mongo_password}@${Mongo_unique_cluster_variable}.mongodb.net/${Mongo_database}?retryWrites=true&w=majority`;
     //const mongoclient = new MongoClient(uri).connect();
     const mongoclient = new MongoClient(uri);
     maxApi.post(Mongo_username);
@@ -29,10 +28,7 @@ async function run(mongoclient, Mongo_database, device) {
         maxApi.post(Mongo_database);
         const collection = database.collection(device);
         maxApi.post(device);
-      //const HiveMQTT = database.collection("HiveMQTT");
         maxApi.outlet('connected');
-      //var dbo = db.db("arduino");
-      //const collection = database.collection(collection1);
           
         const changeStream = collection.watch(
         [
