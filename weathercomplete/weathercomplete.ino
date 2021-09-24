@@ -13,6 +13,7 @@
 #include <String.h>
 #include "SDI12.h"
 #include "MQTT.h"
+#include "arduino_secrets.h"
 
 // Include configuration
 const char* json_config =
@@ -20,7 +21,7 @@ const char* json_config =
 ;
 
 // In Tools menu, set:
-// Internet  > Enabled
+// Internet  > Disabled
 // Sensors   > Enabled
 // Radios    > Disabled
 // Actuators > Disabled
@@ -31,6 +32,22 @@ using namespace Loom;
 Loom::Manager Feather{};
 
 
+/*************************** MQTT Settings *****************************/
+
+// note: may cause problems if the ssid contains a space? behavior unsure
+char* ssid = SECRET_SSID;// your network SSID (name)
+char* pass = SECRET_PASS; // your network password (use for WPA, or use as key for WEP)
+
+char* broker = SECRET_BROKER; //OPEnS specific HiveMQ broker
+// char* broker = "broker.hivemq.com" // public HiveMQ broker
+char* HiveMQ_username = SECRET_HIVEMQ_USER;
+char* HiveMQ_password = SECRET_HIVEMQ_PASS;
+
+// name used as first domain of the 'topic' sent to HiveMQ, later used to route to database
+String db_name = SECRET_DB_NAME;
+
+
+/************************* Decagon Settings ****************************/
 
 #define DATAPIN 11         // change to the proper pin
 
@@ -39,11 +56,15 @@ SDI12 mySDI12(DATAPIN);
 String sdiResponse = "";
 String myCommand = "";
 char   buf[20];
-char   *p;
+char*  p;
 float  dielec_p = 0, temp = 0, elec_c = 0;
 char sensor_address = -1;
 
+/******************************************************************/
+
 volatile bool flag = false;   // Interrupt flag
+
+
 
 // tokenize the Decagon sdiResponse into the three meaningful float data measurements
 void parse_results()
@@ -60,6 +81,7 @@ void parse_results()
    // LPrintln("== tmp: ",temp);
    // LPrintln("== elc: ",elec_c);
 }
+
 
 
 // reads the entire available Decagon buffer (may read multiple messages)
@@ -82,6 +104,7 @@ void read_buffer()
 }
 
 
+
 // reads just the next message in the Decagon buffer, stopping at CRLF
 void read_next_message()
 {
@@ -100,7 +123,8 @@ void read_next_message()
   // LPrintln("=== Message: ",sdiResponse); //write the response to the screen
 }
 
- 
+
+
 // broadcast query to SDI12 sensors, set sensor_address to the first response
 void get_address()
 {
@@ -116,6 +140,7 @@ void get_address()
   // LPrintln("address as an int:", int(sensor_address));
   // LPrintln("address set to: ", sensor_address);
 }
+
 
 
 // sends a measure command and then a data request command
@@ -150,11 +175,14 @@ void measure_decagon()
 }
 
 
+
 void package_decagon(){
-    Feather.add_data("Decagon_GS3_M","moisture",dielec_p);
-    Feather.add_data("Decagon_GS3_T","temperature",temp);
-    Feather.add_data("Decagon_GS3_E","conductivity",elec_c);
+    Feather.add_data("Decagon_GS3","moisture",dielec_p);
+    Feather.add_data("Decagon_GS3","temperature",temp);
+    Feather.add_data("Decagon_GS3","conductivity",elec_c);
 }
+
+
 
 void setup_decagon(){
   // initialize decagon sensor, get its address, send first command
@@ -177,6 +205,8 @@ void setup_decagon(){
   }
 }
 
+
+
 // Interrupt Functions
 void ISR_pin12()
 {
@@ -185,42 +215,41 @@ void ISR_pin12()
 }
 
 
-void MQTT_send(){
-//Finds json to be parsed
-  JsonObject internal = Feather.internal_json(); 
 
+void MQTT_send_HiveMQ(){
+  // Parse and prepare internal JSON for sending
+  JsonObject internal = Feather.internal_json(); 
   JsonObject all_sensor_data = parse_for_send(internal);
    
   int sizeOfJSON = 1024; //JSONencoder.capacity();
   char JSONmessageBuffer[sizeOfJSON];
   serializeJson(all_sensor_data, JSONmessageBuffer,sizeOfJSON); // needs 3rd parameter when using c -string
   serializeJsonPretty(all_sensor_data, Serial);
-  
-  //Serial.print(all_sensor_data);
-  
-  char name[20];
+  // Serial.print(all_sensor_data);
+
+  // Prepare topic name for sending to HiveMQ, of the form [db_name]/[device_name_and_num]/data
+  char name[100];
   Feather.get_device_name(name); // "name" will be one topic level that the data is published to on HiveMQ
   String groupName = String(name + String(Feather.get_instance_num()));
-  String topic = String(String("Chime/") + groupName + String("/data"));
+  String topic = String(db_name + String("/") + groupName + String("/data"));
 
-  MQTT_connect(); //connect to the MQTT client
+  // connect to Wifi and HiveMQ broker through MQTT client
+  MQTT_connect(ssid, pass, broker, HiveMQ_username, HiveMQ_password);
+  // call poll() regularly to avoid being disconnected by the broker
   mqttClient.poll();
-  // call poll() regularly to allow the library to send MQTT keep alives which
-  // avoids being disconnected by the broker
 
   //display data
-    Serial.print("Sending message to topic: ");
-    Serial.println(topic);
-    Serial.print(JSONmessageBuffer);
-
-
-    
+  Serial.print("Sending message to topic: ");
+  Serial.println(topic);
+  Serial.print(JSONmessageBuffer);
+  
   // send message, the Print interface can be used to set the message contents
-    mqttClient.beginMessage(topic);
-    mqttClient.print(JSONmessageBuffer); //correctly formatted data
-    mqttClient.endMessage();
-
+  mqttClient.beginMessage(topic);
+  mqttClient.print(JSONmessageBuffer); //correctly formatted data
+  mqttClient.endMessage();
 }
+
+
 
 void setup()
 {
@@ -238,10 +267,12 @@ void setup()
 
   getInterruptManager(Feather).register_ISR(12,ISR_pin12, LOW, ISR_Type::IMMEDIATE);
 
-  Wifi_setup();
+  setup_MQTT();
 
   LPrintln("\n ** Setup Complete ** ");
 }
+
+
 
 void loop()
 {
@@ -264,15 +295,15 @@ void loop()
 
   // get data from Decagon_GS3 sensor and package it
   // this must be done AFTER calls to Feather.package()
-  // but before logging to SD
+  // but should be done before logging or transmitting data
   measure_decagon();
   parse_results();
   package_decagon();
 
   Feather.display_data();
   getSD(Feather).log();
-  MQTT_send();
-  //Feather.pause();
+  MQTT_send_HiveMQ();
+  //  Feather.pause();
   
   getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0, 0, 0, 5));
   getInterruptManager(Feather).reconnect_interrupt(12);
@@ -291,6 +322,5 @@ void loop()
 
   getSleepManager(Feather).sleep();
   while (!flag); //waits for an interrupt flag
-  
   
 }

@@ -10,11 +10,6 @@
 #define WINC_RST  4
 #define WINC_EN   2     // or, tie EN to VCC
 
-
-//Need to declare these prior to running code!
-char ssid[] = "OSU_Access";    // your network SSID (name)
-char pass[] = "";    // your network password (use for WPA, or use as key for WEP)
-
 int status = WL_IDLE_STATUS;
 
 // To connect with SSL/TLS:
@@ -26,25 +21,21 @@ int status = WL_IDLE_STATUS;
 /************ Global State (you don't need to change this!) ******************/
 WiFiSSLClient wifiClient;
 MqttClient mqttClient(wifiClient);
-
-/************************* MQTT Broker Setup *********************************/
-                     //OPEnS specific HiveMQ broker
-const char broker[] = "8acfd6649bcd41f888ba886f128790ae.s1.eu.hivemq.cloud";   // public HiveMQ broker "broker.hivemq.com";
 int        port     = 8883;      //Secure Port for MQTT, 1883 may not work with HiveMQ, need to test
-String     topic  = "";      //MQTT topic that is being subcribed to in Pass-through Node.js file
-String     HiveMQ_username = "WeatherChimes";
-String     HiveMQ_password = "B1gchime";
+
+
 /************************* Code *********************************/
 
-void MQTT_connect() {
+
+void MQTT_connect(char* g_ssid, char* g_pass, char* g_broker, char* g_HiveMQ_username, char* g_HiveMQ_password) {
   int8_t ret;
 
   // attempt to connect to Wifi network:
   while (WiFi.status() != WL_CONNECTED) {
-    Serial.print("Attempting to connect to SSID: ");
-    Serial.println(ssid);
+    Serial.print("\nAttempting to connect to SSID: ");
+    Serial.println(g_ssid);
     // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
-    status = WiFi.begin(ssid, pass);
+    status = WiFi.begin(g_ssid, g_pass);
 
     // wait 10 seconds for connection:
     uint8_t timeout = 10;
@@ -63,18 +54,18 @@ void MQTT_connect() {
   // Each client must have a unique client ID
   //mqttClient.setId("clientId-LVLkW4KQou");
   
-  mqttClient.setUsernamePassword(HiveMQ_username, HiveMQ_password);
+  mqttClient.setUsernamePassword(g_HiveMQ_username, g_HiveMQ_password);
 
   Serial.print("Attempting to connect to the MQTT broker: ");
-  Serial.println(broker);
+  Serial.println(g_broker);
 
-  while (!mqttClient.connect(broker, port))
+  while (!mqttClient.connect((char*)g_broker, port))
  {
     // failed, retry
     Serial.println("Failed to connect to HiveMQ, Retrying");
     Serial.print(".");
     Serial.println(mqttClient.connectError());
-    mqttClient.connect(broker, port);
+    mqttClient.connect((char*)g_broker, port);
     delay(3000);
   } 
 
@@ -84,7 +75,7 @@ void MQTT_connect() {
 }
 
 
-void Wifi_setup(){
+void setup_MQTT(){
   
   WiFi.setPins(WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
   
