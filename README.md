@@ -103,7 +103,6 @@ The other end of the plug (female) is where the sensor is soldered. Note that th
 #### 8. Threaded hex standoffs
 
 ![image](https://user-images.githubusercontent.com/44516223/134252058-c50bc43d-86b9-444d-ab8f-17d364b4329a.png)
-![image](https://user-images.githubusercontent.com/44516223/134252062-fc0406a1-71c9-455e-9c7b-447aeb77a1fb.png)
 
 Screw the threaded end of the standoff to the base plate, and use 2.5mm bolts to screw the TSL2591 to the standoffs.
 
