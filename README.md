@@ -115,7 +115,7 @@ Testing connection to the broker: http://www.hivemq.com/demos/websocket-client/
 
 ## Setting Up MongoDB Database
 MongoDB Manual: https://docs.mongodb.com/manual/  
-**For OPEnS Lab Projects**: Communicate with Chet to gain access to the OPEnS Lab MongoDB organization.  
+**For OPEnS Lab Projects**: Communicate with [Chet Udell](mailto:udellc@oregonstate.edu?subject=[GitHub]%20Source%20Han%20Sans) to gain access to the OPEnS Lab MongoDB organization.  
 **Other**: Create a new organization in MongoDB, https://mongodb.com  
 
 Once you have access to an organization, create a project.  
