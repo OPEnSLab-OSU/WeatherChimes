@@ -27,7 +27,7 @@ The picture below shows a completed WeatherChimes device
 - Feather M0 WiFi
 - Hypnos Board
 - WeatherChimes PCB
-- 31.00mm threaded hex standoff
+- 31mm threaded hex standoff
 - 2.5mm screw/bolts
 - Male / Female Headers  (x2 male, x3 females)
 - Base plate
