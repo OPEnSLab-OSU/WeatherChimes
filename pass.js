@@ -19,7 +19,7 @@ var options = {
     port: 8883, //secure server port
     protocol: 'mqtts',
     username: HiveMQ_username, //HiveMQ_username
-    password:  HiveMQ_password//HiveMQ_password
+    password:  HiveMQ_password, //HiveMQ_password
 }
 
 //initialize the MQTT client
