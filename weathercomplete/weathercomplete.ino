@@ -35,11 +35,11 @@ Loom::Manager Feather{};
 /*************************** MQTT Settings *****************************/
 
 // note: may cause problems if the ssid contains a space? behavior unsure
-char* ssid = SECRET_SSID;// your network SSID (name)
-char* pass = SECRET_PASS; // your network password (use for WPA, or use as key for WEP)
+char* ssid = SECRET_SSID;   // your network SSID (name)
+char* pass = SECRET_PASS;   // your network password (use for WPA, or use as key for WEP)
 
-char* broker = SECRET_BROKER; //OPEnS specific HiveMQ broker
-// char* broker = "broker.hivemq.com" // public HiveMQ broker
+char* broker = SECRET_BROKER;           //OPEnS specific HiveMQ broker
+// char* broker = "broker.hivemq.com"   // public HiveMQ broker
 char* HiveMQ_username = SECRET_HIVEMQ_USER;
 char* HiveMQ_password = SECRET_HIVEMQ_PASS;
 
