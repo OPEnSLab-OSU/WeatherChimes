@@ -3,114 +3,12 @@
 
 WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPEnS lab to send weather data from an Arduino Feather M0 to [Max](https://cycling74.com/products/max). Much like how a wind chime converts wind information into sound, WeatherChimes strives to use a variety of weather sensors to gather data and then process that information into media like generative music and visual art for users. 
 
-## Flow Chart of Data
-![WeatherChimesFlowChart](https://user-images.githubusercontent.com/44516223/134070618-015b09d8-83c5-4a15-a480-e0deb71371de.jpg)
 
 ## Build Guide
-
-The picture below shows a completed WeatherChimes device  
-
-![image](https://user-images.githubusercontent.com/44516223/134250524-097c0fb9-f07d-41c9-a773-49bbf0047ae9.png)
-
-### Material list:
-
-- [WeatherChimes BOM](https://docs.google.com/spreadsheets/d/1uX9fioGPlSb6EPLqSNqS9fljZabWL6rv3EGTAPcsChk/edit?usp=sharing)
-- SD Card (16GB)
-- Coin cell battery
-- SHT30 Weather Proof Temp/Humidity
-- TSL2591
-- METER GS3
-- PG7 Cable Glands (x2)
-- Waterproof 4-pin cable set (x2)
-- Pelican 1040 clear top case
-- FeatherWing Doubler
-- Feather M0 WiFi
-- Hypnos Board
-- WeatherChimes PCB
-- 31mm threaded hex standoff
-- 2.5mm screw/bolts
-- Male / Female Headers  (x2 male, x3 females)
-- Base plate
-
-### Tool list:
-
-- Soldering iron / solder
-- Wire stripper
-- Wire cutter
-- Exacto knife
-- Heat shrink
-
-### Schematic
-
-![image](https://user-images.githubusercontent.com/44516223/134250723-4e4c8b0d-7911-4ad8-9183-0759ebf7c945.png)
-
-### Base Plate 3D print
-
-[WeatherChimes Base Plate Fusion 360 File](https://a360.co/3EDbXnZ)
-
-![image](https://user-images.githubusercontent.com/44516223/134250877-7dd4a7ff-2e05-497b-934d-a38ddf825623.png)
-
-### Procedure:
-
-#### 1. PG7 cable glands
-
-![image](https://user-images.githubusercontent.com/44516223/134251424-bdf81c8e-75a3-47f3-b5a3-16ef2e78c888.png)
-
-The cable glands are shown circled in red. To install the cable glands in the Pelican case, drill a hole with a 7/16" drill bit and use a ½-13 tap to create the threads. Twist the ½-13 NC tapping tool in the hole for one full rotation and then backwards 1/2 a rotation; repeat this until the entire hole is threaded. Then screw in the cable gland.
-
-#### 2. Pelican Case
-
-![image](https://user-images.githubusercontent.com/44516223/134251554-1ddd6538-63a8-49fc-81ef-d4b87d180178.png)
-
-Carefully cut along the red line shown in the image with an exacto blade.
-
-#### 3. FeatherWing Doubler 
-
-![image](https://user-images.githubusercontent.com/44516223/134251672-aaae09f8-e27c-44af-b3e2-1116574eeb99.png)
-
-Solder short female headers on the outer side of the doubler. Note that a Feather board should fit into the headers. 
-
-#### 4. Feather M0 WiFi
-
-![image](https://user-images.githubusercontent.com/44516223/134251724-16824893-f58e-417d-b339-751df45c32c3.png)
-![image](https://user-images.githubusercontent.com/44516223/134251742-2418618d-48dc-472b-872e-6b58956e8daa.png)
-
-Solder male headers onto the Feather. Insert the header from the bottom of the sensor with the long side facing downward.
-
-#### 5. Hypnos
-
-![image](https://user-images.githubusercontent.com/44516223/134251825-b59701ae-adcc-4570-ae02-aec9f4d235e7.png)
-![image](https://user-images.githubusercontent.com/44516223/134251840-fa802591-c07f-477d-a1f3-c4e7b49625dc.png)
-
-         Front                                                                Back  
-Solder 12-pin female headers upwards on the inner rail [Feather rail]  on the left of the Hypnos front and 16-pin female headers on the outer rail on the right side. Then, solder 12-pin male headers on the outer edge [sensor rail] of the left side, long side facing down. And 16-pin male headers on the inner rail, long side facing down.
-
-#### 6. WeatherChimes PCB
-
-![image](https://user-images.githubusercontent.com/44516223/134251927-f924096f-5f54-419d-b6ba-6bdb15f23923.png)
-![image](https://user-images.githubusercontent.com/44516223/134251937-5f6565dc-1375-4303-a4c9-df8c40be2447.png)
-
-Solder 3-pin JST connectors in the red box, and 4-pin JST connectors in the black boxes. Note the notches as they note how the connector should be oriented. Then solder male headers, inserted from the bottom of the board with the long side facing downward. 
-
-#### 7. Waterproof 4-wire cable set
-
-![image](https://user-images.githubusercontent.com/44516223/134251993-0dc7f2ad-ca57-48d6-84c8-7027feaefb9d.png)
-![image](https://user-images.githubusercontent.com/44516223/134252004-ab9f42f9-78b7-4dcc-9694-ce403a0bd831.png)
-
-The other end of the plug (female) is where the sensor is soldered. Note that the black cap should be slipped onto the cable gland before any soldering is done. The jack (male) should be slipped through the PG7 cable gland and connected to the 4-pin JST wires.
-
-
-#### 8. Threaded hex standoffs
-
-![image](https://user-images.githubusercontent.com/44516223/134252058-c50bc43d-86b9-444d-ab8f-17d364b4329a.png)
-
-Screw the threaded end of the standoff to the base plate, and use 2.5mm bolts to screw the TSL2591 to the standoffs.
-
 For questions regarding the build process, contact [Winnie Woo](mailto:woow@oregonstate.edu?subject=[GitHub]%20Source%20Han%20Sans)
 
 [WeatherChimes Build Guide PDF](https://docs.google.com/document/d/1GEz6TniiCkyVJEQ1pW2CY4VUsa4j7f_cYcETQBzS96c/edit?usp=sharing)
 
-### Build Complete! Now to set up the software
 
 ## Setting Up HiveMQ Broker
 * Create a new [HiveMQ Broker](https://console.hivemq.cloud/)
