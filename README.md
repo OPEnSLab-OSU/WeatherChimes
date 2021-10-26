@@ -3,18 +3,12 @@
 
 WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPEnS lab to send weather data from an Arduino Feather M0 to [Max](https://cycling74.com/products/max). Much like how a wind chime converts wind information into sound, WeatherChimes strives to use a variety of weather sensors to gather data and then process that information into media like generative music and visual art for users. 
 
-## Flow Chart of Data
-![WeatherChimesFlowChart](https://user-images.githubusercontent.com/44516223/134070618-015b09d8-83c5-4a15-a480-e0deb71371de.jpg)
 
 ## Build Guide
+For questions regarding the build process, contact [Winnie Woo](mailto:woow@oregonstate.edu?subject=[GitHub]%20Source%20Han%20Sans)
 
-The WeatherChimes build guide can be found [here](https://docs.google.com/document/d/1GEz6TniiCkyVJEQ1pW2CY4VUsa4j7f_cYcETQBzS96c/edit?usp=sharing)
+[WeatherChimes Build Guide PDF](https://docs.google.com/document/d/1GEz6TniiCkyVJEQ1pW2CY4VUsa4j7f_cYcETQBzS96c/edit?usp=sharing)
 
-### Material list:
-
-The list of required matericals is located [here](https://docs.google.com/spreadsheets/d/1uX9fioGPlSb6EPLqSNqS9fljZabWL6rv3EGTAPcsChk/edit?usp=sharing)
-
-### Build Complete! Now to set up the software
 
 ## Setting Up Mosquitto
 Mosquitto is a local MQTT broker used for handling communication with remote devices
