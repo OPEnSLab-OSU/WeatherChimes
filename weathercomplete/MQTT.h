@@ -19,61 +19,56 @@ int status = WL_IDLE_STATUS;
 //    flashed in the WiFi module.
 
 /************ Global State (you don't need to change this!) ******************/
-WiFiSSLClient wifiClient;
+WiFiClient wifiClient;
 MqttClient mqttClient(wifiClient);
-int        port     = 8883;      //Secure Port for MQTT, 1883 may not work with HiveMQ, need to test
-
 
 /************************* Code *********************************/
 
+/**
+ * Connect to WIFI and the MQTT broker
+ */
+void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
 
-void MQTT_connect(char* g_ssid, char* g_pass, char* g_broker, char* g_HiveMQ_username, char* g_HiveMQ_password) {
-  int8_t ret;
-
-  // attempt to connect to Wifi network:
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print("\nAttempting to connect to SSID: ");
-    Serial.println(g_ssid);
-    // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
-    status = WiFi.begin(g_ssid, g_pass);
-
-    // wait 10 seconds for connection:
-    uint8_t timeout = 10;
-    while (timeout && (WiFi.status() != WL_CONNECTED)) {
-      timeout--;
-      delay(1000);
-    }
+  // Connect to WIFI given the creds
+  while(WiFi.status() != WL_CONNECTED){
+      Serial.print("Connecting to Access Point: ");
+      Serial.println(ssid);
+  
+      WiFi.begin(ssid, pass);
+      
+      // wait 10 seconds for connection:
+      uint8_t timeout = 10;
+      while (timeout && (WiFi.status() != WL_CONNECTED)) {
+        timeout--;
+        delay(1000);
+      }
   }
-  
-  // Stop if already connected.
-  if (mqttClient.connected()) {
-  return;
-  }
-  
-  // You can provide a unique client ID, if not set the library uses Arduino-millis()
-  // Each client must have a unique client ID
-  //mqttClient.setId("clientId-LVLkW4KQou");
-  
-  mqttClient.setUsernamePassword(g_HiveMQ_username, g_HiveMQ_password);
 
-  Serial.print("Attempting to connect to the MQTT broker: ");
-  Serial.println(g_broker);
+  if (mqttClient.connected()) {return;}
 
-  while (!mqttClient.connect((char*)g_broker, port))
- {
-    // failed, retry
-    Serial.println("Failed to connect to HiveMQ, Retrying");
-    Serial.print(".");
+  // Print a succcsess message and the device's IP
+  Serial.println("Connected to Network!");
+  Serial.print("Device IP: ");
+  Serial.println(IPAddress(WiFi.localIP()));
+
+  
+  // Announce we are connecting to the MQTT broker
+  Serial.print("Connecting to MQTT Broker: ");
+  Serial.println(broker);
+
+  mqttClient.setId("WeatherChimes-123");
+  
+  if(!mqttClient.connect(broker, broker_port)){
+    Serial.print("Connection Error Occurred: ");
     Serial.println(mqttClient.connectError());
-    mqttClient.connect((char*)g_broker, port);
-    delay(3000);
-  } 
+  }
 
-  Serial.println("You're connected to the MQTT broker!");
-  Serial.println();
-  
+  Serial.println("Connected to the MQTT Broker!");
 }
 
+void disconnect_wifi(){
+  WiFi.disconnect();
+}
 
 void setup_MQTT(){
   
@@ -90,40 +85,4 @@ void setup_MQTT(){
   
   Serial.println("ATWINC OK!");
   
-  }
-
-
-JsonObject parse_for_send(JsonObject internal)
-{
-  
-//JsonObject internal = Feather.internal_json(); 
-  
-  JsonArray arr = internal["contents"].as<JsonArray>(); //get the sensor data JSON
-  Serial.println("begin test data");
-
-  //creates JSON TO BE PUBLISHED 
-  DynamicJsonDocument JSONencoder(1024); //JSON document to be written on
-  JsonObject root = JSONencoder.to<JsonObject>(); //location of data in doc
- 
-//parses json
-  for (JsonObject item: arr){
-    //choose what data will be sent to the MQTT broker from the Loom contents array
-    if ((item["module"].as<char*>() != "Packet") && (String(item["module"].as<char*>()) != "Analog")){
-      String modName = item["module"].as<char*>();
-      JsonObject modObj = root.createNestedObject(modName);
-      JsonObject data = item["data"].as<JsonObject>();
-      for (JsonPair kv : data) { 
-        //create a nested item in the json that is the name of the sensor 
-        //with key value pairs of the data the sensor is collecting 
-        String valName = kv.key().c_str();
-        if(valName != "Full"){
-          modObj[valName] = kv.value().as<int>();
-        }
-      }
-    }
-  }
-
-
-Serial.println("End Parse function");
-  return root; 
 }

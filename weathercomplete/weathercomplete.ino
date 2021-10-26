@@ -9,6 +9,7 @@
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <ArduinoJson.h>
 #include <Loom.h>
 #include <String.h>
 #include "SDI12.h"
@@ -39,172 +40,34 @@ char* ssid = SECRET_SSID;// your network SSID (name)
 char* pass = SECRET_PASS; // your network password (use for WPA, or use as key for WEP)
 
 char* broker = SECRET_BROKER; //OPEnS specific HiveMQ broker
-// char* broker = "broker.hivemq.com" // public HiveMQ broker
-char* HiveMQ_username = SECRET_HIVEMQ_USER;
-char* HiveMQ_password = SECRET_HIVEMQ_PASS;
+int broker_port = BROKER_PORT;
 
-// name used as first domain of the 'topic' sent to HiveMQ, later used to route to database
-String db_name = SECRET_DB_NAME;
+char devName[20];
+String topic = "";
 
-
-/************************* Decagon Settings ****************************/
-
-#define DATAPIN 11         // change to the proper pin
-
-SDI12 mySDI12(DATAPIN);
-
-String sdiResponse = "";
-String myCommand = "";
-char   buf[20];
-char*  p;
-float  dielec_p = 0, temp = 0, elec_c = 0;
-char sensor_address = -1;
-
-/******************************************************************/
+String jsonResponse = "";
+DynamicJsonDocument doc(1024);
 
 volatile bool flag = false;   // Interrupt flag
 
+void send_MQTT_data(){
+  jsonResponse = "";
+  doc.clear();
 
+   // Get the internal JSON object of the data
+  doc.add(Feather.internal_json(false));
+  serializeJson(doc, jsonResponse);
 
-// tokenize the Decagon sdiResponse into the three meaningful float data measurements
-void parse_results()
-{
-  sdiResponse.toCharArray(buf, sizeof(buf));
-  p = buf;
+  // Connect to WIFI and the MQTT Broker
+  MQTT_connect(ssid, pass, broker, broker_port);
 
-  strtok_r(p, "+", &p);
-  dielec_p = atof(strtok_r(NULL, "+", &p));
-  temp     = atof(strtok_r(NULL, "+", &p));
-  elec_c   = atof(strtok_r(NULL, "+", &p));
-
-   // LPrintln("== wcv: ",dielec_p);
-   // LPrintln("== tmp: ",temp);
-   // LPrintln("== elc: ",elec_c);
-}
-
-
-
-// reads the entire available Decagon buffer (may read multiple messages)
-void read_buffer()
-{
-  sdiResponse = "";
-  while (mySDI12.available()) {  // build response string
-    char c = mySDI12.read();
-    if (c == '\n') {
-      sdiResponse += "<LF>";
-    } else if (c == '\r') {
-      sdiResponse += "<CR>";
-    } else {
-      sdiResponse += c;
-    }
-    delay(20);
-  }
-  // LPrintln("=== Buffer: ",sdiResponse); //write the response to the screen
-  mySDI12.clearBuffer();
-}
-
-
-
-// reads just the next message in the Decagon buffer, stopping at CRLF
-void read_next_message()
-{
-  sdiResponse = "";
-  while (mySDI12.available()) {  // build response string
-    char c = mySDI12.read();
-    if (c == '\n') {
-      break;  // stop at newline
-    }
-    sdiResponse += c;
-    delay(20);
-  }
-  if (sdiResponse[sdiResponse.length()-1] == '\r') {
-    sdiResponse[sdiResponse.length()-1] = '\0'; // replace carriage return with terminator
-  }
-  // LPrintln("=== Message: ",sdiResponse); //write the response to the screen
-}
-
-
-
-// broadcast query to SDI12 sensors, set sensor_address to the first response
-void get_address()
-{
-  mySDI12.clearBuffer();
+  // Poll the broker to avoid being disconnected by the server
+  mqttClient.poll();
   
-  myCommand = "?!";
-  mySDI12.sendCommand(myCommand);
-  // LPrintln("\n=== Sending command: ",myCommand);
-  delay(200);
-  read_buffer();
-  sensor_address = sdiResponse[0];
-  // LPrintln("address response: ", sdiResponse);
-  // LPrintln("address as an int:", int(sensor_address));
-  // LPrintln("address set to: ", sensor_address);
+  mqttClient.beginMessage(topic);
+  mqttClient.print(jsonResponse);
+  mqttClient.endMessage();
 }
-
-
-
-// sends a measure command and then a data request command
-// Sets sdiResponse to the response message (which should contain the data)
-void measure_decagon()
-{
-  // first command to take a measurement
-  myCommand = String(sensor_address) + "M!";
-  mySDI12.sendCommand(myCommand);
-  delay(30);                     // wait a while for a response
-
-  // the sensor will respond with some info which can be ignored here
-  // the info includes the number of measurements to expect and time to wait for them
-  // for future improvements, using this response could be useful
-  read_buffer();
-  mySDI12.clearBuffer();
-
-  // next command to request data from last measurement
-  myCommand = String(sensor_address) + "D0!";
-  mySDI12.sendCommand(myCommand);
-  delay(30);                     // wait a while for a response
-
-  read_next_message();
-  // if the sensor sent a service request before measurement data;
-  // skip it and try for the next message, which should be the data
-  if (sdiResponse.length() <= 3) {
-    delay(30);
-    read_next_message();
-  }
-
-  mySDI12.clearBuffer();
-}
-
-
-
-void package_decagon(){
-    Feather.add_data("Decagon_GS3","moisture",dielec_p);
-    Feather.add_data("Decagon_GS3","temperature",temp);
-    Feather.add_data("Decagon_GS3","conductivity",elec_c);
-}
-
-
-
-void setup_decagon(){
-  // initialize decagon sensor, get its address, send first command
-  mySDI12.begin();
-  delay(100);
-  get_address();
-  myCommand = String(sensor_address) + "I!";
-  mySDI12.sendCommand(myCommand);
-  delay(30);
-
-  // read the decagon response, clear decagon buffer
-  read_buffer();
-  delay(30);
-  mySDI12.clearBuffer();
-
-  if(sensor_address != -1){
-    Serial.print("\n=== Decagon initialized successfully\n");  
-  } else {
-    Serial.print("\n=== Decagon failed to initialize\n"); 
-  }
-}
-
 
 
 // Interrupt Functions
@@ -213,43 +76,6 @@ void ISR_pin12()
   detachInterrupt(12);
   flag = true;
 }
-
-
-
-void MQTT_send_HiveMQ(){
-  // Parse and prepare internal JSON for sending
-  JsonObject internal = Feather.internal_json(); 
-  JsonObject all_sensor_data = parse_for_send(internal);
-   
-  int sizeOfJSON = 1024; //JSONencoder.capacity();
-  char JSONmessageBuffer[sizeOfJSON];
-  serializeJson(all_sensor_data, JSONmessageBuffer,sizeOfJSON); // needs 3rd parameter when using c -string
-  serializeJsonPretty(all_sensor_data, Serial);
-  // Serial.print(all_sensor_data);
-
-  // Prepare topic name for sending to HiveMQ, of the form [db_name]/[device_name_and_num]/data
-  char name[100];
-  Feather.get_device_name(name); // "name" will be one topic level that the data is published to on HiveMQ
-  String groupName = String(name + String(Feather.get_instance_num()));
-  String topic = String(db_name + String("/") + groupName + String("/data"));
-
-  // connect to Wifi and HiveMQ broker through MQTT client
-  MQTT_connect(ssid, pass, broker, HiveMQ_username, HiveMQ_password);
-  // call poll() regularly to avoid being disconnected by the broker
-  mqttClient.poll();
-
-  //display data
-  Serial.print("Sending message to topic: ");
-  Serial.println(topic);
-  Serial.print(JSONmessageBuffer);
-  
-  // send message, the Print interface can be used to set the message contents
-  mqttClient.beginMessage(topic);
-  mqttClient.print(JSONmessageBuffer); //correctly formatted data
-  mqttClient.endMessage();
-}
-
-
 
 void setup()
 {
@@ -261,21 +87,26 @@ void setup()
 
   Feather.begin_LED();
   Feather.begin_serial(true);
-  setup_decagon();
   Feather.parse_config(json_config);
   Feather.print_config();
 
   getInterruptManager(Feather).register_ISR(12,ISR_pin12, LOW, ISR_Type::IMMEDIATE);
 
+  Feather.get_device_name(devName);
+  topic = String(SITE_NAME) + "/" + String(devName) + String(Feather.get_instance_num());
+
+  LPrintln("Publishing Topic: ", topic);
+
+  // Setup MQTT
   setup_MQTT();
+
 
   LPrintln("\n ** Setup Complete ** ");
 }
 
-
-
 void loop()
 {
+
   // Initialize Hypnos
   digitalWrite(5, LOW); // Enable 3.3V rail
   digitalWrite(6, HIGH);  // Enable 5V rail
@@ -284,37 +115,28 @@ void loop()
     pinMode(23, OUTPUT);
     pinMode(24, OUTPUT);
     pinMode(10, OUTPUT);
-
-    pinMode(DATAPIN, OUTPUT);
   
     Feather.power_up();
   }
-  
+
   Feather.measure();
   Feather.package();
 
-  // get data from Decagon_GS3 sensor and package it
-  // this must be done AFTER calls to Feather.package()
-  // but should be done before logging or transmitting data
-  measure_decagon();
-  parse_results();
-  package_decagon();
-
   Feather.display_data();
   getSD(Feather).log();
-  MQTT_send_HiveMQ();
-  //  Feather.pause();
-  
+  send_MQTT_data();
+
+  // Set the sleep time to 5 seconds
   getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0, 0, 0, 5));
   getInterruptManager(Feather).reconnect_interrupt(12);
+
+  //disconnect_wifi();
 
   Feather.power_down();
 
   pinMode(23, INPUT);
   pinMode(24, INPUT);
   pinMode(10, INPUT);
-
-  pinMode(DATAPIN, INPUT);
 
   // Protocol to turn off Hypnos
   digitalWrite(5, HIGH); // Disabling all pins before going to sleep.

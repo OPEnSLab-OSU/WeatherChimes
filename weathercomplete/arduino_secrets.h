@@ -1,12 +1,9 @@
 
 // Wifi settings
-#define SECRET_SSID ""
-#define SECRET_PASS ""
+#define SECRET_SSID "Samsung Galaxy S9_5393"
+#define SECRET_PASS "tcxg5906"
 
-// HiveMQ settings
-#define SECRET_BROKER ""
-#define SECRET_HIVEMQ_USER ""
-#define SECRET_HIVEMQ_PASS ""
-
-// Database name for use in packet topic
-#define SECRET_DB_NAME ""
+// MQTT Settings
+#define SECRET_BROKER "192.168.43.49"
+#define BROKER_PORT 1883
+#define SITE_NAME "HC407" // The name of the location where these nodes will be placed

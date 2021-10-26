@@ -2,10 +2,14 @@
   'general':\
   {\
     'name':'Chime',\   
-    'instance':1,\
+    'instance':3,\
     'interval':2000\
   },\
   'components':[\
+    {\
+      'name':'DecagonGS3',\
+      'params':[11, 1]\
+    },\
     {\
       'name':'TSL2591',\
       'params':'default'\
