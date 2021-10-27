@@ -1,11 +1,10 @@
 # WeatherChimes
-## Completed By: Rij Dorfman, Winnie Woo, Jonah Bidermann, and Carter Peene
+## Completed By: Winnie Woo, Carter Peene, Will Richards
 
 WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPEnS lab to send weather data from an Arduino Feather M0 to [Max](https://cycling74.com/products/max). Much like how a wind chime converts wind information into sound, WeatherChimes strives to use a variety of weather sensors to gather data and then process that information into media like generative music and visual art for users. 
 
 
 ## Build Guide
-For questions regarding the build process, contact [Winnie Woo](mailto:woow@oregonstate.edu?subject=[GitHub]%20Source%20Han%20Sans)
 
 [WeatherChimes Build Guide PDF](https://docs.google.com/document/d/1GEz6TniiCkyVJEQ1pW2CY4VUsa4j7f_cYcETQBzS96c/edit?usp=sharing)
 
@@ -54,7 +53,7 @@ const MQTT_broker = "";
 - Insert your MQTT admin username into the quotes for `MQTT_username` 
 - Insert your MQTT admin password into the quotes for `MQTT_password`
 - Insert your MQTT broker link into the quotes for `MQTT_broker`
-```
+
 The Pass through script works by subscribing to all topics of format */* on the Mosquitto broker and then connecting to the MongoDB database also running. Whenever a message is recieved by the pass through script the topic is parsed and mapped to specific parts of the Mongo database. The data recieved is then formatted and pushed in.
 
 In the context of WeatherChimes, the first topic level is the database name, and the second topic level is the device name and the instance number which maps to collection within the database on MongoDB. 
@@ -102,8 +101,6 @@ void MQTT_send(){
     Serial.print("Sending message to topic: ");
     Serial.println(topic);
     Serial.print(JSONmessageBuffer);
-
-
     
   // send message, the Print interface can be used to set the message contents
     mqttClient.beginMessage(topic);
