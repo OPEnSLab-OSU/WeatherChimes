@@ -2,6 +2,7 @@
 #include <SPI.h>
 #include <WiFi101.h>
 #include <ArduinoMqttClient.h>
+#include "arduino_secrets.h"
 
 /************************* WiFI Setup *****************************/
 
@@ -27,14 +28,14 @@ MqttClient mqttClient(wifiClient);
 /**
  * Connect to WIFI and the MQTT broker
  */
-void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
+void MQTT_connect(char* ssid, char* broker, int broker_port){
 
   // Connect to WIFI given the creds
   while(WiFi.status() != WL_CONNECTED){
       Serial.print("Connecting to Access Point: ");
       Serial.println(ssid);
   
-      WiFi.begin(ssid, pass);
+      WiFi.begin(ssid);
       
       // wait 10 seconds for connection:
       uint8_t timeout = 10;
@@ -45,6 +46,8 @@ void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
   }
 
   if (mqttClient.connected()) {return;}
+
+  mqttClient.setUsernamePassword(BROKER_USER, BROKER_PASSWORD);
 
   // Print a succcsess message and the device's IP
   Serial.println("Connected to Network!");

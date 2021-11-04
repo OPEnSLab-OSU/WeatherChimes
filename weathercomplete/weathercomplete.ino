@@ -37,7 +37,6 @@ Loom::Manager Feather{};
 
 // note: may cause problems if the ssid contains a space? behavior unsure
 char* ssid = SECRET_SSID;// your network SSID (name)
-char* pass = SECRET_PASS; // your network password (use for WPA, or use as key for WEP)
 
 char* broker = SECRET_BROKER; //OPEnS specific HiveMQ broker
 int broker_port = BROKER_PORT;
@@ -59,7 +58,7 @@ void send_MQTT_data(){
   serializeJson(doc, jsonResponse);
 
   // Connect to WIFI and the MQTT Broker
-  MQTT_connect(ssid, pass, broker, broker_port);
+  MQTT_connect(ssid, broker, broker_port);
 
   // Poll the broker to avoid being disconnected by the server
   mqttClient.poll();
