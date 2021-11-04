@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////////////////////////
-// 
+//
 // This is the operational code for the Weatherchimes Project
 // It uses Loom as a library to manage a TSL2591 luminosity sensor, and a SHT31D temperature and humidity sensor
 // It also uses Loom to manage the Hypnos board for SD card logging capabilities
-// 
+//
 // Finally, apart from Loom, this project integrares functionality for a SDI12 Decagon GS3 sensor
 // that measures conductivity, water content and temperature
-// 
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <ArduinoJson.h>
@@ -62,7 +62,7 @@ void send_MQTT_data(){
 
   // Poll the broker to avoid being disconnected by the server
   mqttClient.poll();
-  
+
   mqttClient.beginMessage(topic);
   mqttClient.print(jsonResponse);
   mqttClient.endMessage();
@@ -109,12 +109,12 @@ void loop()
   // Initialize Hypnos
   digitalWrite(5, LOW); // Enable 3.3V rail
   digitalWrite(6, HIGH);  // Enable 5V rail
-  
+
   if (flag) {
     pinMode(23, OUTPUT);
     pinMode(24, OUTPUT);
     pinMode(10, OUTPUT);
-  
+
     Feather.power_up();
   }
 
@@ -143,5 +143,5 @@ void loop()
 
   getSleepManager(Feather).sleep();
   while (!flag); //waits for an interrupt flag
-  
+
 }
