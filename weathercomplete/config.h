@@ -2,7 +2,7 @@
   'general':\
   {\
     'name':'Chime',\   
-    'instance':1,\
+    'instance':2,\
     'interval':2000\
   },\
   'components':[\
@@ -31,8 +31,8 @@
       'params':'default'\
     },\
      {\
-      'name':'DecagonGS3',\
-      'params':[11, 1]\
+      'name':'SDIManager',\
+      'params':'default'\
     }\
   ]\
 }"

@@ -6,6 +6,7 @@ maxApi.post("before connect");
 maxApi.addHandler('connect', (Mongo_username, Mongo_password, Mongo_unique_cluster_variable, Mongo_database, device) => { 
     maxApi.post("connected");
     const uri = `mongodb+srv://${Mongo_username}:${Mongo_password}@${Mongo_unique_cluster_variable}.mongodb.net/${Mongo_database}?retryWrites=true&w=majority`;
+    maxApi.post(uri);
     //const mongoclient = new MongoClient(uri).connect();
     const mongoclient = new MongoClient(uri);
     maxApi.post(Mongo_username);
@@ -42,9 +43,10 @@ async function run(mongoclient, Mongo_database, device) {
             console.log("received a change to the collection: \t", next.fullDocument);
             console.log(typeof next.fullDocument);
             
-            var jsonObj = next.fullDocument;
             delete next.fullDocument._id;
             delete next.fullDocument.ts;
+            var jsonObj = next.fullDocument;
+            
             jsonStr = JSON.stringify(jsonObj);
             maxApi.outlet(jsonStr);
             console.log(jsonStr);
@@ -84,8 +86,8 @@ async function run(mongoclient, Mongo_database, device) {
   
       
     } 
-    catch{
-        maxApi.post(`Error with MongoClient`)
+    catch (ex){
+        maxApi.post(`Error with MongoClient: ${ex}`)
     }
     
     finally {

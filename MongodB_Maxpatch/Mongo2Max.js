@@ -12,9 +12,11 @@ const {MongoClient} = require('mongodb');
 maxAPI.post("Before Connect")
 
 // Called when the connect button is pressed on the max patch and all of the mongoDB information is passed to it
-maxAPI.addHandler('connect', (MONGO_USERNAME, MONGO_PASSWORD, _, MONGO_DATABASE, DEVICE_NAME) => {
+maxAPI.addHandler('connect', (MONGO_USERNAME, MONGO_PASSWORD, CLUSTER_VARIABLE, MONGO_DATABASE, DEVICE_NAME) => {
     maxAPI.post("Connection Request Received... ");
-    const mongoClient = new MongoClient(`mongodb://${MONGO_USERNAME}:${MONG_PASSWORD}@0.0.0.0:27017/`);
+    const uri = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${CLUSTER_VARIABLE}.mongodb.net/?retryWrites=true&w=majority`;
+    maxAPI.post(uri);
+    const mongoClient = new MongoClient(uri);
 
     // Print out all the MongoDB connection data
     maxAPI.post(`Username: ${MONGO_USERNAME}`);
@@ -40,16 +42,20 @@ async function connect(mongoClient, MONGO_DATABASE, DEVICE_NAME){
         // Connect to the database
         maxAPI.post("Connecting to MongoDB...");
         await mongoClient.connect();
-        maxAPI.post("Connected to Database!");
+        
 
         // Get references to the database and collection of the specified device
         const database = mongoClient.db(MONGO_DATABASE);
         const collection = database.collection(DEVICE_NAME);
+        maxAPI.post("Connected to Database!");
 
         maxAPI.post("Watching for changes...");
 
-        // Stream that tracks when something in the collection is added
-        let changeStream = collection.watch({ $match : {"operationType" : "insert" } });
+        const changeStream = collection.watch(
+            [
+                { $match : {"operationType" : "insert" } }
+            ]
+        );
 
         // When there is a change to the collection 
         changeStream.on("change", addedDocument => {
@@ -60,7 +66,20 @@ async function connect(mongoClient, MONGO_DATABASE, DEVICE_NAME){
             jsonStr = JSON.stringify(next.fullDocument);
             maxAPI.post(`Added Document (JSON): ${jsonStr}`);
             console.log(`Added Document (JSON): ${jsonStr}`);
+            maxApi.outlet(jsonStr);
         });
+
+        maxApi.post("before grab");
+        
+        const cursor = collection.find({}, { projection: { _id:0, ts:0 }}).limit(1).sort({$natural:-1});
+        cursor.forEach(function(myDoc) {
+            
+            data = JSON.stringify(myDoc);
+            console.log(data);
+            maxApi.post(data);
+            maxApi.outlet(data);
+            
+          });
 
         // Called when we want to grab data
         maxAPI.addHandler("grab", () => {
@@ -90,7 +109,7 @@ async function connect(mongoClient, MONGO_DATABASE, DEVICE_NAME){
 
 
     // In the end close the MongoDB connection
-    finally {
-        await mongoClient.close();
-    }
+   // finally {
+    //    await mongoClient.close();
+    //}
 }

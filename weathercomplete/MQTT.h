@@ -3,6 +3,7 @@
 #include <WiFi101.h>
 #include <ArduinoMqttClient.h>
 #include "arduino_secrets.h"
+#include <string.h>
 
 /************************* WiFI Setup *****************************/
 
@@ -28,14 +29,21 @@ MqttClient mqttClient(wifiClient);
 /**
  * Connect to WIFI and the MQTT broker
  */
-void MQTT_connect(char* ssid, char* broker, int broker_port){
+void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
 
   // Connect to WIFI given the creds
   while(WiFi.status() != WL_CONNECTED){
       Serial.print("Connecting to Access Point: ");
       Serial.println(ssid);
-  
-      WiFi.begin(ssid);
+
+      // Check if the AP has a password
+      if(strlen(pass) > 0){
+        WiFi.begin(ssid, pass);
+      }
+      else{
+        WiFi.begin(ssid);
+      }
+      
       
       // wait 10 seconds for connection:
       uint8_t timeout = 10;
@@ -59,7 +67,7 @@ void MQTT_connect(char* ssid, char* broker, int broker_port){
   Serial.print("Connecting to MQTT Broker: ");
   Serial.println(broker);
 
-  mqttClient.setId("WeatherChimes-123");
+  //mqttClient.setId("WeatherChimes-123");
   
   if(!mqttClient.connect(broker, broker_port)){
     Serial.print("Connection Error Occurred: ");

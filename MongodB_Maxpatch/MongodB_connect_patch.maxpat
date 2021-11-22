@@ -75,7 +75,7 @@
 					"presentation" : 1,
 					"presentation_linecount" : 2,
 					"presentation_rect" : [ 11.561855554580688, 183.794126958836614, 129.0, 34.0 ],
-					"text" : "MongoDB Unique Cluster Variable",
+					"text" : "MongoDB Cluster Variable",
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"textjustification" : 1
 				}
@@ -1633,7 +1633,7 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "mongoconnect1.js",
-				"bootpath" : "~/Documents/WeatherChimes/MongodB_Maxpatch",
+				"bootpath" : "~/Documents/OPEnS Lab/WeatherChimes/MongodB_Maxpatch",
 				"patcherrelativepath" : ".",
 				"type" : "TEXT",
 				"implicit" : 1

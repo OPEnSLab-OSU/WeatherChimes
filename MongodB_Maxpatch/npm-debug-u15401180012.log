@@ -1,0 +1,10 @@
+npm ERR! code ENOENT
+npm ERR! syscall open
+npm ERR! path C:\Users\Will\Documents\OPEnS Lab\WeatherChimes\MongodB_Maxpatch/package.json
+npm ERR! errno -4058
+npm ERR! enoent ENOENT: no such file or directory, open 'C:\Users\Will\Documents\OPEnS Lab\WeatherChimes\MongodB_Maxpatch\package.json'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     C:\Users\Will\AppData\Local\npm-cache\_logs\2021-11-09T18_34_34_224Z-debug.log
