@@ -1,5 +1,5 @@
 # WeatherChimes
-## Completed By: Winnie Woo, Carter Peene, Will Richards, Rij Dorfman, Jonah Bidermann
+## Completed By: Winnie Woo, Will Richards, Carter Peene, Rij Dorfman, Jonah Bidermann
 
 WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPEnS lab to send weather data from an Arduino Feather M0 to [Max](https://cycling74.com/products/max). Much like how a wind chime converts wind information into sound, WeatherChimes strives to use a variety of weather sensors to gather data and then process that information into media like generative music and visual art for users. 
 
