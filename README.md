@@ -1,5 +1,5 @@
 # WeatherChimes
-## Completed By: Winnie Woo, Carter Peene, Will Richards, Rij Dorfman, Jonah Bidermann
+## Completed By: Winnie Woo, Will Richards, Carter Peene, Rij Dorfman, Jonah Bidermann
 
 WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPEnS lab to send weather data from an Arduino Feather M0 to [Max](https://cycling74.com/products/max). Much like how a wind chime converts wind information into sound, WeatherChimes strives to use a variety of weather sensors to gather data and then process that information into media like generative music and visual art for users. 
 
@@ -10,9 +10,9 @@ WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPE
 
 
 ## Setting Up Mosquitto
-Mosquitto is a local MQTT broker used for handling communication with remote devices
+Mosquitto is an MQTT broker used for handling communication with remote devices over the MQTT protocol
 * Setup a new [Mosquttio instance](https://www.vultr.com/docs/how-to-install-mosquitto-mqtt-broker-server-on-ubuntu-16-04)
-  * To allow for inbound connection we need to listen on all interfaces. This can be done by adding the line `listener 8883 0.0.0.0` to the `mosquitto.conf` file
+  * To allow for inbound connection we need to listen on all interfaces. This can be done by adding the line `listener 1883 0.0.0.0` to the `mosquitto.conf` file
 * [MQTT basics](https://www.hivemq.com/mqtt-essentials/)
 
 ## Setting Up MongoDB Database
@@ -22,6 +22,8 @@ A MongoDB instance should be running on the same server as the MQTT Broker
 When data is recieved by the broker it will parse the topic out into the locations that data is stored in the database.
 
 A basic MongoDB setup should suffice in most instances, remote access may be needed which can be completed [here](https://www.digitalocean.com/community/tutorials/how-to-configure-remote-access-for-mongodb-on-ubuntu-20-04)
+
+It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.com/basics/clusters) (Specifically replica sets) for logging data as this will allow you to utilize the Max8 framework with less work.
 
 ## Pass Through Script
 The Pass Through Script needs to be run on a server for the duration of data collection for a project.  
@@ -66,50 +68,36 @@ If you would like to use MQTT for a project that is not using Loom, you can buil
 
 ### Here are the steps for integrating the [MQTT.h file](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/weathercomplete/MQTT.h) into any Loom project. 
 
-1. Put in your WiFi SSID and Password at the top of MQTT.h file in variables `ssid` and `pass`
-2. Set-up or gain access to a HiveMQ broker and put username and password into the top of MQTT.h
+1. Put in your WiFi SSID and Password into the `arduino_secrets.h` in the fields `SECRET_SSID` and `SECRET_PASS`, Password can be left blank if the network is open
+2. Set-up or gain access to an MQTT broker (In this case Mosquitto). Once again in the `arduino_secrets.h` we need to input the `BROKER_USER` (Usernname to authenticate with the broker), `BROKER_PASSWORD` (Password to authenticate with the broker), `SECRET_BROKER` (Address to listening broker), `BROKER_PORT` (Port the broker is listening on), `SITE_NAME` (Unique Identifier as this is your Database name)
 3. Make sure that the MQTT.h file is in your project folder.
 4. Have the line `#include "MQTT.h"` at the top of your main file `.ino` file
-5. In your `Setup` function call `Wifi_setup()` using the line: `Wifi_setup();`
+5. In your `Setup` function call `setup_MQTT()` using the line: `setup_MQTT();`
 6. Before the Loop and Setup functions in your main `.ino` file put in this MQTT_send function:
 
 ```
-void MQTT_send(){
-//Finds json to be parsed
-  JsonObject internal = Feather.internal_json(); 
 
-  JsonObject all_sensor_data = parse_for_send(internal);
-   
-  int sizeOfJSON = 1024; //JSONencoder.capacity();
-  char JSONmessageBuffer[sizeOfJSON];
-  serializeJson(all_sensor_data, JSONmessageBuffer,sizeOfJSON); // needs 3rd parameter when using c -string
-  serializeJsonPretty(all_sensor_data, Serial);
-  
-  //Serial.print(all_sensor_data);
-  
-  char name[20];
-  Feather.get_device_name(name); // "name" will be one topic level that the data is published to on HiveMQ
-  String groupName = String(name + String(Feather.get_instance_num()));
-  String topic = String(String("Chime/") + groupName + String("/data"));
+void send_MQTT_data(){
+  jsonResponse = "";
+  doc.clear();
 
-  MQTT_connect(); //connect to the MQTT client
+   // Get the internal JSON object of the data
+  doc.add(Feather.internal_json(false));
+  serializeJson(doc, jsonResponse);
+
+  // Connect to WIFI and the MQTT Broker
+  MQTT_connect(ssid, pass, broker, broker_port);
+
+  // Poll the broker to avoid being disconnected by the server
   mqttClient.poll();
-  // call poll() regularly to allow the library to send MQTT keep alives which
-  // avoids being disconnected by the broker
 
-  //display data
-    Serial.print("Sending message to topic: ");
-    Serial.println(topic);
-    Serial.print(JSONmessageBuffer);
-    
-  // send message, the Print interface can be used to set the message contents
-    mqttClient.beginMessage(topic);
-    mqttClient.print(JSONmessageBuffer); //correctly formatted data
-    mqttClient.endMessage();
-
+  mqttClient.beginMessage(topic);
+  mqttClient.print(jsonResponse);
+  mqttClient.endMessage();
 }
 ```
-7. In your `Loop` function call `MQTT_send()` using the line: `MQTT_send();`
+
+7. In your `Loop` function call `send_MQTT_data()` using the line: `send_MQTT_data();`
 
 
 ## Max Patch set-up and usage
@@ -131,7 +119,7 @@ To use the MongoDB Connect Max Patch, the user must input four peices of informa
 1. MongoDB admin username
 2. MongoDB admin password
 3. [MongDB unique cluster variable](https://github.com/OPEnSLab-OSU/WeatherChimes#setting-up-mongodb-database)
-4. The name of the database they would like to connect to, it should be in the Pass through script. **Example: Chime**
+4. The name of the database they would like to connect to, it should be in the Pass through script. **Example: WeatherChimes**
 5. The name of the device (collection) they would like to connect to. This is declared in the config file of the weathercomplete .ino **Example: Chime1**
 
 
