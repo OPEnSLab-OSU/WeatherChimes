@@ -30,11 +30,19 @@ MqttClient mqttClient(wifiClient);
  * Connect to WIFI and the MQTT broker
  */
 void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
+  LMark;
+
+  // Put the wifi chip in max power saver mode
+  //WiFi.maxLowPowerMode();
+
+  LMark;
 
   // Connect to WIFI given the creds
   while(WiFi.status() != WL_CONNECTED){
       Serial.print("Connecting to Access Point: ");
       Serial.println(ssid);
+
+      LMark;
 
       // Check if the AP has a password
       if(strlen(pass) > 0){
@@ -43,10 +51,12 @@ void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
       else{
         WiFi.begin(ssid);
       }
+
+      LMark;
       
       
       // wait 10 seconds for connection:
-      uint8_t timeout = 10;
+      uint8_t timeout = 5;
       while (timeout && (WiFi.status() != WL_CONNECTED)) {
         timeout--;
         delay(1000);
@@ -55,6 +65,7 @@ void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
 
   if (mqttClient.connected()) {return;}
 
+  LMark;
   mqttClient.setUsernamePassword(BROKER_USER, BROKER_PASSWORD);
 
   // Print a succcsess message and the device's IP
@@ -68,13 +79,19 @@ void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
   Serial.println(broker);
 
   //mqttClient.setId("WeatherChimes-123");
-  
+
+  LMark;
   if(!mqttClient.connect(broker, broker_port)){
     Serial.print("Connection Error Occurred: ");
     Serial.println(mqttClient.connectError());
+    LMark;
+  }
+  else{
+    LMark;
+    Serial.println("Connected to the MQTT Broker!");
   }
 
-  Serial.println("Connected to the MQTT Broker!");
+  
 }
 
 void disconnect_wifi(){
