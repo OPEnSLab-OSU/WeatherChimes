@@ -60,12 +60,16 @@ void send_MQTT_data(){
   serializeJson(doc, jsonResponse);
   LMark;
 
+  Serial.println("Main: Line 63");
   // Connect to WIFI and the MQTT Broker
   MQTT_connect(ssid, pass, broker, broker_port);
   LMark;
 
+  Serial.println("Main: Line 67");
   // Poll the broker to avoid being disconnected by the server
   mqttClient.poll();
+
+  Serial.println("Main: Line 72");
   LMark;
 
   mqttClient.beginMessage(topic);
@@ -121,7 +125,6 @@ void loop()
   if (flag) {
     pinMode(23, OUTPUT);
     pinMode(24, OUTPUT);
-    pinMode(11, OUTPUT);
     
     Feather.power_up();
   }
@@ -129,8 +132,6 @@ void loop()
   Feather.measure();
   Feather.package();
   Feather.display_data();
-
-  getSD(Feather).log();
   
   send_MQTT_data();
 
@@ -143,11 +144,11 @@ void loop()
   digitalWrite(6, LOW);  // Disable 5V rail
   pinMode(23, INPUT);
   pinMode(24, INPUT);
-  pinMode(11, INPUT);
 
   flag = false;
   Feather.power_down();
-  getSleepManager(Feather).sleep();
+  //getSleepManager(Feather).sleep();
+  Feather.pause();
   Feather.power_up();
   while (!flag); //waits for an interrupt flag
 

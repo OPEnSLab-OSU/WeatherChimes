@@ -30,13 +30,16 @@ MqttClient mqttClient(wifiClient);
  * Connect to WIFI and the MQTT broker
  */
 void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
-  LMark;
+  Serial.println("MQTT: Line 33");
 
   // Put the wifi chip in max power saver mode
   //WiFi.maxLowPowerMode();
 
   LMark;
 
+  Serial.println("Line 40");
+  delay(2000);
+  Serial.println("Line 42");
   // Connect to WIFI given the creds
   while(WiFi.status() != WL_CONNECTED){
       Serial.print("Connecting to Access Point: ");
@@ -52,20 +55,22 @@ void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
         WiFi.begin(ssid);
       }
 
-      LMark;
+      Serial.println("MQTT: Line 56");
       
       
       // wait 10 seconds for connection:
-      uint8_t timeout = 5;
+      uint8_t timeout = 14;
       while (timeout && (WiFi.status() != WL_CONNECTED)) {
+        Serial.println("Line 62");
         timeout--;
         delay(1000);
       }
   }
 
+  Serial.println("MQTT: Line 67");
   if (mqttClient.connected()) {return;}
 
-  LMark;
+  Serial.println("MQTT: Line 71");
   mqttClient.setUsernamePassword(BROKER_USER, BROKER_PASSWORD);
 
   // Print a succcsess message and the device's IP
