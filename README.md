@@ -1,5 +1,9 @@
 # WeatherChimes
 ## Completed By: Winnie Woo, Will Richards, Carter Peene, Rij Dorfman, Jonah Bidermann
+---
+<br>
+
+### [Weather Chimes Wiki](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/WeatherChimes)
 
 WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPEnS lab to send weather data from an Arduino Feather M0 to [Max](https://cycling74.com/products/max). Much like how a wind chime converts wind information into sound, WeatherChimes strives to use a variety of weather sensors to gather data and then process that information into media like generative music and visual art for users. 
 
@@ -15,6 +19,8 @@ Mosquitto is an MQTT broker used for handling communication with remote devices 
   * To allow for inbound connection we need to listen on all interfaces. This can be done by adding the line `listener 1883 0.0.0.0` to the `mosquitto.conf` file
 * [MQTT basics](https://www.hivemq.com/mqtt-essentials/)
 
+<br>
+
 ## Setting Up MongoDB Database
 [MongoDB Manual](https://docs.mongodb.com/manual/)\
 A MongoDB instance should be running on the same server as the MQTT Broker
@@ -24,6 +30,8 @@ When data is recieved by the broker it will parse the topic out into the locatio
 A basic MongoDB setup should suffice in most instances, remote access may be needed which can be completed [here](https://www.digitalocean.com/community/tutorials/how-to-configure-remote-access-for-mongodb-on-ubuntu-20-04)
 
 It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.com/basics/clusters) (Specifically replica sets) for logging data as this will allow you to utilize the Max8 framework with less work.
+
+<br>
 
 ## Pass Through Script
 The Pass Through Script needs to be run on a server for the duration of data collection for a project.  
@@ -59,6 +67,8 @@ const MQTT_broker = "";
 The Pass through script works by subscribing to all topics of format */* on the Mosquitto broker and then connecting to the MongoDB database also running. Whenever a message is recieved by the pass through script the topic is parsed and mapped to specific parts of the Mongo database. The data recieved is then formatted and pushed in.
 
 In the context of WeatherChimes, the first topic level is the database name, and the second topic level is the device name and the instance number which maps to collection within the database on MongoDB. 
+
+<br>
 
 ## MQTT Dirty Integration for Loom
 
@@ -99,6 +109,8 @@ void send_MQTT_data(){
 
 7. In your `Loop` function call `send_MQTT_data()` using the line: `send_MQTT_data();`
 
+
+<br>
 
 ## Max Patch set-up and usage
 The main goal of setting up all of the MQTT connectivity and MongoDB storage of data was to create a seamless functionality to read data into [Max](https://cycling74.com/products/max). 
