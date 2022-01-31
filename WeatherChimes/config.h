@@ -2,7 +2,7 @@
   'general':\
   {\
     'name':'Chime',\   
-    'instance':3,\
+    'instance':4,\
     'interval':2000\
   },\
   'components':[\
@@ -15,8 +15,16 @@
       'params':[true,false,1]\
     },\
     {\
+      'name':'SD',\
+      'params':[true,1000,10,'chimes',true]\
+    },\
+    {\
       'name':'DS3231',\
       'params':[10, false, true]\
+    },\
+    {\
+      'name':'SHT31D',\
+      'params':'default'\
     },\
     {\
       'name':'TSL2591',\

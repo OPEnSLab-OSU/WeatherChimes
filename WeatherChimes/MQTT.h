@@ -65,7 +65,7 @@ void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
 
   // At this point we will have connected to the network so print out our IP address on the network
   Serial.println("Connected to Network!");
-  LPrintln("Device IP: ", IPAddress(WiFi.localIP()))
+  Loom::LPrintln("Device IP: ", IPAddress(WiFi.localIP()));
 
   // Announce we are connecting to the MQTT broker
   Serial.print("Connecting to MQTT Broker: ");
@@ -105,6 +105,8 @@ void setup_MQTT(){
     // don't continue:
     while (true);
   }
+
+  WiFi.lowPowerMode();
   
   Serial.println("ATWINC OK!");
   
