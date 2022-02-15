@@ -30,83 +30,79 @@ MqttClient mqttClient(wifiClient);
  * Connect to WIFI and the MQTT broker
  */
 void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
-  // Put the wifi chip in max power saver mode
-  WiFi.maxLowPowerMode();
 
   // Connect to WIFI given the creds
   while(WiFi.status() != WL_CONNECTED){
       Serial.print("Connecting to Access Point: ");
       Serial.println(ssid);
 
-      // Check if the AP has a password, to decicde which method to call
+      // Check if the AP has a password
       if(strlen(pass) > 0){
         WiFi.begin(ssid, pass);
       }
       else{
         WiFi.begin(ssid);
       }
-
       
       
-      // While we arent connected retry the connection every 10 seconds 
+      // wait 10 seconds for connection:
       uint8_t timeout = 10;
       while (timeout && (WiFi.status() != WL_CONNECTED)) {
-        Serial.println("Line 62");
         timeout--;
         delay(1000);
       }
   }
 
-  // If we are already connected to the MQTT broker simply return to save time
+  // Check if we are already connected to the broker and if so dont try to renegotiate a connection simply return
   if (mqttClient.connected()) {return;}
 
-  // Set the brokers Username and Passowrd
+  // Set the MQTT broker Username and Password to use
   mqttClient.setUsernamePassword(BROKER_USER, BROKER_PASSWORD);
 
-  // At this point we will have connected to the network so print out our IP address on the network
-  Serial.println("Connected to Network!");
-  Loom::LPrintln("Device IP: ", IPAddress(WiFi.localIP()));
+  // Set the keep alive time to be 6 minutes
+  mqttClient.setKeepAliveInterval(1000 * 60 * 6);
 
+  // Print a succcsess message and the device's IP
+  Serial.println("Connected to Network!");
+  Serial.print("Device IP: ");
+  Serial.println(IPAddress(WiFi.localIP()));
+
+  
   // Announce we are connecting to the MQTT broker
   Serial.print("Connecting to MQTT Broker: ");
   Serial.println(broker);
-  
-  // Try to connect to the given broker with the given credentials, if it fails tell us there was a connection error
+
+  // Attempt to connect to the broker with the given parameters printing the error code if it fails
   if(!mqttClient.connect(broker, broker_port)){
     Serial.print("Connection Error Occurred: ");
     Serial.println(mqttClient.connectError());
+    return;
   }
 
-  // If no error occurred then we succsessfully connected to the broker
-  else{
-    Serial.println("Connected to the MQTT Broker!");
-  }
+  // Print out that our connection attempt was successful 
+  Serial.println("Connected to the MQTT Broker!");
 }
 
 /**
- * Disconnects from the current wifi network
- */ 
-void disconnect_wifi(){
-  WiFi.disconnect();
-}
-
-/**
- * Setup the WiFi pins an check if the current Fether M0 actually has a WiFi shield
- */ 
+ * Setup our WiFi chip 
+ */
 void setup_MQTT(){
   
   WiFi.setPins(WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
   
   // Initialise the Client
   Serial.print(F("\nInit the WiFi module..."));
-  // check for the presence of the breakout
+  
+  // Check for the presence of the breakout
   if (WiFi.status() == WL_NO_SHIELD) {
     Serial.println("WINC1500 not present");
+    
     // don't continue:
     while (true);
   }
 
-  WiFi.lowPowerMode();
+  // Set the WiFi chip into the lowest power mode to conserve energy
+  WiFi.maxLowPowerMode();
   
   Serial.println("ATWINC OK!");
   

@@ -1,25 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 // This is the operational code for the Weatherchimes Project
-// It uses Loom as a library to manage a TSL2591 luminosity sensor, and a SHT31D temperature and humidity sensor
-// It also uses Loom to manage the Hypnos board for SD card logging capabilities
-//
-// Finally, apart from Loom, this project integrares functionality for a SDI12 Decagon GS3 sensor
-// that measures conductivity, water content and temperature
+// It uses Loom as a library to manage a TSL2591 luminosity sensor, SHT31D temperature and humidity sensor, and the GS3 Decagon Soil Moisture, Temperature and Conductivity sensor
+// It also uses Loom to manage the Hypnos board for SD card logging and sleep capabilities
 //
 ///////////////////////////////////////////////////////////////////////////////
-
-#include <ArduinoJson.h>
-#include <Loom.h>
-#include <String.h>
-#include "SDI12.h"
-#include "MQTT.h"
-#include "arduino_secrets.h"
-
-// Include configuration
-const char* json_config =
-#include "config.h"
-;
 
 // In Tools menu, set:
 // Internet  > Disabled
@@ -28,6 +13,17 @@ const char* json_config =
 // Actuators > Disabled
 // Max       > Disabled
 
+#include <ArduinoJson.h>
+#include <Loom.h>
+#include <String.h>
+#include "MQTT.h"
+#include "arduino_secrets.h"
+
+// Include configuration
+const char* json_config =
+#include "config.h"
+;
+
 using namespace Loom;
 
 Loom::Manager Feather{};
@@ -35,107 +31,79 @@ Loom::Manager Feather{};
 
 /*************************** MQTT Settings *****************************/
 
-// note: may cause problems if the ssid contains a space? behavior unsure
-char* ssid = SECRET_SSID; // WiFi SSID Name
-char* pass = SECRET_PASS; // WiFI Password
+char* ssid = SECRET_SSID;// your network SSID (name)
+char* pass = SECRET_PASS;
 
-char* broker = SECRET_BROKER; // Address of our MQTT Broker
-int broker_port = BROKER_PORT; // Port that our broker is listening on
+char* broker = SECRET_BROKER; //OPEnS MQTT Broker, for all in lab projects the broker is run on an OSU server using Mosquitto
+int broker_port = BROKER_PORT; // Port the broker is listening on for connections
 
-/***********************************************************************/
-
-// Buffer to store the name of the current chime device
+// Buffer to hold the name of the device and an empty string to constuct the publishing topic in
 char devName[20];
-
-// Contains the name of the MQTT topic we will publish to
 String topic = "";
 
-// Stringified JSON that we want to send over MQTT
+// Where to store the serialized loom JSON packet to send over MQTT
 String jsonResponse = "";
 DynamicJsonDocument doc(1024);
 
-volatile bool RTC_Wake_Flag = false;   // Sleep interrupt flag, triggered with the RTC (Real-Time Clock) wants to wake the device up from sleep
+volatile bool flag = false;   // Interrupt flag
 
-/**
- * Transmits MQTT data to the specified broker on the constructed topic name
- */ 
 void send_MQTT_data(){
+
+  // Reset the response and clear the document
   jsonResponse = "";
   doc.clear();
 
-  // Get the internal packaged sensor data and add it to our JSON document
+  // Get the JSON data from loom and store it in the document locally
   doc.add(Feather.internal_json(false));
 
-  // Convert the JSON dictionary to a string
+  // Serialize the JSON document into a string
   serializeJson(doc, jsonResponse);
 
-  // Connect to WIFI and the MQTT Broker
+  // Connect to WIFI and the MQTT Broker 
   MQTT_connect(ssid, pass, broker, broker_port);
 
   // Poll the broker to avoid being disconnected by the server
   mqttClient.poll();
 
-  // Start broadcasting a message on the given topic
+  // Start a new message on the constructed topic and then send the JSON data over the channel closing it when completed
   mqttClient.beginMessage(topic);
-
-  // Write the message to the topic
   mqttClient.print(jsonResponse);
-
-  // End the current message
   mqttClient.endMessage();
 }
 
 
-/** 
- * Triggered by the RTC when we want to wake the device up. 
- * This method should return as quickly as possible as it is an interrupt callback and not a logic processor.
- */
-void RTC_Interrupt(){
-
-  // Detach the interrupt on PIN 12 to avoid it triggering again while we are collecting data
+// Interrupt is called by the RTC on the Hypnos board, wakes up informs the loop that it should execute disconnecting from the interrupt so as to not trigger another while code is executing
+void ISR_pin12()
+{
   detachInterrupt(12);
-  RTC_Wake_Flag = true;
+  flag = true;
 }
 
-/**
- * Called on initial power up/reset, initializes pins and libraries to begin collecting data
- */ 
-void setup(){
+void setup()
+{
+  pinMode(5, OUTPUT); // Enable the 3.3v pin for writing
+  pinMode(6, OUTPUT); // Enable the 5v pin for writing
+  digitalWrite(5, LOW); // Sets pin 5, the pin with the 3.3V rail, to output and enables the rail
+  digitalWrite(6, HIGH); // Sets pin 6, the pin with the 5V rail, to output and enables the rail
 
-  // Setting Pin 5 to Low enables the 3.3v Rail on the Hypnos
-  pinMode(5, OUTPUT);
-  digitalWrite(5, LOW);
+  Feather.begin_LED();  // Set pin 13 to Output so the LED can be used
+  Feather.begin_serial(true); // Start the serial connection waiting 20 seconds for the user to open a serial connection before proceeding
+  Feather.parse_config(json_config);  // Parse the JSON config
+  Feather.print_config(); // Print out the parsed config
 
-  // Setting Pin 6 to High enables the 5v Rail on the Hypnos
-  pinMode(6, OUTPUT);
-  digitalWrite(6, HIGH);
+  // Register the wake-up interrupt on pin 12
+  getInterruptManager(Feather).register_ISR(12,ISR_pin12, LOW, ISR_Type::IMMEDIATE);
 
-  // Enables the builtin led to show the status of the Feather
-  Feather.begin_LED();
-
-  // Opens a serial connection for writing debug information
-  Feather.begin_serial(true);
-
-  // Parses the component config to decide what sensors to create
-  Feather.parse_config(json_config);
-
-  // Print the config to the serial so we know what config we are using
-  Feather.print_config();
-
-  // Schedule the wake interrupt on pin 12, the RTC interrupt is a logic low interrupt so when pin 12 flips from high to low the interrupt is triggered
-  getInterruptManager(Feather).register_ISR(12, RTC_Interrupt, LOW, ISR_Type::IMMEDIATE);
-
-  // Read the device name from the manager and write it into the buffer we made earlier
+  // Get the device name and then using the device name, instance number and site name create a topic name to publish to
   Feather.get_device_name(devName);
-
-  // Create the topic we are publishing to by starting with the SITE_NAME, where the devices are located followed by a combination of the device name with the device instance append on
   topic = String(SITE_NAME) + "/" + String(devName) + String(Feather.get_instance_num());
 
-  // Inform the user what topic we are publishing to
+  // Print out the topic name
   LPrintln("Publishing Topic: ", topic);
 
-  // Sets up the MQTT connection (See MQTT.h)
+  // Making sure we can actually use WiFi and setting the WiFi chip to low power mode
   setup_MQTT();
+
 
   LPrintln("\n ** Setup Complete ** ");
 }
@@ -147,55 +115,49 @@ void loop()
   digitalWrite(5, LOW); // Enable 3.3V rail
   digitalWrite(6, HIGH);  // Enable 5V rail
 
-  // Check if we are being woken up from a sleep vs. just a normal run through
-  if (RTC_Wake_Flag) {
-
-    // Re-enable the SPI interface and SD card pin, call power_up again so that the SD card reinitializes
+  // Only executed after waking up from sleep, reinitilizes the SPI pins as well as the SD card chip select
+  if (flag) {
     pinMode(23, OUTPUT);
     pinMode(24, OUTPUT);
     pinMode(10, OUTPUT);
 
     Feather.power_up();
   }
-
-  // Request a measure on the sensors
+  
+  // Polls all the sensors for measurements and then packages the data into a JSON document
   Feather.measure();
-
-  // Take the data previously measured from the sensors and package it into a JSON document
   Feather.package();
 
-  // Print the data to the Serial bus
+  // Print the data out to the serial bus
   Feather.display_data();
 
-  // Log the data to the connected SD card
+  // Log the data to the SD card
   getSD(Feather).log();
 
-  // Transmits the data over MQTT to the broker (See above)
+  // Serialize and transmit the data over MQTT to our remote broker
   send_MQTT_data();
 
-  // Reset the RTC alarm to fire 10 mins from now, and then reconnect the interrupt so future interrupts can be triggered
-  getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0, 0, 10, 0));
+  // Set the interrupt alarm on the RTC to 5 minutes in the future, reconnecting to the interrupt so we can wake up again
+  getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0, 0, 5, 0));
   getInterruptManager(Feather).reconnect_interrupt(12);
 
-  // Set the wake flag back to false so we can sleep again
-  RTC_Wake_Flag = false;
-
-  // Prepare modules for sleeping
+  // Power down modules
   Feather.power_down();
 
-  // Disable SPI and SD card, by setting the mode to input
+
+  // By setting the SPI pins and SD chip select to Input we effectively stop transmitting over them, thus saving battery
   pinMode(23, INPUT);
   pinMode(24, INPUT);
   pinMode(10, INPUT);
 
-  // Power down the power rails on the Hypnos
-  digitalWrite(5, HIGH); // Disable the 3.3v rail
-  digitalWrite(6, LOW); //  Disable the 5v rail
+  // Protocol to turn off Hypnos
+  digitalWrite(5, HIGH); // Disabling all pins before going to sleep.
+  digitalWrite(6, LOW);
 
-  // Finally tell the feather to completely shut down and wait for an interupt
+  // Enter sleep and wait for the interrupt to be triggered
   getSleepManager(Feather).sleep();
-
-  // Wait for the interrupt flag to turn true so we can break out of the loop and run our code again
-  while (!RTC_Wake_Flag);
+  
+  // Waits for an interrupt to trigger
+  while (!flag); 
 
 }

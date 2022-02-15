@@ -7,6 +7,14 @@
   },\
   'components':[\
     {\
+      'name':'TSL2591',\
+      'params':'default'\
+    },\
+    {\
+      'name':'SD',\
+      'params':[true,1000,10,'chimes',true]\
+    },\
+    {\
       'name':'InterruptManager',\
       'params':[0]\
     },\
@@ -15,19 +23,11 @@
       'params':[true,false,1]\
     },\
     {\
-      'name':'SD',\
-      'params':[true,1000,10,'chimes',true]\
-    },\
-    {\
       'name':'DS3231',\
       'params':[10, false, true]\
     },\
     {\
       'name':'SHT31D',\
-      'params':'default'\
-    },\
-    {\
-      'name':'TSL2591',\
       'params':'default'\
     },\
      {\
