@@ -1,5 +1,5 @@
 # WeatherChimes
-## Completed By: Winnie Woo, Will Richards, Carter Peene, Rij Dorfman, Jonah Bidermann
+## Completed By: Winnie Woo, Will Richards, Carter Peene, Rij Dorfman
 ---
 ### [Weather Chimes Wiki](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/WeatherChimes)
 
