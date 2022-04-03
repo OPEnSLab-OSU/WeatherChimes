@@ -1,0 +1,172 @@
+[
+    {
+        "id": "6a28d8d6c0894321",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ee813af972bb7d19",
+        "type": "mqtt-broker",
+        "name": "OPEnS Lab Broker",
+        "broker": "cas-mosquitto.biossys.oregonstate.edu",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "bb57db2276d07287",
+        "type": "mongodb",
+        "hostname": "remotetest.cls7o.mongodb.net",
+        "topology": "dnscluster",
+        "connectOptions": "",
+        "port": "27017",
+        "db": "",
+        "name": ""
+    },
+    {
+        "id": "922a25a23d84eeb4",
+        "type": "mqtt in",
+        "z": "6a28d8d6c0894321",
+        "name": "",
+        "topic": "+/+",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "ee813af972bb7d19",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 420,
+        "wires": [
+            [
+                "09d01440fb486178",
+                "d7953d487179fe51"
+            ]
+        ]
+    },
+    {
+        "id": "6805f46be7711ab7",
+        "type": "function",
+        "z": "6a28d8d6c0894321",
+        "name": "parse_packet",
+        "func": "var newMsg = { \n    payload: msg.payload,\n    database: msg.topic.split(\"/\")[0],\n    collection: msg.topic.split(\"/\")[1] \n};\nif(newMsg.database == \"WeatherChimes\"){\n    newMsg[\"payload\"] = msg.payload[0];\n}\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 420,
+        "wires": [
+            [
+                "4091fde475d8e5ad"
+            ]
+        ]
+    },
+    {
+        "id": "25de379ab8b6d0e9",
+        "type": "mongodb out",
+        "z": "6a28d8d6c0894321",
+        "mongodb": "bb57db2276d07287",
+        "name": "",
+        "collection": "",
+        "payonly": true,
+        "upsert": false,
+        "multi": false,
+        "operation": "insert",
+        "x": 1070,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "09d01440fb486178",
+        "type": "json",
+        "z": "6a28d8d6c0894321",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 310,
+        "y": 420,
+        "wires": [
+            [
+                "6805f46be7711ab7"
+            ]
+        ]
+    },
+    {
+        "id": "4091fde475d8e5ad",
+        "type": "function",
+        "z": "6a28d8d6c0894321",
+        "name": "get_contents",
+        "func": "sensor_set = {};\ncontents = msg.payload[\"contents\"];\ncontents.forEach(element => {\n    sensor_set[element.module] = element.data;\n})\nsensor_set[\"Timestamp\"] = msg.payload[\"timestamp\"];\nreturn {payload: sensor_set, collection: msg.collection, database: msg.database};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 420,
+        "wires": [
+            [
+                "0eebb8f0ba9de49b"
+            ]
+        ]
+    },
+    {
+        "id": "d7953d487179fe51",
+        "type": "debug",
+        "z": "6a28d8d6c0894321",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 310,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "0eebb8f0ba9de49b",
+        "type": "function",
+        "z": "6a28d8d6c0894321",
+        "name": "parse_date",
+        "func": "var formattedDate = \"\"\nvar i = 0;\nvar splitDate = msg.payload[\"Timestamp\"][\"date\"].split(\"/\");\n\nsplitDate.forEach(element => {\n    \n    // If the date is less than 10 add a 0 in front \n    if(element < 10){\n        formattedDate += \"0\" + element; \n    }\n    \n    // If not simply append it to the list\n    else{\n        formattedDate += element;\n    }\n    \n    // Make sure its not the last element in thje date\n    if(i != splitDate.length - 1){\n        formattedDate += \"-\"\n    }\n    i++;\n});\nvar dateString = formattedDate + \"T\" + msg.payload[\"Timestamp\"][\"time\"] + \"Z\";\nmsg.payload[\"Timestamp\"] = {\"time\": dateString};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 420,
+        "wires": [
+            [
+                "25de379ab8b6d0e9"
+            ]
+        ]
+    }
+]
