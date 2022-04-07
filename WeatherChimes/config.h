@@ -2,7 +2,7 @@
   'general':\
   {\
     'name':'Chime',\   
-    'instance':4,\
+    'instance':5,\
     'interval':2000\
   },\
   'components':[\

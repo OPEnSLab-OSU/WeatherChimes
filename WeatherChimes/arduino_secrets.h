@@ -1,7 +1,7 @@
 
 // Wifi settings
-#define SECRET_SSID "OSU_Access"
-#define SECRET_PASS ""
+#define SECRET_SSID "OSU_Access" // WiFi Name
+#define SECRET_PASS ""  // WiFi Password
 
 // MQTT Settings
 #define BROKER_USER "User"

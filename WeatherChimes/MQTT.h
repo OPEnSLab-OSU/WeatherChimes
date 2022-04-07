@@ -30,7 +30,7 @@ MqttClient mqttClient(wifiClient);
  * Connect to WIFI and the MQTT broker
  */
 void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
-
+ 
   // Connect to WIFI given the creds
   while(WiFi.status() != WL_CONNECTED){
       Serial.print("Connecting to Access Point: ");
@@ -53,12 +53,9 @@ void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
       }
   }
 
-  // Check if we are already connected to the broker and if so dont try to renegotiate a connection simply return
-  if (mqttClient.connected()) {return;}
-
   // Set the MQTT broker Username and Password to use
   mqttClient.setUsernamePassword(BROKER_USER, BROKER_PASSWORD);
-
+  
   // Set the keep alive time to be 6 minutes
   mqttClient.setKeepAliveInterval(1000 * 60 * 6);
 

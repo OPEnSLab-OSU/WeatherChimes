@@ -59,9 +59,6 @@ void send_MQTT_data(){
   // Serialize the JSON document into a string
   serializeJson(doc, jsonResponse);
 
-  // Connect to WIFI and the MQTT Broker 
-  MQTT_connect(ssid, pass, broker, broker_port);
-
   // Poll the broker to avoid being disconnected by the server
   mqttClient.poll();
 
@@ -104,6 +101,9 @@ void setup()
   // Making sure we can actually use WiFi and setting the WiFi chip to low power mode
   setup_MQTT();
 
+  // Connect to WIFI and the MQTT Broker 
+  MQTT_connect(ssid, pass, broker, broker_port);
+
 
   LPrintln("\n ** Setup Complete ** ");
 }
@@ -128,6 +128,9 @@ void loop()
   Feather.measure();
   Feather.package();
 
+   // Add RSSI Values to packet
+  Feather.add_data("WiFi", "WiFi", WiFi.RSSI());
+
   // Print the data out to the serial bus
   Feather.display_data();
 
@@ -138,7 +141,7 @@ void loop()
   send_MQTT_data();
 
   // Set the interrupt alarm on the RTC to 5 minutes in the future, reconnecting to the interrupt so we can wake up again
-  getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0, 0, 5, 0));
+  getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0, 0, 0, 10));
   getInterruptManager(Feather).reconnect_interrupt(12);
 
   // Power down modules
