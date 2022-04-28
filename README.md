@@ -13,12 +13,12 @@ WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPE
 
 ## Setting Up Mosquitto
 Mosquitto is an MQTT broker used for handling communication with remote devices over the MQTT protocol
-* Download the Mosquitto Broker [Mosquttio](https://mosquitto.org/download/)
-* Create a mosquitto user/password: the command below will create a user with a name of your choosing, `mosquitto_passwd -c /etc/mosquitto/pwfile *name_of_choice*`
+* Download the [Mosquitto Broker](https://mosquitto.org/download/)
+* Create a mosquitto user/password: the command below will create a user with a name of your choosing, `mosquitto_passwd -c /etc/mosquitto/pwfile *name_of_choice*`.
 You will be prompted to enter a password.
 * Find the mosquitto.conf file and replace it with the [mosquitto.conf](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/MongoDB/mosquitto.conf) file in this repo. For Windows, it can be located in `C:\Program Files\mosquitto\mosquitto.conf`
 * In the mosquitto.conf replace line 34 with the path of the pwfile you just created.
-* You are now set up to run the Mosquitto Exectubale file to host the MQTT broker
+* You are now set up to run the Mosquitto exectubale file to host the MQTT broker
 <br>
 
 ## Setting Up MongoDB Database
@@ -33,40 +33,16 @@ It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.co
 
 <br>
 
-## Pass Through Script
-The Pass Through Script needs to be run on a server for the duration of data collection for a project.  
-To get the pass through script working properly, you will have to install some external packages and change some variables within Pass.js pertaining to your project set-up.  
-The first step is to install [Node.js](https://nodejs.org/en/download/)
-and [node package manager (npm)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+## Connecting MQTT to MongodB using Node-RED
 
-After Node and npm is installed you will need to install MQTT and MongoDB node packages using the node package manager `npm`  
-For [MQTT](https://www.npmjs.com/package/mqtt#install): `npm install mqtt --save`  
-For [MongoDB](https://www.w3schools.com/nodejs/nodejs_mongodb.asp): `npm install mongodb` 
+* Download [Node-RED](https://nodered.org/#get-started)
+* Locate the `.node-red` folder on your machine. On windows it can be located at "C:\Users\*your_username*\.node-red"
+* Replace the contents of the `.node-red` folder with all the of files in the [Node-RED](https://github.com/OPEnSLab-OSU/WeatherChimes/tree/main/MongoDB/NodeRed) folder of this repository.
+* TO run Node-RED, run the command `node-red` in the terminal
+* Navigate to 127.0.0.1:1880. You can do this by running "http://localhost:1880/" on a browser. This allows you to interface with the Node-RED “flows”.
 
-Once these packages are installed we can change some variables in the [MQTT2Mongo.js file](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/pass.js)  
+### Modifying the Node-RED flow
 
-This block of code is near the top of the MQTT2Mongo.js file
-```
-const Mongo_username = "";
-const Mongo_password = "";
-
-const MQTT_username = "";
-const MQTT_password = "";
-const MQTT_broker = "";
-
-```
-- Insert your MongoDB admin username into the quotes for `Mongo_username`
-  - This can be found on the MongoDB Project main page in the Database Access tab on the left side of the screen
-
-- Insert your MongoDB admin password into the quotes for `Mongo_password`
-
-- Insert your MQTT admin username into the quotes for `MQTT_username` 
-- Insert your MQTT admin password into the quotes for `MQTT_password`
-- Insert your MQTT broker link into the quotes for `MQTT_broker`
-
-The Pass through script works by subscribing to all topics of format */* on the Mosquitto broker and then connecting to the MongoDB database also running. Whenever a message is recieved by the pass through script the topic is parsed and mapped to specific parts of the Mongo database. The data recieved is then formatted and pushed in.
-
-In the context of WeatherChimes, the first topic level is the database name, and the second topic level is the device name and the instance number which maps to collection within the database on MongoDB. 
 
 <br>
 
