@@ -13,10 +13,12 @@ WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPE
 
 ## Setting Up Mosquitto
 Mosquitto is an MQTT broker used for handling communication with remote devices over the MQTT protocol
-* Setup a new [Mosquttio instance](https://www.vultr.com/docs/how-to-install-mosquitto-mqtt-broker-server-on-ubuntu-16-04)
-  * To allow for inbound connection we need to listen on all interfaces. This can be done by adding the line `listener 1883 0.0.0.0` to the `mosquitto.conf` file
-* [MQTT basics](https://www.hivemq.com/mqtt-essentials/)
-
+* Download the Mosquitto Broker [Mosquttio](https://mosquitto.org/download/)
+* Create a mosquitto user/password: the command below will create a user with a name of your choosing, `mosquitto_passwd -c /etc/mosquitto/pwfile *name_of_choice*`
+You will be prompted to enter a password.
+* Find the mosquitto.conf file and replace it with the [mosquitto.conf](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/MongoDB/mosquitto.conf) file in this repo. For Windows, it can be located in `C:\Program Files\mosquitto\mosquitto.conf`
+* In the mosquitto.conf replace line 34 with the path of the pwfile you just created.
+* You are now set up to run the Mosquitto Exectubale file to host the MQTT broker
 <br>
 
 ## Setting Up MongoDB Database
