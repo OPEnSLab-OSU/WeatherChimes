@@ -36,7 +36,7 @@
     {
         "id": "bb57db2276d07287",
         "type": "mongodb",
-        "hostname": "remotetest.cls7o.mongodb.net",
+        "hostname": "",
         "topology": "dnscluster",
         "connectOptions": "",
         "port": "27017",
@@ -95,7 +95,7 @@
         "upsert": false,
         "multi": false,
         "operation": "insert",
-        "x": 1070,
+        "x": 990,
         "y": 420,
         "wires": []
     },

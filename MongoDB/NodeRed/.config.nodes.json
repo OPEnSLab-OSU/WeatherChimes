@@ -408,8 +408,8 @@
     "node-red-node-mongodb": {
         "name": "node-red-node-mongodb",
         "version": "0.2.5",
-        "local": false,
-        "user": false,
+        "local": true,
+        "user": true,
         "nodes": {
             "mongo": {
                 "name": "mongo",
@@ -419,10 +419,10 @@
                     "mongodb in"
                 ],
                 "enabled": true,
-                "local": false,
+                "local": true,
                 "user": false,
                 "module": "node-red-node-mongodb",
-                "file": "C:\\Users\\Will\\node_modules\\node-red-node-mongodb\\66-mongodb.js"
+                "file": "\\Users\\Will\\.node-red\\node_modules\\node-red-node-mongodb\\66-mongodb.js"
             }
         }
     }

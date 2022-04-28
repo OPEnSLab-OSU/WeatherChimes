@@ -404,5 +404,26 @@
                 "file": "C:\\Users\\Will\\AppData\\Roaming\\npm\\node_modules\\node-red\\node_modules\\@node-red\\nodes\\core\\storage\\23-watch.js"
             }
         }
+    },
+    "node-red-node-mongodb": {
+        "name": "node-red-node-mongodb",
+        "version": "0.2.5",
+        "local": false,
+        "user": false,
+        "nodes": {
+            "mongo": {
+                "name": "mongo",
+                "types": [
+                    "mongodb",
+                    "mongodb out",
+                    "mongodb in"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "node-red-node-mongodb",
+                "file": "C:\\Users\\Will\\node_modules\\node-red-node-mongodb\\66-mongodb.js"
+            }
+        }
     }
 }
