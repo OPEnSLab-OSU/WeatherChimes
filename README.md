@@ -36,13 +36,14 @@ It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.co
 ## Connecting MQTT to MongodB using Node-RED
 
 * Download [Node-RED](https://nodered.org/#get-started)
-* Locate the `.node-red` folder on your machine. On windows it can be located at "C:\Users\*your_username*\.node-red"
+* Locate the `.node-red` folder on your machine. On windows it can be located at `C:\Users\*your_username*\.node-red`
 * Replace the contents of the `.node-red` folder with all the of files in the [Node-RED](https://github.com/OPEnSLab-OSU/WeatherChimes/tree/main/MongoDB/NodeRed) folder of this repository.
 * TO run Node-RED, run the command `node-red` in the terminal
 * Navigate to 127.0.0.1:1880. You can do this by running "http://localhost:1880/" on a browser. This allows you to interface with the Node-RED “flows”.
 
 ### Modifying the Node-RED flow
-
+The flow should intially look like this
+[flow](Pictures/Node-RED_Flow.png)
 
 <br>
 
