@@ -57,46 +57,42 @@ It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.co
 
 <br>
 
-## MQTT Dirty Integration for Loom
+## MQTT Integration with Loom
 
-WeatherChimes is currently using a dirty integration of the network protocol `MQTT`. Since it has not been fully integrated into Loom, users need to ensure that the [MQTT.h file](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/weathercomplete/MQTT.h) is included in their `.ino` project file. It has already been integrated into the [weathercomplete](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/weathercomplete/weathercomplete.ino)`.ino` file.  
+Uploading the code to the Feather WiFi requires an USB cable. 
+Download the code from the WeatherChimes Github repository and put WeatherChimes.ino, arduino_secrets.h and config.h in the same folder and open in Arduino.
+Go to Tools >> Board >> Loom SAMD boards >> Loomified Feather M0. Then also check Tools >> Ports and see if the correct port has been selected and the board is appearing on said port. Upload the code to the Feather, after it has finished compiling, check to see if the upload was successful by opening the Arduino IDE serial monitor to see successful connections to the WiFi and MQTT broker as well as the packets of data being sent over the MQTT protocol. 
 
-If you would like to use MQTT for a project that is not using Loom, you can build off of examples from the [ArduinoMQTTClient Library](https://github.com/arduino-libraries/ArduinoMqttClient/tree/master/examples) here.
+The system clock needs to be set on the first run or when the Hypnos coin cell battery is reset. 
+Within the weatherchimes.ino, line 141 
+`141 getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0, 0, 10, 0));`
+The sampling interval could be changed to any duration. From left to right, the numbers represent days, hours, minutes and seconds. 
 
-### Here are the steps for integrating the [MQTT.h file](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/weathercomplete/MQTT.h) into any Loom project. 
-
-1. Put in your WiFi SSID and Password into the `arduino_secrets.h` in the fields `SECRET_SSID` and `SECRET_PASS`, Password can be left blank if the network is open
-2. Set-up or gain access to an MQTT broker (In this case Mosquitto). Once again in the `arduino_secrets.h` we need to input the `BROKER_USER` (Usernname to authenticate with the broker), `BROKER_PASSWORD` (Password to authenticate with the broker), `SECRET_BROKER` (Address to listening broker), `BROKER_PORT` (Port the broker is listening on), `SITE_NAME` (Unique Identifier as this is your Database name)
-3. Make sure that the MQTT.h file is in your project folder.
-4. Have the line `#include "MQTT.h"` at the top of your main file `.ino` file
-5. In your `Setup` function call `setup_MQTT()` using the line: `setup_MQTT();`
-6. Before the Loop and Setup functions in your main `.ino` file put in this MQTT_send function:
-
+The arduino_secrets.h file also needs to include the user’s WiFi name and password, as well as the MQTT settings. The SECRET_SSID and SECRET_PASS variables correspond to the WiFi router name and password. This WiFi router should be connected to the World Wide Web with no firewall settings that would restrict communications on the Broker Port. BROKER_USER and BROKER_PASSWORD correspond to the username and password set on the MQTT broker. The SECRET_BROKER is the server (IP Address / Hostname) where the MQTT Broker is listening. The BROKER_PORT is where that MQTT Broker is listening on the hostname. Finally, the SITE_NAME is not directly related to MQTT but rather the passthrough process as a whole, this tells the MongoDB server which database we should store the data in as it is passed along as the first level in the MQTT topic. 
+```
+2  // Wifi settings
+3  #define SECRET_SSID "OSU_Access"
+4  #define SECRET_PASS ""
+5
+6  // MQTT Settings
+7  #define BROKER_USER "User"
+8  #define BROKER_PASSWORD "password"
+9  #define SECRET_BROKER "cas-mosquitto.biossys.oregonstate.edu"
+10 #define BROKER_PORT 1883
+11 #define SITE_NAME "WeatherChimes" //The name of the location where these  nodes will be placed
 ```
 
-void send_MQTT_data(){
-  jsonResponse = "";
-  doc.clear();
 
-   // Get the internal JSON object of the data
-  doc.add(Feather.internal_json(false));
-  serializeJson(doc, jsonResponse);
-
-  // Connect to WIFI and the MQTT Broker
-  MQTT_connect(ssid, pass, broker, broker_port);
-
-  // Poll the broker to avoid being disconnected by the server
-  mqttClient.poll();
-
-  mqttClient.beginMessage(topic);
-  mqttClient.print(jsonResponse);
-  mqttClient.endMessage();
-}
+ The instance number in the config.h needs to be changed so it logs to the right collection. The interval value does not matter. 
+ ```
+1 {\
+2  'general':\
+3  {\
+4    'name':'Chime',\   
+5    'instance':1,\
+6    'interval':2000\
+7  },\
 ```
-
-7. In your `Loop` function call `send_MQTT_data()` using the line: `send_MQTT_data();`
-
-
 <br>
 
 ## Max Patch set-up and usage
