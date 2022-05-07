@@ -11,6 +11,10 @@ WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPE
 [WeatherChimes Build Guide PDF](https://docs.google.com/document/d/1GEz6TniiCkyVJEQ1pW2CY4VUsa4j7f_cYcETQBzS96c/edit?usp=sharing)
 
 
+
+## Before Installation
+Before code can be uploaded to the Feather, download the [Arduino IDE software](https://www.arduino.cc/en/software) and set up the board profile to include the necessary libraries such as Loom, TSL2591, SHT30 and SDI-12, instructions for completing these steps are present in our [Quick Start Guide](https://github.com/OPEnSLab-OSU/Loom/wiki/Arduino-and-Loom-Quick-Setup).
+
 ## Setting Up Mosquitto
 Mosquitto is an MQTT broker used for handling communication with remote devices over the MQTT protocol
 * Download the [Mosquitto Broker](https://mosquitto.org/download/)
@@ -57,7 +61,7 @@ It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.co
 
 <br>
 
-## MQTT Integration with Loom
+## Loom Installation and MQTT Integration
 
 Uploading the code to the Feather WiFi requires an USB cable. 
 Download the code from the WeatherChimes Github repository and put WeatherChimes.ino, arduino_secrets.h and config.h in the same folder and open in Arduino.
@@ -70,16 +74,18 @@ Within the weatherchimes.ino, line 141:
 
 The sampling interval could be changed to any duration. From left to right, the numbers represent days, hours, minutes and seconds. 
 
+### Getting the Arduino to connect to the internet and send to Mosquitto
+
 The arduino_secrets.h file also needs to include the user’s WiFi name and password, as well as the MQTT settings. The SECRET_SSID and SECRET_PASS variables correspond to the WiFi router name and password. This WiFi router should be connected to the World Wide Web with no firewall settings that would restrict communications on the Broker Port. BROKER_USER and BROKER_PASSWORD correspond to the username and password set on the MQTT broker. The SECRET_BROKER is the server (IP Address / Hostname) where the MQTT Broker is listening. The BROKER_PORT is where that MQTT Broker is listening on the hostname. Finally, the SITE_NAME is not directly related to MQTT but rather the passthrough process as a whole, this tells the MongoDB server which database we should store the data in as it is passed along as the first level in the MQTT topic. 
 ```
 2  // Wifi settings
-3  #define SECRET_SSID "***"
-4  #define SECRET_PASS "***"
+3  #define SECRET_SSID "Example_SSID"
+4  #define SECRET_PASS "Example_Pass"
 5
 6  // MQTT Settings
-7  #define BROKER_USER "***"
-8  #define BROKER_PASSWORD "***"
-9  #define SECRET_BROKER "***"
+7  #define BROKER_USER "Example_User"
+8  #define BROKER_PASSWORD "Example_Pass"
+9  #define SECRET_BROKER "Example.broker.mosquitto.org"
 10 #define BROKER_PORT 1883
 11 #define SITE_NAME "WeatherChimes" //The name of the location where these  nodes will be placed
 ```
