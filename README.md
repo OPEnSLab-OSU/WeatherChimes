@@ -73,13 +73,13 @@ The sampling interval could be changed to any duration. From left to right, the 
 The arduino_secrets.h file also needs to include the user’s WiFi name and password, as well as the MQTT settings. The SECRET_SSID and SECRET_PASS variables correspond to the WiFi router name and password. This WiFi router should be connected to the World Wide Web with no firewall settings that would restrict communications on the Broker Port. BROKER_USER and BROKER_PASSWORD correspond to the username and password set on the MQTT broker. The SECRET_BROKER is the server (IP Address / Hostname) where the MQTT Broker is listening. The BROKER_PORT is where that MQTT Broker is listening on the hostname. Finally, the SITE_NAME is not directly related to MQTT but rather the passthrough process as a whole, this tells the MongoDB server which database we should store the data in as it is passed along as the first level in the MQTT topic. 
 ```
 2  // Wifi settings
-3  #define SECRET_SSID "OSU_Access"
-4  #define SECRET_PASS ""
+3  #define SECRET_SSID "***"
+4  #define SECRET_PASS "***"
 5
 6  // MQTT Settings
-7  #define BROKER_USER "User"
-8  #define BROKER_PASSWORD "password"
-9  #define SECRET_BROKER "cas-mosquitto.biossys.oregonstate.edu"
+7  #define BROKER_USER "***"
+8  #define BROKER_PASSWORD "***"
+9  #define SECRET_BROKER "***"
 10 #define BROKER_PORT 1883
 11 #define SITE_NAME "WeatherChimes" //The name of the location where these  nodes will be placed
 ```
