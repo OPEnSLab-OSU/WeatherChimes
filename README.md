@@ -64,8 +64,10 @@ Download the code from the WeatherChimes Github repository and put WeatherChimes
 Go to Tools >> Board >> Loom SAMD boards >> Loomified Feather M0. Then also check Tools >> Ports and see if the correct port has been selected and the board is appearing on said port. Upload the code to the Feather, after it has finished compiling, check to see if the upload was successful by opening the Arduino IDE serial monitor to see successful connections to the WiFi and MQTT broker as well as the packets of data being sent over the MQTT protocol. 
 
 The system clock needs to be set on the first run or when the Hypnos coin cell battery is reset. 
-Within the weatherchimes.ino, line 141 
+Within the weatherchimes.ino, line 141:
+
 `141 getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0, 0, 10, 0));`
+
 The sampling interval could be changed to any duration. From left to right, the numbers represent days, hours, minutes and seconds. 
 
 The arduino_secrets.h file also needs to include the user’s WiFi name and password, as well as the MQTT settings. The SECRET_SSID and SECRET_PASS variables correspond to the WiFi router name and password. This WiFi router should be connected to the World Wide Web with no firewall settings that would restrict communications on the Broker Port. BROKER_USER and BROKER_PASSWORD correspond to the username and password set on the MQTT broker. The SECRET_BROKER is the server (IP Address / Hostname) where the MQTT Broker is listening. The BROKER_PORT is where that MQTT Broker is listening on the hostname. Finally, the SITE_NAME is not directly related to MQTT but rather the passthrough process as a whole, this tells the MongoDB server which database we should store the data in as it is passed along as the first level in the MQTT topic. 
