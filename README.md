@@ -48,15 +48,15 @@ It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.co
 ### Modifying the Node-RED flow
 * The flow should intially look like this:
 
-![flow](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/Pictures/Node-RED_Flow.png?raw=true)
+<img src="https://user-images.githubusercontent.com/86391366/168677930-80a2683a-0226-4f7d-8e81-5d798d91a329.png" width = "400">
 
 * The node farthest to the right is the Mongodb node. Click on that node and add your MongoDB cluster that you created earlier into the *Server* field
 
-![server](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/Pictures/Node-RED_server.png?raw=true)
+<img src="https://user-images.githubusercontent.com/86391366/168678055-a2c6eaec-85f5-47eb-8852-ae53135094b3.png" width = "400">
 
 * Next, you need to specify what broker you want to connect to. Open the MQTT node (It looks like “+/+”). Click the pencil icon next to the Server field, this will allow us to add a new MQTT server. On the following page give it a name. Specify the server address and port (Figure 18) and then under security specify the username and password you use to authenticate with the broker.
 
-![broker](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/Pictures/Node-RED_broker.png?raw=true)
+<img src="https://user-images.githubusercontent.com/86391366/168678107-2a3d1115-5272-49df-8095-aaa8c2bdd843.png" width = "400">
 
 
 <br>
