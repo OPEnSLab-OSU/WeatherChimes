@@ -1,90 +1,65 @@
-
-#include <SPI.h>
-#include <WiFi101.h>
+#pragma once
 #include <ArduinoMqttClient.h>
+#include <WiFi101.h>
+
 #include "arduino_secrets.h"
-#include <string.h>
 
-/************************* WiFI Setup *****************************/
-
+// Feather M0 Wifi Pins
 #define WINC_CS   8
 #define WINC_IRQ  7
 #define WINC_RST  4
-#define WINC_EN   2     // or, tie EN to VCC
+#define WINC_EN   2
 
-int status = WL_IDLE_STATUS;
+char ssid[] = SECRET_SSID;
+char pass[] = SECRET_PASS;
 
-// To connect with SSL/TLS:
-// 1) Change WiFiClient to WiFiSSLClient.
-// 2) Change port value from 1883 to 8883.
-// 3) Change broker value to a server with a known SSL/TLS root certificate 
-//    flashed in the WiFi module.
+const char broker[] = SECRET_BROKER;
+int port = BROKER_PORT;
 
-/************ Global State (you don't need to change this!) ******************/
 WiFiClient wifiClient;
 MqttClient mqttClient(wifiClient);
 
-/************************* Code *********************************/
-
-/**
- * Connect to WIFI and the MQTT broker
- */
-void MQTT_connect(char* ssid, char* pass, char* broker, int broker_port){
- 
-  // Connect to WIFI given the creds
-  while(WiFi.status() != WL_CONNECTED){
-      Serial.print("Connecting to Access Point: ");
-      Serial.println(ssid);
-
-      // Check if the AP has a password
-      if(strlen(pass) > 0){
-        WiFi.begin(ssid, pass);
-      }
-      else{
-        WiFi.begin(ssid);
-      }
-      
-      
-      // wait 10 seconds for connection:
-      uint8_t timeout = 10;
-      while (timeout && (WiFi.status() != WL_CONNECTED)) {
-        timeout--;
-        delay(1000);
-      }
-  }
-
-  // Set the MQTT broker Username and Password to use
-  mqttClient.setUsernamePassword(BROKER_USER, BROKER_PASSWORD);
-  
-  // Set the keep alive time to be 6 minutes
-  mqttClient.setKeepAliveInterval(1000 * 60 * 6);
-
-  // Print a succcsess message and the device's IP
-  Serial.println("Connected to Network!");
-  Serial.print("Device IP: ");
-  Serial.println(IPAddress(WiFi.localIP()));
-
-  
-  // Announce we are connecting to the MQTT broker
-  Serial.print("Connecting to MQTT Broker: ");
-  Serial.println(broker);
-
-  // Attempt to connect to the broker with the given parameters printing the error code if it fails
-  if(!mqttClient.connect(broker, broker_port)){
-    Serial.print("Connection Error Occurred: ");
-    Serial.println(mqttClient.connectError());
-    return;
-  }
-
-  // Print out that our connection attempt was successful 
-  Serial.println("Connected to the MQTT Broker!");
+/* Disconnect from broker and WiFi*/
+void disconnect_wifi(){
+  mqttClient.stop();
+  WiFi.disconnect();
+  WiFi.end();
 }
 
 /**
- * Setup our WiFi chip 
+ * Connect to the wifi network
+ */ 
+void connect_to_wifi(){
+
+    // Try to conect to the wifi network
+    Serial.print("[MQTT] Attempting to connect to SSID: ");
+    Serial.println(ssid);
+
+    // Check if there is a password for the wifi or not
+    if(strlen(pass) > 0){
+        // Try to connect to the Wifi network until it succeeds 
+        while (WiFi.begin(ssid, pass) != WL_CONNECTED) {
+            Serial.print("[MQTT] Attempting connection to AP...");
+            delay(5000);
+        }
+    }
+    else{
+        // Try to connect to the Wifi network until it succeeds 
+        while (WiFi.begin(ssid) != WL_CONNECTED) {
+            Serial.print("[MQTT] Attempting connection to AP...");
+            delay(5000);
+        }
+    }
+
+    Serial.println("Connected to network!");
+}
+
+/*
+ * Enable the Wifi but don't connect to any network
  */
-void setup_MQTT(){
+void enable_wifi(){
   
+  // Set the pins that the WiFi module should
   WiFi.setPins(WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
   
   // Initialise the Client
@@ -102,5 +77,39 @@ void setup_MQTT(){
   WiFi.maxLowPowerMode();
   
   Serial.println("ATWINC OK!");
-  
+}
+
+/**
+ * Connect to the MQTT broker
+ */ 
+void connect_to_broker(int keepAliveMins){
+
+    // Set the MQTT username and password
+    mqttClient.setUsernamePassword(BROKER_USER, BROKER_PASSWORD);
+
+    // Set keep alive time
+    mqttClient.setKeepAliveInterval(1000 * 60 * keepAliveMins);
+
+    Serial.print("[MQTT] Attempting to connect to broker: ");
+    Serial.println(broker);
+
+    // Try to connect to the broker
+    if (!mqttClient.connect(broker, port)) {
+        Serial.print("[MQTT] MQTT connection failed! Error code = ");
+        Serial.println(mqttClient.connectError());
+    }
+
+    Serial.println("[MQTT] You're connected to the MQTT broker!");
+}
+
+/**
+ * Publish the data to the correct topic
+ */ 
+void publish_mqtt(String topic, String data){
+
+    // send message, the Print interface can be used to set the message contents
+    mqttClient.poll();
+    mqttClient.beginMessage(topic);
+    mqttClient.print(data);
+    mqttClient.endMessage();
 }
