@@ -48,7 +48,7 @@ It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.co
 ### Modifying the Node-RED flow
 * The flow should intially look like this:
 
-<img src="https://user-images.githubusercontent.com/86391366/168677930-80a2683a-0226-4f7d-8e81-5d798d91a329.png" width = "400">
+<img src="https://user-images.githubusercontent.com/86391366/168677930-80a2683a-0226-4f7d-8e81-5d798d91a329.png" width = "600">
 
 * The node farthest to the right is the Mongodb node. Click on that node and add your MongoDB cluster that you created earlier into the *Server* field
 
