@@ -33,14 +33,14 @@ When data is recieved by the broker it will parse the topic out into the locatio
 
 A basic MongoDB setup should suffice in most instances, remote access may be needed which can be completed [here](https://www.digitalocean.com/community/tutorials/how-to-configure-remote-access-for-mongodb-on-ubuntu-20-04)
 
-It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.com/basics/clusters) (Specifically replica sets) for logging data as this will allow you to utilize the Max8 framework with less work.
+It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.com/basics/clusters) (specifically replica sets) for logging data as this will allow you to utilize the Max8 framework with less work.
 
 <br>
 
 ## Connecting MQTT to MongodB using Node-RED
 
 * Download [Node-RED](https://nodered.org/#get-started)
-* Locate the `.node-red` folder on your machine. On windows it can be located at `C:\Users\*your_username*\.node-red`
+* Locate the `.node-red` folder on your machine. On Windows it can be located at `C:\Users\*your_username*\.node-red`
 * Replace the contents of the `.node-red` folder with all the of files in the [Node-RED](https://github.com/OPEnSLab-OSU/WeatherChimes/tree/main/MongoDB/NodeRed) folder of this repository.
 * TO run Node-RED, run the command `node-red` in the terminal
 * Navigate to 127.0.0.1:1880. You can do this by running "http://localhost:1880/" on a browser. This allows you to interface with the Node-RED “flows”.
