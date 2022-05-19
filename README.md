@@ -18,10 +18,10 @@ Before code can be uploaded to the Feather, download the [Arduino IDE software](
 ## Setting Up Mosquitto
 Mosquitto is an MQTT broker used for handling communication with remote devices over the MQTT protocol
 * Download the [Mosquitto Broker](https://mosquitto.org/download/)
-* Create a mosquitto user/password: the command below will create a user with a name of your choosing, `mosquitto_passwd -c /etc/mosquitto/pwfile *name_of_choice*`.
+* In the directory of the mosquitto folder `C:\Program Files\mosquitto>`, create a mosquitto user/password: the command below will create a user with a name of your choosing, `mosquitto_passwd -c /etc/mosquitto/pwfile *name_of_choice*`.
 You will be prompted to enter a password.
 * Find the mosquitto.conf file and replace it with the [mosquitto.conf](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/MongoDB/mosquitto.conf) file in this repo. For Windows, it can be located in `C:\Program Files\mosquitto\mosquitto.conf`
-* In the mosquitto.conf replace line 34 with the path of the pwfile you just created.
+* In the newly replaced mosquitto.conf now replace line 34 with the path of the pwfile you just created.
 * You are now set up to run the Mosquitto exectubale file to host the MQTT broker
 <br>
 
