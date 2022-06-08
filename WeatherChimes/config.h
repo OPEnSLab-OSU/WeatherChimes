@@ -1,18 +1,19 @@
 "{\
   'general':\
   {\
-    'name':'Chime',\   
+    'name':'Chime',\
     'instance':5,\
-    'interval':2000\
+    'interval':5000,\
+    'print_verbosity':2\
   },\
   'components':[\
     {\
-      'name':'TSL2591',\
-      'params':'default'\
+      'name':'SD',\
+      'params':[true, 1000, 10,'chimes', true]\
     },\
     {\
-      'name':'SD',\
-      'params':[true,1000,10,'chimes',true]\
+      'name':'TSL2591',\
+      'params':'default'\
     },\
     {\
       'name':'InterruptManager',\
@@ -30,7 +31,7 @@
       'name':'SHT31D',\
       'params':'default'\
     },\
-     {\
+    {\
       'name':'SDIManager',\
       'params':'default'\
     },\

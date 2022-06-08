@@ -1,7 +1,7 @@
 # WeatherChimes
-## Completed By: Winnie Woo, Will Richards, Carter Peene, Rij Dorfman
+## Completed By: Winnie Woo, Will Richards, Rij Dorfman
 ---
-### [Weather Chimes Wiki](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/WeatherChimes)
+### [WeatherChimes Wiki](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/WeatherChimes)
 
 WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPEnS lab to send weather data from an Arduino Feather M0 to [Max](https://cycling74.com/products/max). Much like how a wind chime converts wind information into sound, WeatherChimes strives to use a variety of weather sensors to gather data and then process that information into media like generative music and visual art for users. 
 
@@ -11,14 +11,18 @@ WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPE
 [WeatherChimes Build Guide PDF](https://docs.google.com/document/d/1GEz6TniiCkyVJEQ1pW2CY4VUsa4j7f_cYcETQBzS96c/edit?usp=sharing)
 
 
+
+## Before Installation
+Before code can be uploaded to the Feather, download the [Arduino IDE software](https://www.arduino.cc/en/software) and set up the board profile to include the necessary libraries such as Loom, TSL2591, SHT30 and SDI-12, instructions for completing these steps are present in our [Quick Start Guide](https://github.com/OPEnSLab-OSU/Loom/wiki/Arduino-and-Loom-Quick-Setup).
+
 ## Setting Up Mosquitto
 Mosquitto is an MQTT broker used for handling communication with remote devices over the MQTT protocol
-* Download the Mosquitto Broker [Mosquttio](https://mosquitto.org/download/)
-* Create a mosquitto user/password: the command below will create a user with a name of your choosing, `mosquitto_passwd -c /etc/mosquitto/pwfile *name_of_choice*`
+* Download the [Mosquitto Broker](https://mosquitto.org/download/)
+* In the directory of the mosquitto folder `C:\Program Files\mosquitto>`, create a mosquitto user/password: the command below will create a user with a name of your choosing, `mosquitto_passwd -c /etc/mosquitto/pwfile *name_of_choice*`.
 You will be prompted to enter a password.
 * Find the mosquitto.conf file and replace it with the [mosquitto.conf](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/MongoDB/mosquitto.conf) file in this repo. For Windows, it can be located in `C:\Program Files\mosquitto\mosquitto.conf`
-* In the mosquitto.conf replace line 34 with the path of the pwfile you just created.
-* You are now set up to run the Mosquitto Exectubale file to host the MQTT broker
+* In the newly replaced mosquitto.conf now replace line 34 with the path of the pwfile you just created.
+* You are now set up to run the Mosquitto exectubale file to host the MQTT broker
 <br>
 
 ## Setting Up MongoDB Database
@@ -29,87 +33,74 @@ When data is recieved by the broker it will parse the topic out into the locatio
 
 A basic MongoDB setup should suffice in most instances, remote access may be needed which can be completed [here](https://www.digitalocean.com/community/tutorials/how-to-configure-remote-access-for-mongodb-on-ubuntu-20-04)
 
-It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.com/basics/clusters) (Specifically replica sets) for logging data as this will allow you to utilize the Max8 framework with less work.
+It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.com/basics/clusters) (specifically replica sets) for logging data as this will allow you to utilize the Max8 framework with less work.
 
 <br>
 
-## Pass Through Script
-The Pass Through Script needs to be run on a server for the duration of data collection for a project.  
-To get the pass through script working properly, you will have to install some external packages and change some variables within Pass.js pertaining to your project set-up.  
-The first step is to install [Node.js](https://nodejs.org/en/download/)
-and [node package manager (npm)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+## Connecting MQTT to MongodB using Node-RED
 
-After Node and npm is installed you will need to install MQTT and MongoDB node packages using the node package manager `npm`  
-For [MQTT](https://www.npmjs.com/package/mqtt#install): `npm install mqtt --save`  
-For [MongoDB](https://www.w3schools.com/nodejs/nodejs_mongodb.asp): `npm install mongodb` 
+* Download [Node-RED](https://nodered.org/#get-started)
+* Locate the `.node-red` folder on your machine. On Windows it can be located at `C:\Users\*your_username*\.node-red`
+* Replace the contents of the `.node-red` folder with all the of files in the [Node-RED](https://github.com/OPEnSLab-OSU/WeatherChimes/tree/main/MongoDB/NodeRed) folder of this repository.
+* TO run Node-RED, run the command `node-red` in the terminal
+* Navigate to 127.0.0.1:1880. You can do this by running "http://localhost:1880/" on a browser. This allows you to interface with the Node-RED “flows”.
 
-Once these packages are installed we can change some variables in the [MQTT2Mongo.js file](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/pass.js)  
+### Modifying the Node-RED flow
+* The flow should intially look like this:
 
-This block of code is near the top of the MQTT2Mongo.js file
-```
-const Mongo_username = "";
-const Mongo_password = "";
+<img src="https://user-images.githubusercontent.com/86391366/168677930-80a2683a-0226-4f7d-8e81-5d798d91a329.png" width = "600">
 
-const MQTT_username = "";
-const MQTT_password = "";
-const MQTT_broker = "";
+* The node farthest to the right is the Mongodb node. Click on that node and add your MongoDB cluster that you created earlier into the *Server* field
 
-```
-- Insert your MongoDB admin username into the quotes for `Mongo_username`
-  - This can be found on the MongoDB Project main page in the Database Access tab on the left side of the screen
+<img src="https://user-images.githubusercontent.com/86391366/168678055-a2c6eaec-85f5-47eb-8852-ae53135094b3.png" width = "400">
 
-- Insert your MongoDB admin password into the quotes for `Mongo_password`
+* Next, you need to specify what broker you want to connect to. Open the MQTT node (It looks like “+/+”). Click the pencil icon next to the Server field, this will allow us to add a new MQTT server. On the following page give it a name. Specify the server address and port (Figure 18) and then under security specify the username and password you use to authenticate with the broker.
 
-- Insert your MQTT admin username into the quotes for `MQTT_username` 
-- Insert your MQTT admin password into the quotes for `MQTT_password`
-- Insert your MQTT broker link into the quotes for `MQTT_broker`
+<img src="https://user-images.githubusercontent.com/86391366/168678107-2a3d1115-5272-49df-8095-aaa8c2bdd843.png" width = "400">
 
-The Pass through script works by subscribing to all topics of format */* on the Mosquitto broker and then connecting to the MongoDB database also running. Whenever a message is recieved by the pass through script the topic is parsed and mapped to specific parts of the Mongo database. The data recieved is then formatted and pushed in.
-
-In the context of WeatherChimes, the first topic level is the database name, and the second topic level is the device name and the instance number which maps to collection within the database on MongoDB. 
 
 <br>
 
-## MQTT Dirty Integration for Loom
+## Loom Installation and MQTT Integration
 
-WeatherChimes is currently using a dirty integration of the network protocol `MQTT`. Since it has not been fully integrated into Loom, users need to ensure that the [MQTT.h file](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/weathercomplete/MQTT.h) is included in their `.ino` project file. It has already been integrated into the [weathercomplete](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/weathercomplete/weathercomplete.ino)`.ino` file.  
+Uploading the code to the Feather WiFi requires an USB cable. 
+Download the code from the WeatherChimes Github repository and put WeatherChimes.ino, arduino_secrets.h and config.h in the same folder and open in Arduino.
+Go to Tools >> Board >> Loom SAMD boards >> Loomified Feather M0. Then also check Tools >> Ports and see if the correct port has been selected and the board is appearing on said port. Upload the code to the Feather, after it has finished compiling, check to see if the upload was successful by opening the Arduino IDE serial monitor to see successful connections to the WiFi and MQTT broker as well as the packets of data being sent over the MQTT protocol. 
 
-If you would like to use MQTT for a project that is not using Loom, you can build off of examples from the [ArduinoMQTTClient Library](https://github.com/arduino-libraries/ArduinoMqttClient/tree/master/examples) here.
+The system clock needs to be set on the first run or when the Hypnos coin cell battery is reset. 
+Within the weatherchimes.ino, line 141:
 
-### Here are the steps for integrating the [MQTT.h file](https://github.com/OPEnSLab-OSU/WeatherChimes/blob/main/weathercomplete/MQTT.h) into any Loom project. 
+`141 getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0, 0, 10, 0));`
 
-1. Put in your WiFi SSID and Password into the `arduino_secrets.h` in the fields `SECRET_SSID` and `SECRET_PASS`, Password can be left blank if the network is open
-2. Set-up or gain access to an MQTT broker (In this case Mosquitto). Once again in the `arduino_secrets.h` we need to input the `BROKER_USER` (Usernname to authenticate with the broker), `BROKER_PASSWORD` (Password to authenticate with the broker), `SECRET_BROKER` (Address to listening broker), `BROKER_PORT` (Port the broker is listening on), `SITE_NAME` (Unique Identifier as this is your Database name)
-3. Make sure that the MQTT.h file is in your project folder.
-4. Have the line `#include "MQTT.h"` at the top of your main file `.ino` file
-5. In your `Setup` function call `setup_MQTT()` using the line: `setup_MQTT();`
-6. Before the Loop and Setup functions in your main `.ino` file put in this MQTT_send function:
+The sampling interval could be changed to any duration. From left to right, the numbers represent days, hours, minutes and seconds. 
 
+### Getting the Arduino to connect to the internet and send to Mosquitto
+
+The arduino_secrets.h file also needs to include the user’s WiFi name and password, as well as the MQTT settings. The SECRET_SSID and SECRET_PASS variables correspond to the WiFi router name and password. This WiFi router should be connected to the World Wide Web with no firewall settings that would restrict communications on the Broker Port. BROKER_USER and BROKER_PASSWORD correspond to the username and password set on the MQTT broker. The SECRET_BROKER is the server (IP Address / Hostname) where the MQTT Broker is listening. The BROKER_PORT is where that MQTT Broker is listening on the hostname. Finally, the SITE_NAME is not directly related to MQTT but rather the passthrough process as a whole, this tells the MongoDB server which database we should store the data in as it is passed along as the first level in the MQTT topic. 
+```
+2  // Wifi settings
+3  #define SECRET_SSID "Example_SSID"
+4  #define SECRET_PASS "Example_Pass"
+5
+6  // MQTT Settings
+7  #define BROKER_USER "Example_User"
+8  #define BROKER_PASSWORD "Example_Pass"
+9  #define SECRET_BROKER "Example.broker.mosquitto.org"
+10 #define BROKER_PORT 1883
+11 #define SITE_NAME "WeatherChimes" //The name of the location where these  nodes will be placed
 ```
 
-void send_MQTT_data(){
-  jsonResponse = "";
-  doc.clear();
 
-   // Get the internal JSON object of the data
-  doc.add(Feather.internal_json(false));
-  serializeJson(doc, jsonResponse);
-
-  // Connect to WIFI and the MQTT Broker
-  MQTT_connect(ssid, pass, broker, broker_port);
-
-  // Poll the broker to avoid being disconnected by the server
-  mqttClient.poll();
-
-  mqttClient.beginMessage(topic);
-  mqttClient.print(jsonResponse);
-  mqttClient.endMessage();
-}
+ The instance number in the config.h needs to be changed so it logs to the right collection. The interval value does not matter. 
+ ```
+1 {\
+2  'general':\
+3  {\
+4    'name':'Chime',\   
+5    'instance':1,\
+6    'interval':2000\
+7  },\
 ```
-
-7. In your `Loop` function call `send_MQTT_data()` using the line: `send_MQTT_data();`
-
-
 <br>
 
 ## Max Patch set-up and usage
