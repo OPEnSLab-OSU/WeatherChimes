@@ -1,137 +1,87 @@
-///////////////////////////////////////////////////////////////////////////////
+/**
+ * In lab use case example for the WeatherChimes project
+ * 
+ * This project uses SDI12, TSL2591 and an SHT31 sensor to log environment data and logs it to both the SD card and also MQTT/MongoDB
+ * 
+ * MANAGER MUST BE INCLUDED FIRST IN ALL CODE
+ */
+#include "arduino_secrets.h"
 
-// This is a basic example that demonstrates usage of the Hypnos board
-// Deep sleep functionality.
+#include <Loom_Manager.h>
 
-// The Hypnos board includes
-// - SD
-// - DS3231 RTC
-// - Ability to power of peripherals
+#include <Hardware/Loom_Hypnos/Loom_Hypnos.h>
 
-// Further details about the Hypnos board can be found here:
-// https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/Hypnos
+#include <Sensors/Loom_Analog/Loom_Analog.h>
+#include <Sensors/SDI12/Loom_SDI12/Loom_SDI12.h>
+#include <Sensors/I2C/Loom_SHT31/Loom_SHT31.h>
+#include <Sensors/I2C/Loom_TSL2591/Loom_TSL2591.h>
 
-///////////////////////////////////////////////////////////////////////////////
-
-#include <Loom.h>
-#include "MQTT.h"
-
-// Include configuration
-const char* json_config =
-#include "config.h"
-;
-
-// In Tools menu, set:
-// Internet  > Disabled
-// Sensors   > Enabled
-// Radios    > Disabled
-// Actuators > Disabled
-// Max       > Disabled
-
-using namespace Loom;
-
-Loom::Manager Feather{};
+#include <Internet/Connectivity/Loom_Wifi/Loom_Wifi.h>
+#include <Internet/Logging/Loom_MQTT/Loom_MQTT.h>
 
 
-char devName[20];
-String topic = "";
-String jsonSerialized = "";
+Manager manager("Chime", 1);
 
-DynamicJsonDocument doc(1024);
+// Analog for reading battery voltage
+Loom_Analog analog(manager);
 
-volatile bool rtc_flag = false;
+// Create a new Hypnos object
+Loom_Hypnos hypnos(manager, HYPNOS_VERSION::V3_2, TIME_ZONE::PST);
 
-void wakeISR_RTC() {
-  // disable the interrupt
-  detachInterrupt(12);
-  rtc_flag = true;
+// Create the TSL2591 and SHT classes
+Loom_SHT31 sht(manager);
+Loom_TSL2591 tsl(manager);
+Loom_SDI12 sdi(manager, 11);
+
+Loom_WIFI wifi(manager);
+Loom_MQTT mqtt(manager, wifi.getClient(), SECRET_BROKER, SECRET_PORT, DATABASE, BROKER_USER, BROKER_PASS);
+
+// Called when the interrupt is triggered 
+void isrTrigger(){
+  hypnos.wakeup();
 }
 
-void setup()
-{
-  // Needs to be done for Hypnos Board
-  pinMode(5, OUTPUT);   // Enable control of 3.3V rail
-  pinMode(6, OUTPUT);   // Enable control of 5V rail
-  pinMode(12, INPUT_PULLUP);    // Enable waiting for RTC interrupt, MUST use a pullup since signal is active low
-  pinMode(13, OUTPUT);
+void setup() {
 
-  // See Above
-  digitalWrite(5, LOW); // Enable 3.3V rail
-  digitalWrite(6, HIGH);  // Enable 5V rail
-  digitalWrite(13, LOW);
+  // Wait 20 seconds for the serial console to open
+  manager.beginSerial();
 
-  Feather.begin_serial(true);
-  Feather.parse_config(json_config);
-  Feather.print_config();
+  // Enable the hypnos rails
+  hypnos.enable();
 
-  // Register an interrupt on the RTC alarm pin
-  getInterruptManager(Feather).register_ISR(12, wakeISR_RTC, LOW, ISR_Type::IMMEDIATE);
+  // Load the WiFi login credentials from a file on the SD card
+  wifi.loadConfigFromJSON(hypnos.readFile("wifi_creds.json"));
 
+  // Initialize all in-use modules
+  manager.initialize();
+
+ 
+
+  // Register the ISR and attach to the interrupt
+  hypnos.registerInterrupt(isrTrigger);
+}
+
+void loop() {
+
+  // Measure and package the data
+  manager.measure();
+  manager.package();
   
-  // Get the device name and then using the device name, instance number and site name create a topic name to publish to
-  Feather.get_device_name(devName);
-  topic = String(SITE_NAME) + "/" + String(devName) + String(Feather.get_instance_num());
+  // Print the current JSON packet
+  manager.display_data();            
 
-  enable_wifi();
+  // Log the data to the SD card              
+  hypnos.logToSD();
 
-  LPrintln("\n ** Setup Complete ** ");
-  Serial.flush();
-}
+  // Publish the collected data to MQTT
+  mqtt.publish();
 
+  // Set the RTC interrupt alarm to wake the device in 10 seconds
+  hypnos.setInterruptDuration(TimeSpan(0, 0, 0, 10));
 
-void loop()
-{
-  digitalWrite(5, LOW); // Disable 3.3V rail
-  digitalWrite(6, HIGH);  // Disable 5V rail
-  digitalWrite(13, HIGH);
-
-  // As it turns out, if the SD card is initialized and you change
-  // the states of the pins to ANY VALUE, the SD card will fail to
-  // write. As a result, we ensure that the board has been turned
-  // off at least once before we make any changes to the pin states
-  if (rtc_flag) {
-    pinMode(23, OUTPUT);
-    pinMode(24, OUTPUT);
-    pinMode(10, OUTPUT);
-
-    // delay(1000);
-
-    Feather.power_up();
-  }
-
-  Feather.measure();
-  Feather.package();
-  Feather.display_data();
-
-  getSD(Feather).log();
-
-  connect_to_wifi();
-  connect_to_broker(1);
-
-  doc.clear();
-  jsonSerialized = "";
-  doc.add(Feather.internal_json(false));
-  serializeJson(doc, jsonSerialized);
-  publish_mqtt(topic, jsonSerialized);
-
-
-  // set the RTC alarm to a duration of 10 seconds with TimeSpan
-  getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0,0,0,10));
-  getInterruptManager(Feather).reconnect_interrupt(12);
-
-  disconnect_wifi();
-
-  digitalWrite(13, LOW);
-  digitalWrite(5, HIGH); // Enable 3.3V rail
-  digitalWrite(6, LOW);  // Enable 5V rail
-  pinMode(23, INPUT);
-  pinMode(24, INPUT);
-  pinMode(10, INPUT);
-
-  rtc_flag = false;
-  Feather.power_down();
-  getSleepManager(Feather).sleep();
-  //Feather.pause();
-  Feather.power_up();
-  while (!rtc_flag);
+  // Reattach to the interrupt after we have set the alarm so we can have repeat triggers
+  hypnos.reattachRTCInterrupt();
+  
+  // Put the device into a deep sleep, operation HALTS here until the interrupt is triggered
+  hypnos.sleep(false);
 }
