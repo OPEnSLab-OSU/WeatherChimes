@@ -1,5 +1,5 @@
 # WeatherChimes
-## Completed By: Winnie Woo, Will Richards, Rij Dorfman
+## Completed By: Winnie Woo, Will Richards
 ---
 ### [WeatherChimes Wiki](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/WeatherChimes)
 
