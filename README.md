@@ -1,5 +1,5 @@
 # WeatherChimes
-## Completed By: Winnie Woo, Will Richards, Rij Dorfman
+## Completed By: Winnie Woo, Will Richards
 ---
 ### [WeatherChimes Wiki](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/WeatherChimes)
 
@@ -13,7 +13,7 @@ WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPE
 
 
 ## Before Installation
-Before code can be uploaded to the Feather, download the [Arduino IDE software](https://www.arduino.cc/en/software) and set up the board profile to include the necessary libraries such as Loom, TSL2591, SHT30 and SDI-12, instructions for completing these steps are present in our [Quick Start Guide](https://github.com/OPEnSLab-OSU/Loom/wiki/Arduino-and-Loom-Quick-Setup).
+Before code can be uploaded to the Feather, download the [Arduino IDE software](https://www.arduino.cc/en/software) and set up the board profile to include the necessary libraries such as Loom, TSL2591, SHT30 and SDI-12, instructions for completing these steps are present in our [Quick Start Guide](https://github.com/OPEnSLab-OSU/Loom-V4).
 
 ## Setting Up Mosquitto
 Mosquitto is an MQTT broker used for handling communication with remote devices over the MQTT protocol
@@ -65,18 +65,18 @@ It is **recommended** that you utilize [MongoDB Clusters](https://www.mongodb.co
 
 Uploading the code to the Feather WiFi requires an USB cable. 
 Download the code from the WeatherChimes Github repository and put WeatherChimes.ino, arduino_secrets.h and config.h in the same folder and open in Arduino.
-Go to Tools >> Board >> Loom SAMD boards >> Loomified Feather M0. Then also check Tools >> Ports and see if the correct port has been selected and the board is appearing on said port. Upload the code to the Feather, after it has finished compiling, check to see if the upload was successful by opening the Arduino IDE serial monitor to see successful connections to the WiFi and MQTT broker as well as the packets of data being sent over the MQTT protocol. 
+Go to Tools >> Board >> Loom SAMD boards V4 >> Loomified Feather M0. Then also check Tools >> Ports and see if the correct port has been selected and the board is appearing on said port. Upload the code to the Feather, after it has finished compiling, check to see if the upload was successful by opening the Arduino IDE serial monitor to see successful connections to the WiFi and MQTT broker as well as the packets of data being sent over the MQTT protocol. 
 
 The system clock needs to be set on the first run or when the Hypnos coin cell battery is reset. 
 Within the weatherchimes.ino, line 141:
 
-`141 getInterruptManager(Feather).RTC_alarm_duration(TimeSpan(0, 0, 10, 0));`
+`80 hypnos.setInterruptDuration(TimeSpan(0, 0, 0, 10));`
 
 The sampling interval could be changed to any duration. From left to right, the numbers represent days, hours, minutes and seconds. 
 
 ### Getting the Arduino to connect to the internet and send to Mosquitto
 
-The arduino_secrets.h file also needs to include the user’s WiFi name and password, as well as the MQTT settings. The SECRET_SSID and SECRET_PASS variables correspond to the WiFi router name and password. This WiFi router should be connected to the World Wide Web with no firewall settings that would restrict communications on the Broker Port. BROKER_USER and BROKER_PASSWORD correspond to the username and password set on the MQTT broker. The SECRET_BROKER is the server (IP Address / Hostname) where the MQTT Broker is listening. The BROKER_PORT is where that MQTT Broker is listening on the hostname. Finally, the SITE_NAME is not directly related to MQTT but rather the passthrough process as a whole, this tells the MongoDB server which database we should store the data in as it is passed along as the first level in the MQTT topic. 
+The arduino_secrets.h file also needs to include the MQTT settings. The BROKER_USER and BROKER_PASSWORD correspond to the username and password set on the MQTT broker. The SECRET_BROKER is the server (IP Address / Hostname) where the MQTT Broker is listening. The BROKER_PORT is where that MQTT Broker is listening on the hostname. Finally, the SITE_NAME is not directly related to MQTT but rather the passthrough process as a whole, this tells the MongoDB server which database we should store the data in as it is passed along as the first level in the MQTT topic. 
 ```
 2  // Wifi settings
 3  #define SECRET_SSID "Example_SSID"
@@ -90,16 +90,9 @@ The arduino_secrets.h file also needs to include the user’s WiFi name and pass
 11 #define SITE_NAME "WeatherChimes" //The name of the location where these  nodes will be placed
 ```
 
-
- The instance number in the config.h needs to be changed so it logs to the right collection. The interval value does not matter. 
- ```
-1 {\
-2  'general':\
-3  {\
-4    'name':'Chime',\   
-5    'instance':1,\
-6    'interval':2000\
-7  },\
+The instance number in the WeatherChimes.ino file also needs to be changed that can be done here, where the 1 is the instance number
+```
+23 Manager manager("Chime", 1);
 ```
 <br>
 
@@ -130,7 +123,7 @@ After all of this information is typed into the corresponding boxes, click Send,
 
 Data will be streamed out of the outlet of the patch, and can be used seamlessly with the Loom Sensor Max Patch to read data.
 
-When connected successfully, if the inlet of the Max Patch recieves a bang it will output the most recent data that was sent to the connected collection. This also happens upon connecting when Send is clicked.
+When connected successfully, if the inlet of the Max Patch receives a bang it will output the most recent data that was sent to the connected collection. This also happens upon connecting when Send is clicked.
 
 Further additions can be made to this Patch using the MongoDB node package to get aggregated data outputs and much more. 
   - https://docs.mongodb.com/manual/

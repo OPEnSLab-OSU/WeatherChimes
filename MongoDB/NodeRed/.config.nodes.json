@@ -409,7 +409,7 @@
         "name": "node-red-node-mongodb",
         "version": "0.2.5",
         "local": true,
-        "user": true,
+        "user": false,
         "nodes": {
             "mongo": {
                 "name": "mongo",

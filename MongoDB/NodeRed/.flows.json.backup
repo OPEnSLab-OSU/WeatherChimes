@@ -60,8 +60,7 @@
         "y": 420,
         "wires": [
             [
-                "09d01440fb486178",
-                "d7953d487179fe51"
+                "09d01440fb486178"
             ]
         ]
     },
@@ -130,12 +129,50 @@
         "y": 420,
         "wires": [
             [
-                "0eebb8f0ba9de49b"
+                "0eebb8f0ba9de49b",
+                "bd45d17324baa150"
             ]
         ]
     },
     {
-        "id": "d7953d487179fe51",
+        "id": "0eebb8f0ba9de49b",
+        "type": "function",
+        "z": "6a28d8d6c0894321",
+        "name": "parse_date",
+        "func": "if(msg.database === \"WeatherChimes\"){\n    var formattedDate = \"\"\n    var i = 0;\n    var splitDate = msg.payload[\"Timestamp\"][\"date\"].split(\"/\");\n    \n    splitDate.forEach(element => {\n        \n        // If the date is less than 10 add a 0 in front \n        if(element < 10){\n            formattedDate += \"0\" + element; \n        }\n        \n        // If not simply append it to the list\n        else{\n            formattedDate += element;\n        }\n        \n        // Make sure its not the last element in thje date\n        if(i != splitDate.length - 1){\n            formattedDate += \"-\"\n        }\n        i++;\n    });\n    var dateString = formattedDate + \"T\" + msg.payload[\"Timestamp\"][\"time\"] + \"Z\";\n    msg.payload[\"Timestamp\"] = {\"time\": dateString};\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 420,
+        "wires": [
+            [
+                "25de379ab8b6d0e9",
+                "b784fbbec814ab4e"
+            ]
+        ]
+    },
+    {
+        "id": "bd45d17324baa150",
+        "type": "debug",
+        "z": "6a28d8d6c0894321",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "database",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "b784fbbec814ab4e",
         "type": "debug",
         "z": "6a28d8d6c0894321",
         "name": "",
@@ -146,27 +183,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 310,
-        "y": 560,
+        "x": 1030,
+        "y": 540,
         "wires": []
-    },
-    {
-        "id": "0eebb8f0ba9de49b",
-        "type": "function",
-        "z": "6a28d8d6c0894321",
-        "name": "parse_date",
-        "func": "var formattedDate = \"\"\nvar i = 0;\nvar splitDate = msg.payload[\"Timestamp\"][\"date\"].split(\"/\");\n\nsplitDate.forEach(element => {\n    \n    // If the date is less than 10 add a 0 in front \n    if(element < 10){\n        formattedDate += \"0\" + element; \n    }\n    \n    // If not simply append it to the list\n    else{\n        formattedDate += element;\n    }\n    \n    // Make sure its not the last element in thje date\n    if(i != splitDate.length - 1){\n        formattedDate += \"-\"\n    }\n    i++;\n});\nvar dateString = formattedDate + \"T\" + msg.payload[\"Timestamp\"][\"time\"] + \"Z\";\nmsg.payload[\"Timestamp\"] = {\"time\": dateString};\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 850,
-        "y": 420,
-        "wires": [
-            [
-                "25de379ab8b6d0e9"
-            ]
-        ]
     }
 ]
