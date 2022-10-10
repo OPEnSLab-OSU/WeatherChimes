@@ -6,5 +6,5 @@ This is the functional code that will be pushed to the Feather M0
 This code uses the new and improved Loom Version 4
 
 <b>
-wifi_creds.json Should be dropped onto the root of the SD card
+wifi_creds.json and mqtt_creds.json Should be dropped onto the root of the SD card
 </b>
