@@ -5,8 +5,6 @@
  * 
  * MANAGER MUST BE INCLUDED FIRST IN ALL CODE
  */
-#include "arduino_secrets.h"
-
 #include <Loom_Manager.h>
 
 #include <Hardware/Loom_Hypnos/Loom_Hypnos.h>
