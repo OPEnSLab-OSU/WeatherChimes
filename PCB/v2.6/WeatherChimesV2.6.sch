@@ -12133,8 +12133,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="GND4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="HP1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_16" device="" package3d_urn="urn:adsk.eagle:package:38258/1"/>
 <part name="HP2" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_12" device="" package3d_urn="urn:adsk.eagle:package:38169/1"/>
-<part name="U$6" library="microbuilder" deviceset="MOUNTINGHOLE" device="2.5"/>
-<part name="U$7" library="microbuilder" deviceset="MOUNTINGHOLE" device="2.5"/>
 <part name="U1" library="PNNL_Probe" deviceset="MS5803-02BA" device=""/>
 <part name="JP5" library="pinhead_simple" deviceset="PINHD-1X1" device="" package3d_urn="urn:adsk.eagle:package:22485/2" value="GND"/>
 <part name="SUPPLY1" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="GND" device=""/>
@@ -12150,7 +12148,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="JP4" library="pinhead_simple" deviceset="PINHD-1X1" device="" package3d_urn="urn:adsk.eagle:package:22485/2" value="VCC"/>
 <part name="SJ1" library="SparkFun-Jumpers" library_urn="urn:adsk.eagle:library:528" deviceset="JUMPER-SMT_3_1-NC_TRACE" device="_SILK" package3d_urn="urn:adsk.eagle:package:39288/1"/>
 <part name="SUPPLY8" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="GND" device=""/>
-<part name="U$8" library="microbuilder" deviceset="MOUNTINGHOLE" device="2.5"/>
 </parts>
 <sheets>
 <sheet>
@@ -12210,8 +12207,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <attribute name="VALUE" x="203.2" y="91.186" size="1.778" layer="96" font="vector" rot="R180"/>
 <attribute name="NAME" x="203.2" y="55.372" size="1.778" layer="95" font="vector" rot="R180"/>
 </instance>
-<instance part="U$6" gate="G$1" x="160.02" y="-12.7" smashed="yes"/>
-<instance part="U$7" gate="G$1" x="167.64" y="-12.7" smashed="yes"/>
 <instance part="U1" gate="G$1" x="38.1" y="95.25" smashed="yes" grouprefs="MS580302BA">
 <attribute name="NAME" x="27.94" y="105.41" size="1.778" layer="95"/>
 <attribute name="VALUE" x="27.94" y="82.55" size="1.778" layer="96"/>
@@ -12264,7 +12259,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="SUPPLY8" gate="GND" x="62.23" y="101.6" smashed="yes" grouprefs="MS580302BA">
 <attribute name="VALUE" x="60.325" y="98.425" size="1.778" layer="96"/>
 </instance>
-<instance part="U$8" gate="G$1" x="167.64" y="-17.78" smashed="yes"/>
 </instances>
 <busses>
 </busses>
