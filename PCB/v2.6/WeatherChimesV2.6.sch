@@ -12112,6 +12112,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <schematic_group name="HYPNOS"/>
 <schematic_group name="MS580302BA"/>
 <schematic_group name="LTE_BOARD"/>
+<schematic_group name="SOLAR_CHARGER"/>
 </groups>
 <parts>
 <part name="SW_D11" library="SparkFun-Connectors" deviceset="M03" device="PTH"/>
@@ -12154,7 +12155,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <sheets>
 <sheet>
 <plain>
-<text x="83.82" y="-22.86" size="1.778" layer="91">SOLAR CHARGER</text>
 </plain>
 <instances>
 <instance part="SW_D11" gate="J$1" x="132.08" y="20.32" smashed="yes">
@@ -12187,18 +12187,17 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </instance>
 <instance part="U$4" gate="G$1" x="139.7" y="-20.32" smashed="yes"/>
 <instance part="U$5" gate="G$1" x="147.32" y="-20.32" smashed="yes"/>
-<instance part="GND1" gate="1" x="81.28" y="-12.7" smashed="yes">
-<attribute name="VALUE" x="78.74" y="-15.24" size="1.778" layer="96"/>
+<instance part="GND1" gate="1" x="81.28" y="-2.54" smashed="yes" grouprefs="SOLAR_CHARGER">
+<attribute name="VALUE" x="78.74" y="-5.08" size="1.778" layer="96"/>
 </instance>
-<instance part="JP1" gate="G$1" x="91.44" y="-7.62" smashed="yes" rot="R270">
-<attribute name="NAME" x="107.315" y="-1.27" size="1.778" layer="95" rot="R270"/>
-<attribute name="VALUE" x="73.66" y="-1.27" size="1.778" layer="96" rot="R270"/>
+<instance part="JP1" gate="G$1" x="91.44" y="2.54" smashed="yes" rot="R270" grouprefs="SOLAR_CHARGER">
+<attribute name="VALUE" x="73.66" y="8.89" size="1.778" layer="96" rot="R270"/>
 </instance>
-<instance part="GND2" gate="1" x="104.14" y="-15.24" smashed="yes">
-<attribute name="VALUE" x="101.6" y="-17.78" size="1.778" layer="96"/>
+<instance part="GND2" gate="1" x="104.14" y="-5.08" smashed="yes" grouprefs="SOLAR_CHARGER">
+<attribute name="VALUE" x="101.6" y="-7.62" size="1.778" layer="96"/>
 </instance>
-<instance part="GND3" gate="1" x="99.06" y="-15.24" smashed="yes">
-<attribute name="VALUE" x="96.52" y="-17.78" size="1.778" layer="96"/>
+<instance part="GND3" gate="1" x="99.06" y="-5.08" smashed="yes" grouprefs="SOLAR_CHARGER">
+<attribute name="VALUE" x="96.52" y="-7.62" size="1.778" layer="96"/>
 </instance>
 <instance part="GND4" gate="1" x="147.32" y="30.48" smashed="yes" rot="R180">
 <attribute name="VALUE" x="149.86" y="33.02" size="1.778" layer="96" rot="R180"/>
@@ -12309,18 +12308,18 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <label x="210.82" y="2.54" size="1.778" layer="95"/>
 </segment>
 <segment>
-<wire x1="81.28" y1="-5.08" x2="81.28" y2="-10.16" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="5.08" x2="81.28" y2="0" width="0.1524" layer="91" grouprefs="SOLAR_CHARGER"/>
 <pinref part="GND1" gate="1" pin="GND"/>
 <pinref part="JP1" gate="G$1" pin="10"/>
 </segment>
 <segment>
 <pinref part="GND2" gate="1" pin="GND"/>
-<wire x1="104.14" y1="-5.08" x2="104.14" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="104.14" y1="5.08" x2="104.14" y2="-2.54" width="0.1524" layer="91" grouprefs="SOLAR_CHARGER"/>
 <pinref part="JP1" gate="G$1" pin="1"/>
 </segment>
 <segment>
 <pinref part="GND3" gate="1" pin="GND"/>
-<wire x1="99.06" y1="-5.08" x2="99.06" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="5.08" x2="99.06" y2="-2.54" width="0.1524" layer="91" grouprefs="SOLAR_CHARGER"/>
 <pinref part="JP1" gate="G$1" pin="3"/>
 </segment>
 <segment>
@@ -12597,8 +12596,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <net name="VBAT" class="0">
 <segment>
 <pinref part="JP1" gate="G$1" pin="4"/>
-<wire x1="96.52" y1="-5.08" x2="96.52" y2="-12.7" width="0.1524" layer="91"/>
-<label x="93.98" y="-12.7" size="1.778" layer="95"/>
+<wire x1="96.52" y1="5.08" x2="96.52" y2="-2.54" width="0.1524" layer="91" grouprefs="SOLAR_CHARGER"/>
+<label x="93.98" y="-2.54" size="1.778" layer="95" grouprefs="SOLAR_CHARGER"/>
 </segment>
 <segment>
 <pinref part="HP2" gate="G$1" pin="1"/>
@@ -12609,8 +12608,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <net name="PGOOD" class="0">
 <segment>
 <pinref part="JP1" gate="G$1" pin="6"/>
-<wire x1="91.44" y1="-5.08" x2="91.44" y2="-12.7" width="0.1524" layer="91"/>
-<label x="91.44" y="-12.7" size="1.27" layer="95" rot="R270" xref="yes"/>
+<wire x1="91.44" y1="5.08" x2="91.44" y2="-2.54" width="0.1524" layer="91" grouprefs="SOLAR_CHARGER"/>
+<label x="91.44" y="-2.54" size="1.27" layer="95" rot="R270" xref="yes" grouprefs="SOLAR_CHARGER"/>
 </segment>
 <segment>
 <pinref part="HP1" gate="G$1" pin="9"/>
