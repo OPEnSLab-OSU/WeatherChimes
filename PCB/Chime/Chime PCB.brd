@@ -309,7 +309,7 @@
 <wire x1="53.34" y1="20.32" x2="53.34" y2="1.27" width="0.2032" layer="21"/>
 <wire x1="53.34" y1="1.27" x2="26.67" y2="1.27" width="0.2032" layer="21"/>
 <wire x1="26.67" y1="1.27" x2="26.67" y2="20.32" width="0.2032" layer="21"/>
-<text x="25.654" y="3.429" size="1.27" layer="21" rot="R90">SOLAR CHARGER</text>
+<text x="25.654" y="3.429" size="1.27" layer="21" ratio="12" rot="R90">SOLAR CHARGER</text>
 <wire x1="87.122" y1="10.541" x2="92.075" y2="10.541" width="0.2032" layer="25" curve="-180"/>
 <circle x="89.662" y="13.589" radius="0.523634375" width="0.2032" layer="25"/>
 <wire x1="88.392" y1="10.541" x2="88.392" y2="9.271" width="0.2032" layer="25"/>
