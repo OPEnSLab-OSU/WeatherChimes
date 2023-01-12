@@ -196,10 +196,10 @@
 </layers>
 <board>
 <plain>
-<wire x1="-1.27" y1="1.27" x2="99.04" y2="1.27" width="0" layer="20"/>
+<wire x1="0" y1="1.27" x2="99.04" y2="1.27" width="0" layer="20"/>
 <wire x1="99.04" y1="1.27" x2="98.913" y2="80.061" width="0" layer="20"/>
-<wire x1="98.913" y1="80.061" x2="-1.27" y2="80.188" width="0" layer="20"/>
-<wire x1="-1.27" y1="80.188" x2="-1.27" y2="1.27" width="0" layer="20"/>
+<wire x1="98.913" y1="80.061" x2="0" y2="80.188" width="0" layer="20"/>
+<wire x1="0" y1="80.188" x2="0" y2="1.27" width="0" layer="20"/>
 <dimension x1="-2.54" y1="1.27" x2="-2.54" y2="80.01" x3="-8.89" y3="40.64" textsize="1.778" layer="20" unit="inch"/>
 <dimension x1="26.67" y1="-30.48" x2="-6.35" y2="-30.48" x3="10.16" y3="-27.94" textsize="1.778" layer="47" unit="inch"/>
 <dimension x1="-8.89" y1="-33.02" x2="29.21" y2="-34.29" x3="10.16" y3="-24.003" textsize="1.778" layer="47" dtype="horizontal" unit="inch"/>
@@ -311,7 +311,6 @@
 <wire x1="53.34" y1="1.27" x2="26.67" y2="1.27" width="0.2032" layer="21"/>
 <wire x1="26.67" y1="1.27" x2="26.67" y2="20.32" width="0.2032" layer="21"/>
 <text x="25.654" y="3.429" size="1.27" layer="21" rot="R90">SOLAR CHARGER</text>
-<dimension x1="-1.27" y1="81.28" x2="99.06" y2="81.28" x3="48.895" y3="82.55" textsize="1.778" layer="20" unit="inch"/>
 <wire x1="87.122" y1="10.541" x2="92.075" y2="10.541" width="0.2032" layer="25" curve="-180"/>
 <circle x="89.662" y="13.589" radius="0.523634375" width="0.2032" layer="25"/>
 <wire x1="88.392" y1="10.541" x2="88.392" y2="9.271" width="0.2032" layer="25"/>
@@ -332,6 +331,7 @@
 <wire x1="87.122" y1="10.541" x2="92.075" y2="10.541" width="0.2032" layer="25" curve="-180"/>
 <wire x1="87.122" y1="10.541" x2="92.075" y2="10.541" width="0.2032" layer="25"/>
 <circle x="89.662" y="13.589" radius="0.523634375" width="0.2032" layer="25"/>
+<dimension x1="0" y1="82.55" x2="99.06" y2="82.55" x3="49.53" y3="83.82" textsize="1.778" layer="20" unit="inch"/>
 </plain>
 <libraries>
 <library name="SparkFun-Connectors">
@@ -2558,10 +2558,10 @@ design rules under a new name.</description>
 <contactref element="U$1" pad="GND1"/>
 <contactref element="U$1" pad="GND3"/>
 <polygon width="0.1524" layer="1">
-<vertex x="-1.27" y="80.01"/>
+<vertex x="0" y="80.01"/>
 <vertex x="99.06" y="80.01"/>
 <vertex x="99.06" y="1.27"/>
-<vertex x="-1.27" y="1.27"/>
+<vertex x="0" y="1.27"/>
 </polygon>
 <contactref element="HP1" pad="4"/>
 <contactref element="JP5" pad="1"/>
