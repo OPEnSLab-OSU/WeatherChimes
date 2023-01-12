@@ -196,12 +196,11 @@
 </layers>
 <board>
 <plain>
-<wire x1="-1.27" y1="1.27" x2="101.58" y2="1.27" width="0" layer="20"/>
-<wire x1="101.58" y1="1.27" x2="101.453" y2="80.061" width="0" layer="20"/>
-<wire x1="101.453" y1="80.061" x2="-1.27" y2="80.188" width="0" layer="20"/>
+<wire x1="-1.27" y1="1.27" x2="100.31" y2="1.27" width="0" layer="20"/>
+<wire x1="100.31" y1="1.27" x2="100.183" y2="80.061" width="0" layer="20"/>
+<wire x1="100.183" y1="80.061" x2="-1.27" y2="80.188" width="0" layer="20"/>
 <wire x1="-1.27" y1="80.188" x2="-1.27" y2="1.27" width="0" layer="20"/>
 <dimension x1="-2.54" y1="1.27" x2="-2.54" y2="80.01" x3="-8.89" y3="40.64" textsize="1.778" layer="20" unit="inch"/>
-<dimension x1="-1.27" y1="106.68" x2="101.6" y2="106.68" x3="50.165" y3="83.819996875" textsize="1.778" layer="20" unit="inch"/>
 <dimension x1="26.67" y1="-30.48" x2="-6.35" y2="-30.48" x3="10.16" y3="-27.94" textsize="1.778" layer="47" unit="inch"/>
 <dimension x1="-8.89" y1="-33.02" x2="29.21" y2="-34.29" x3="10.16" y3="-24.003" textsize="1.778" layer="47" dtype="horizontal" unit="inch"/>
 <dimension x1="-6.35" y1="-63.5" x2="-5.715" y2="-30.48" x3="-24.892" y3="-46.99" textsize="1.778" layer="47" dtype="vertical" unit="inch"/>
@@ -330,6 +329,7 @@
 <wire x1="53.34" y1="1.27" x2="26.67" y2="1.27" width="0.2032" layer="21"/>
 <wire x1="26.67" y1="1.27" x2="26.67" y2="20.32" width="0.2032" layer="21"/>
 <text x="25.654" y="3.429" size="1.27" layer="21" rot="R90">SOLAR CHARGER</text>
+<dimension x1="-1.27" y1="82.55" x2="100.33" y2="82.55" x3="49.53" y3="85.09" textsize="1.778" layer="20" dtype="horizontal" unit="inch"/>
 </plain>
 <libraries>
 <library name="SparkFun-Connectors">
@@ -2557,8 +2557,8 @@ design rules under a new name.</description>
 <contactref element="U$1" pad="GND3"/>
 <polygon width="0.1524" layer="1">
 <vertex x="-1.27" y="80.01"/>
-<vertex x="101.6" y="80.01"/>
-<vertex x="101.6" y="1.27"/>
+<vertex x="100.33" y="80.01"/>
+<vertex x="100.33" y="1.27"/>
 <vertex x="-1.27" y="1.27"/>
 </polygon>
 <contactref element="HP1" pad="4"/>
