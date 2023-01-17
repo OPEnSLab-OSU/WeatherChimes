@@ -19293,90 +19293,6 @@ Source: &lt;a href="https://www.phoenixcontact.com/online/portal/us/pxc/product_
 </deviceset>
 </devicesets>
 </library>
-<library name="1725669">
-<description>&lt;PCB terminal block, nominal current: 6 A, rated voltage (III/2): 160 V, nominal cross section: 0.5 mm?, Number of potentials: 3, Number of rows: 1, Number of positions per row: 3, product range: MPT 0,5, pitch: 2.54 mm, connection method: Screw connection with tension sleeve, mounting: Wave soldering, conductor/PCB connection direction: 0 ?, color: green, Pin layout: Linear pinning, Solder pin [P]: 3.5 mm, type of packaging: packed in cardboard&lt;/b&gt;&lt;p&gt;
-&lt;author&gt;Created by SamacSys&lt;/author&gt;</description>
-<packages>
-<package name="1725669">
-<description>&lt;b&gt;1725669-4&lt;/b&gt;&lt;br&gt;
-</description>
-<pad name="1" x="0" y="0" drill="1.1" diameter="1.65" shape="square"/>
-<pad name="2" x="2.54" y="0" drill="1.1" diameter="1.65"/>
-<pad name="3" x="5.08" y="0" drill="1.1" diameter="1.65"/>
-<hole x="0" y="-2.54" drill="1.1"/>
-<hole x="2.54" y="-2.54" drill="1.1"/>
-<hole x="5.08" y="-2.54" drill="1.1"/>
-<text x="2.54" y="0" size="1.27" layer="25" align="center">&gt;NAME</text>
-<text x="2.54" y="0" size="1.27" layer="27" align="center">&gt;VALUE</text>
-<wire x1="-1.5" y1="-3.1" x2="6.58" y2="-3.1" width="0.1" layer="51"/>
-<wire x1="6.58" y1="-3.1" x2="6.58" y2="3.1" width="0.1" layer="51"/>
-<wire x1="6.58" y1="3.1" x2="-1.5" y2="3.1" width="0.1" layer="51"/>
-<wire x1="-1.5" y1="3.1" x2="-1.5" y2="-3.1" width="0.1" layer="51"/>
-<wire x1="-2.5" y1="4.1" x2="7.58" y2="4.1" width="0.1" layer="51"/>
-<wire x1="7.58" y1="4.1" x2="7.58" y2="-4.1" width="0.1" layer="51"/>
-<wire x1="7.58" y1="-4.1" x2="-2.5" y2="-4.1" width="0.1" layer="51"/>
-<wire x1="-2.5" y1="-4.1" x2="-2.5" y2="4.1" width="0.1" layer="51"/>
-<wire x1="-0.9" y1="-3.1" x2="-1.5" y2="-3.1" width="0.2" layer="21"/>
-<wire x1="-1.5" y1="-3.1" x2="-1.5" y2="3.1" width="0.2" layer="21"/>
-<wire x1="-1.5" y1="3.1" x2="6.58" y2="3.1" width="0.2" layer="21"/>
-<wire x1="6.58" y1="3.1" x2="6.58" y2="-3.1" width="0.2" layer="21"/>
-<wire x1="6.58" y1="-3.1" x2="6" y2="-3.1" width="0.2" layer="21"/>
-<wire x1="4.2" y1="-3.1" x2="3.3" y2="-3.1" width="0.2" layer="21"/>
-<wire x1="1.5" y1="-3.1" x2="0.9" y2="-3.1" width="0.2" layer="21"/>
-<wire x1="-2.1" y1="0" x2="-2.1" y2="0" width="0.2" layer="21"/>
-<wire x1="-2.1" y1="0" x2="-2" y2="0" width="0.2" layer="21" curve="180"/>
-<wire x1="-2" y1="0" x2="-2" y2="0" width="0.2" layer="21"/>
-<wire x1="-2" y1="0" x2="-2.1" y2="0" width="0.2" layer="21" curve="180"/>
-<wire x1="-2.1" y1="0" x2="-2.1" y2="0" width="0.2" layer="21"/>
-<wire x1="-2.1" y1="0" x2="-2" y2="0" width="0.2" layer="21" curve="180"/>
-</package>
-</packages>
-<symbols>
-<symbol name="1725669">
-<wire x1="5.08" y1="2.54" x2="15.24" y2="2.54" width="0.254" layer="94"/>
-<wire x1="15.24" y1="-7.62" x2="15.24" y2="2.54" width="0.254" layer="94"/>
-<wire x1="15.24" y1="-7.62" x2="5.08" y2="-7.62" width="0.254" layer="94"/>
-<wire x1="5.08" y1="2.54" x2="5.08" y2="-7.62" width="0.254" layer="94"/>
-<text x="16.51" y="7.62" size="1.778" layer="95" align="center-left">&gt;NAME</text>
-<text x="16.51" y="5.08" size="1.778" layer="96" align="center-left">&gt;VALUE</text>
-<pin name="1" x="0" y="0" length="middle"/>
-<pin name="2" x="0" y="-2.54" length="middle"/>
-<pin name="3" x="0" y="-5.08" length="middle"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="1725669" prefix="J">
-<description>&lt;b&gt;PCB terminal block, nominal current: 6 A, rated voltage (III/2): 160 V, nominal cross section: 0.5 mm?, Number of potentials: 3, Number of rows: 1, Number of positions per row: 3, product range: MPT 0,5, pitch: 2.54 mm, connection method: Screw connection with tension sleeve, mounting: Wave soldering, conductor/PCB connection direction: 0 ?, color: green, Pin layout: Linear pinning, Solder pin [P]: 3.5 mm, type of packaging: packed in cardboard&lt;/b&gt;&lt;p&gt;
-Source: &lt;a href="https://www.phoenixcontact.com/online/portal/us?uri=pxc-oc-itemdetail:pid=1725669&amp;library=usen&amp;tab=1"&gt; Datasheet &lt;/a&gt;</description>
-<gates>
-<gate name="G$1" symbol="1725669" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="1725669">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="2"/>
-<connect gate="G$1" pin="3" pad="3"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="ARROW_PART_NUMBER" value="1725669" constant="no"/>
-<attribute name="ARROW_PRICE-STOCK" value="https://www.arrow.com/en/products/1725669/phoenix-contact?region=nac" constant="no"/>
-<attribute name="DESCRIPTION" value="PCB terminal block, nominal current: 6 A, rated voltage (III/2): 160 V, nominal cross section: 0.5 mm?, Number of potentials: 3, Number of rows: 1, Number of positions per row: 3, product range: MPT 0,5, pitch: 2.54 mm, connection method: Screw connection with tension sleeve, mounting: Wave soldering, conductor/PCB connection direction: 0 ?, color: green, Pin layout: Linear pinning, Solder pin [P]: 3.5 mm, type of packaging: packed in cardboard" constant="no"/>
-<attribute name="HEIGHT" value="8.65mm" constant="no"/>
-<attribute name="MANUFACTURER_NAME" value="Phoenix Contact" constant="no"/>
-<attribute name="MANUFACTURER_PART_NUMBER" value="1725669" constant="no"/>
-<attribute name="MOUSER_PART_NUMBER" value="651-1725669" constant="no"/>
-<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/Phoenix-Contact/1725669?qs=A%2FKWGUWTCZjmkTL0Oe91ew%3D%3D" constant="no"/>
-<attribute name="MOUSER_TESTING_PART_NUMBER" value="" constant="no"/>
-<attribute name="MOUSER_TESTING_PRICE-STOCK" value="" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="SparkFun-Jumpers" urn="urn:adsk.eagle:library:528">
 <description>&lt;h3&gt;SparkFun Jumpers&lt;/h3&gt;
 In this library you'll find jumpers, or other semipermanent means of changing current paths. The least permanent form is the solder jumper. These can be changed by adding, removing, or moving solder. In cases that are less likely to be changed we have jumpers that are connected with traces. These can be cut with a razor, or reconnected with solder. Reference designator JP.
@@ -19633,6 +19549,74 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </deviceset>
 </devicesets>
 </library>
+<library name="Fixed Terminal Blocks 3P">
+<packages>
+<package name="TE_282834-3">
+<wire x1="-1.5" y1="3.25" x2="6.58" y2="3.25" width="0.127" layer="21"/>
+<wire x1="6.58" y1="3.25" x2="6.58" y2="-3.25" width="0.127" layer="21"/>
+<wire x1="6.58" y1="-3.25" x2="-1.5" y2="-3.25" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="-3.25" x2="-1.5" y2="3.25" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="3.25" x2="6.58" y2="3.25" width="0.127" layer="51"/>
+<wire x1="6.58" y1="3.25" x2="6.58" y2="-3.25" width="0.127" layer="51"/>
+<wire x1="6.58" y1="-3.25" x2="-1.5" y2="-3.25" width="0.127" layer="51"/>
+<wire x1="-1.5" y1="-3.25" x2="-1.5" y2="3.25" width="0.127" layer="51"/>
+<circle x="-2.032" y="0" radius="0.1" width="0.2" layer="21"/>
+<wire x1="-1.75" y1="3.5" x2="6.83" y2="3.5" width="0.05" layer="39"/>
+<wire x1="6.83" y1="3.5" x2="6.83" y2="-3.5" width="0.05" layer="39"/>
+<wire x1="6.83" y1="-3.5" x2="-1.75" y2="-3.5" width="0.05" layer="39"/>
+<wire x1="-1.75" y1="-3.5" x2="-1.75" y2="3.5" width="0.05" layer="39"/>
+<text x="-1.73053125" y="3.751159375" size="0.81305" layer="25">&gt;NAME</text>
+<text x="-1.73095" y="-4.50246875" size="0.813246875" layer="27">&gt;VALUE</text>
+<circle x="-2.032" y="0" radius="0.1" width="0.2" layer="51"/>
+<pad name="1" x="0" y="0" drill="1.36" shape="square"/>
+<pad name="2" x="2.54" y="0" drill="1.36"/>
+<pad name="3" x="5.08" y="0" drill="1.36"/>
+</package>
+</packages>
+<symbols>
+<symbol name="282834-3">
+<wire x1="2.54" y1="5.207" x2="2.54" y2="-5.207" width="0.254" layer="94"/>
+<wire x1="2.54" y1="-5.207" x2="-2.667" y2="-5.207" width="0.254" layer="94"/>
+<wire x1="-2.667" y1="-5.207" x2="-2.667" y2="5.207" width="0.254" layer="94"/>
+<wire x1="-2.667" y1="5.207" x2="2.54" y2="5.207" width="0.254" layer="94"/>
+<text x="-2.79565" y="5.591309375" size="1.0166" layer="95">&gt;NAME</text>
+<text x="-2.79453125" y="-6.605259375" size="1.016190625" layer="96">&gt;VALUE</text>
+<pin name="1" x="5.08" y="2.54" length="short" direction="pas" rot="R180"/>
+<pin name="2" x="5.08" y="0" length="short" direction="pas" rot="R180"/>
+<pin name="3" x="5.08" y="-2.54" length="short" direction="pas" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="282834-3" prefix="J">
+<description>Conn; Term Blk; PCB; Wire Receptacle; 3; 2.54mm; 30-16AWG; Green; 10A; 150V; M1.6 &lt;a href="https://pricing.snapeda.com/parts/282834-3/TE%20Connectivity/view-part?ref=eda"&gt;Check availability&lt;/a&gt;</description>
+<gates>
+<gate name="G$1" symbol="282834-3" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="TE_282834-3">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+<connect gate="G$1" pin="3" pad="3"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="AVAILABILITY" value="In Stock"/>
+<attribute name="COMMENT" value="282834-3"/>
+<attribute name="DESCRIPTION" value=" 3 Position Wire to Board Terminal Block Horizontal with Board 0.100 (2.54mm) "/>
+<attribute name="EU_ROHS_COMPLIANCE" value="Compliant with Exemptions"/>
+<attribute name="MF" value="TE Connectivity"/>
+<attribute name="MP" value="282834-3"/>
+<attribute name="PACKAGE" value="None"/>
+<attribute name="PRICE" value="None"/>
+<attribute name="PURCHASE-URL" value="https://pricing.snapeda.com/search/part/282834-3/?ref=eda"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -19701,13 +19685,13 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="J6_TSL2591" library="SparkFun-Connectors" deviceset="CONN_06" device="LOCK"/>
 <part name="J2_I2C" library="1725672" deviceset="1725672" device=""/>
 <part name="J1_SPI" library="1725698" deviceset="1725698" device=""/>
-<part name="J4_A1" library="1725669" deviceset="1725669" device=""/>
-<part name="J5_A0" library="1725669" deviceset="1725669" device=""/>
 <part name="U$17" library="microbuilder" deviceset="MOUNTINGHOLE" device="2.5"/>
 <part name="U$19" library="microbuilder" deviceset="MOUNTINGHOLE" device="2.5"/>
 <part name="J7_S3V" library="SparkFun-Connectors" deviceset="CONN_02" device=""/>
 <part name="J8_S5V" library="SparkFun-Connectors" deviceset="CONN_02" device=""/>
 <part name="SJ1" library="SparkFun-Jumpers" library_urn="urn:adsk.eagle:library:528" deviceset="JUMPER-SMT_3_1-NC_TRACE" device="_SILK" package3d_urn="urn:adsk.eagle:package:39288/1"/>
+<part name="J4_A1" library="Fixed Terminal Blocks 3P" deviceset="282834-3" device=""/>
+<part name="J5_A0" library="Fixed Terminal Blocks 3P" deviceset="282834-3" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -19883,12 +19867,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="J1_SPI" gate="G$1" x="281.94" y="60.96" smashed="yes" rot="R180">
 <attribute name="NAME" x="273.812" y="78.486" size="1.778" layer="95" rot="R180" align="center-left"/>
 </instance>
-<instance part="J4_A1" gate="G$1" x="339.852" y="63.246" smashed="yes" rot="R180">
-<attribute name="NAME" x="330.708" y="72.39" size="1.778" layer="95" rot="R180" align="center-left"/>
-</instance>
-<instance part="J5_A0" gate="G$1" x="340.106" y="78.994" smashed="yes" rot="R180">
-<attribute name="NAME" x="330.708" y="88.392" size="1.778" layer="95" rot="R180" align="center-left"/>
-</instance>
 <instance part="U$17" gate="G$1" x="271.018" y="44.45" smashed="yes"/>
 <instance part="U$19" gate="G$1" x="271.272" y="38.354" smashed="yes"/>
 <instance part="J7_S3V" gate="G$1" x="353.06" y="63.5" smashed="yes">
@@ -19901,6 +19879,12 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </instance>
 <instance part="SJ1" gate="G$1" x="127" y="127" smashed="yes" grouprefs="MS580302BA">
 <attribute name="NAME" x="129.286" y="126.873" size="1.778" layer="95"/>
+</instance>
+<instance part="J4_A1" gate="G$1" x="330.2" y="63.5" smashed="yes">
+<attribute name="NAME" x="327.40435" y="69.091309375" size="1.0166" layer="95"/>
+</instance>
+<instance part="J5_A0" gate="G$1" x="330.2" y="78.74" smashed="yes">
+<attribute name="NAME" x="327.40435" y="84.331309375" size="1.0166" layer="95"/>
 </instance>
 </instances>
 <busses>
@@ -20001,16 +19985,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <label x="315.468" y="65.024" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J4_A1" gate="G$1" pin="3"/>
-<wire x1="339.852" y1="68.326" x2="344.424" y2="68.326" width="0.1524" layer="91"/>
-<label x="342.9" y="68.58" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="J5_A0" gate="G$1" pin="3"/>
-<wire x1="340.106" y1="84.074" x2="345.186" y2="84.074" width="0.1524" layer="91"/>
-<label x="342.9" y="83.82" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="J6_TSL2591" gate="JP1" pin="3"/>
 <wire x1="279.4" y1="93.98" x2="287.02" y2="93.98" width="0.1524" layer="91"/>
 <label x="281.94" y="93.98" size="1.778" layer="95"/>
@@ -20034,6 +20008,16 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="C5" gate="G$1" pin="2"/>
 <pinref part="GND10" gate="1" pin="GND"/>
 <wire x1="116.84" y1="45.72" x2="116.84" y2="48.26" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="J4_A1" gate="G$1" pin="1"/>
+<wire x1="335.28" y1="66.04" x2="340.36" y2="66.04" width="0.1524" layer="91"/>
+<label x="337.82" y="66.04" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J5_A0" gate="G$1" pin="1"/>
+<wire x1="335.28" y1="81.28" x2="340.36" y2="81.28" width="0.1524" layer="91"/>
+<label x="337.82" y="81.28" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="VCC" class="0">
@@ -20097,19 +20081,19 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <label x="315.468" y="62.484" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J4_A1" gate="G$1" pin="1"/>
-<wire x1="339.852" y1="63.246" x2="344.932" y2="63.246" width="0.1524" layer="91"/>
-<label x="342.9" y="63.5" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="J5_A0" gate="G$1" pin="1"/>
-<wire x1="340.106" y1="78.994" x2="345.186" y2="78.994" width="0.1524" layer="91"/>
-<label x="342.9" y="78.74" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="J6_TSL2591" gate="JP1" pin="2"/>
 <wire x1="279.4" y1="91.44" x2="287.02" y2="91.44" width="0.1524" layer="91"/>
 <label x="281.94" y="91.44" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J4_A1" gate="G$1" pin="3"/>
+<wire x1="335.28" y1="60.96" x2="340.36" y2="60.96" width="0.1524" layer="91"/>
+<label x="337.82" y="60.96" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J5_A0" gate="G$1" pin="3"/>
+<wire x1="335.28" y1="76.2" x2="340.36" y2="76.2" width="0.1524" layer="91"/>
+<label x="337.82" y="76.2" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="A1" class="0">
@@ -20120,8 +20104,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </segment>
 <segment>
 <pinref part="J4_A1" gate="G$1" pin="2"/>
-<wire x1="339.852" y1="65.786" x2="344.678" y2="65.786" width="0.1524" layer="91"/>
-<label x="342.9" y="66.04" size="1.778" layer="95"/>
+<wire x1="335.28" y1="63.5" x2="340.36" y2="63.5" width="0.1524" layer="91"/>
+<label x="337.82" y="63.5" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="A2" class="0">
@@ -20329,8 +20313,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </segment>
 <segment>
 <pinref part="J5_A0" gate="G$1" pin="2"/>
-<wire x1="340.106" y1="81.534" x2="345.186" y2="81.534" width="0.1524" layer="91"/>
-<label x="342.9" y="81.28" size="1.778" layer="95"/>
+<wire x1="335.28" y1="78.74" x2="340.36" y2="78.74" width="0.1524" layer="91"/>
+<label x="337.82" y="78.74" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="P9" class="0">
