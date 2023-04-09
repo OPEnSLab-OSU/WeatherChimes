@@ -142,15 +142,19 @@
 </layers>
 <board>
 <plain>
-<wire x1="0" y1="0" x2="26.34" y2="0" width="0" layer="20"/>
-<wire x1="26.34" y1="0" x2="26.34" y2="30.47" width="0" layer="20"/>
-<wire x1="26.34" y1="30.47" x2="0" y2="30.47" width="0" layer="20"/>
-<wire x1="0" y1="30.47" x2="0" y2="0" width="0" layer="20"/>
 <dimension x1="-1.27" y1="30.48" x2="-1.27" y2="0" x3="-3.81" y3="15.24" textsize="1.778" layer="20" unit="inch"/>
 <text x="10.287" y="0.762" size="0.8128" layer="21">Chime Adaptor</text>
 <dimension x1="1.27" y1="21.59" x2="15.24" y2="21.59" x3="8.255" y3="21.59" textsize="1.778" layer="20" unit="inch"/>
 <dimension x1="1.27" y1="21.59" x2="1.27" y2="1.27" x3="1.27" y3="11.43" textsize="1.778" layer="20" unit="inch"/>
 <dimension x1="0" y1="31.75" x2="26.67" y2="31.75" x3="13.335" y3="33.02" textsize="1.778" layer="20" unit="inch"/>
+<wire x1="3.81" y1="0" x2="0" y2="2.54" width="0.1524" layer="20" curve="-90"/>
+<wire x1="22.86" y1="0" x2="26.67" y2="3.81" width="0.1524" layer="20" curve="90"/>
+<wire x1="3.81" y1="0" x2="22.86" y2="0" width="0.1524" layer="20"/>
+<wire x1="0" y1="26.67" x2="3.81" y2="31.75" width="0.1524" layer="20" curve="-90"/>
+<wire x1="21.59" y1="31.75" x2="26.67" y2="26.67" width="0.1524" layer="20" curve="-90"/>
+<wire x1="3.81" y1="31.75" x2="21.59" y2="31.75" width="0.1524" layer="20"/>
+<wire x1="26.67" y1="26.67" x2="26.67" y2="3.81" width="0.1524" layer="20"/>
+<wire x1="0" y1="26.67" x2="0" y2="2.54" width="0.1524" layer="20"/>
 </plain>
 <libraries>
 <library name="Fixed Terminal 4P">
@@ -419,13 +423,13 @@ design rules under a new name.</description>
 </pass>
 </autorouter>
 <elements>
-<element name="J1" library="Fixed Terminal 4P" package="1725672" value="1725672" x="19.05" y="25.781" smashed="yes" rot="R180">
-<attribute name="DESCRIPTION" value="4 way vertical PCB terminal,6A 63V Phoenix Contact Non-Fused Terminal Block, 4 Way, Solder Terminals, 26 ??? 20 AWG Through Hole, Nylon, 63 V" x="-5.08" y="30.861" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="HEIGHT" value="8.65mm" x="-5.08" y="30.861" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="MANUFACTURER_NAME" value="Phoenix Contact" x="-5.08" y="30.861" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="MANUFACTURER_PART_NUMBER" value="1725672" x="-5.08" y="30.861" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="MOUSER_PART_NUMBER" value="651-1725672" x="-5.08" y="30.861" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/Phoenix-Contact/1725672?qs=Ul7CXFMnlWXX93F9bOV2pQ%3D%3D" x="-5.08" y="30.861" size="1.778" layer="27" rot="R180" display="off"/>
+<element name="J1" library="Fixed Terminal 4P" package="1725672" value="1725672" x="17.399" y="26.416" smashed="yes" rot="R180">
+<attribute name="DESCRIPTION" value="4 way vertical PCB terminal,6A 63V Phoenix Contact Non-Fused Terminal Block, 4 Way, Solder Terminals, 26 ??? 20 AWG Through Hole, Nylon, 63 V" x="-6.731" y="31.496" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="HEIGHT" value="8.65mm" x="-6.731" y="31.496" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="MANUFACTURER_NAME" value="Phoenix Contact" x="-6.731" y="31.496" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="1725672" x="-6.731" y="31.496" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="MOUSER_PART_NUMBER" value="651-1725672" x="-6.731" y="31.496" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/Phoenix-Contact/1725672?qs=Ul7CXFMnlWXX93F9bOV2pQ%3D%3D" x="-6.731" y="31.496" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="JP1" library="adafruit" package="1X03" package3d_urn="urn:adsk.eagle:package:6240710/1" value="" x="21.717" y="20.193" smashed="yes" rot="R180">
 <attribute name="VALUE" x="25.527" y="23.368" size="1.27" layer="27" rot="R180"/>
@@ -446,10 +450,10 @@ design rules under a new name.</description>
 <contactref element="JP3" pad="3"/>
 <contactref element="J1" pad="3"/>
 <polygon width="0.1524" layer="1">
-<vertex x="0" y="30.48"/>
-<vertex x="26.67" y="30.48"/>
-<vertex x="26.67" y="0"/>
-<vertex x="0" y="0"/>
+<vertex x="-1.27" y="35.56"/>
+<vertex x="27.94" y="35.56"/>
+<vertex x="27.94" y="-1.27"/>
+<vertex x="-1.27" y="-1.27"/>
 </polygon>
 </signal>
 <signal name="SDA">
@@ -457,22 +461,20 @@ design rules under a new name.</description>
 <contactref element="JP3" pad="2"/>
 <contactref element="J1" pad="2"/>
 <wire x1="6.477" y1="20.193" x2="10.414" y2="24.13" width="0.1524" layer="1"/>
-<wire x1="10.414" y1="24.13" x2="15.367" y2="24.13" width="0.1524" layer="1"/>
-<wire x1="15.367" y1="24.13" x2="16.51" y2="25.273" width="0.1524" layer="1"/>
-<wire x1="16.51" y1="25.273" x2="16.51" y2="25.781" width="0.1524" layer="1"/>
-<wire x1="16.51" y1="25.781" x2="21.717" y2="20.574" width="0.1524" layer="16"/>
-<wire x1="21.717" y1="20.574" x2="21.717" y2="20.193" width="0.1524" layer="16"/>
+<wire x1="10.414" y1="24.13" x2="12.573" y2="24.13" width="0.1524" layer="1"/>
+<wire x1="12.573" y1="24.13" x2="14.859" y2="26.416" width="0.1524" layer="1"/>
+<wire x1="21.717" y1="20.193" x2="21.082" y2="20.193" width="0.1524" layer="16"/>
+<wire x1="21.082" y1="20.193" x2="14.859" y2="26.416" width="0.1524" layer="16"/>
 </signal>
 <signal name="SCL">
 <contactref element="JP1" pad="1"/>
 <contactref element="JP3" pad="1"/>
 <contactref element="J1" pad="1"/>
 <wire x1="9.017" y1="20.193" x2="12.319" y2="23.495" width="0.1524" layer="1"/>
-<wire x1="12.319" y1="23.495" x2="17.653" y2="23.495" width="0.1524" layer="1"/>
-<wire x1="17.653" y1="23.495" x2="19.05" y2="24.892" width="0.1524" layer="1"/>
-<wire x1="19.05" y1="24.892" x2="19.05" y2="25.781" width="0.1524" layer="1"/>
-<wire x1="19.05" y1="25.781" x2="24.257" y2="20.574" width="0.1524" layer="1"/>
-<wire x1="24.257" y1="20.574" x2="24.257" y2="20.193" width="0.1524" layer="1"/>
+<wire x1="12.319" y1="23.495" x2="14.478" y2="23.495" width="0.1524" layer="1"/>
+<wire x1="14.478" y1="23.495" x2="17.399" y2="26.416" width="0.1524" layer="1"/>
+<wire x1="24.257" y1="20.193" x2="23.622" y2="20.193" width="0.1524" layer="1"/>
+<wire x1="23.622" y1="20.193" x2="17.399" y2="26.416" width="0.1524" layer="1"/>
 </signal>
 <signal name="VCC">
 <contactref element="JP2" pad="3"/>
@@ -481,12 +483,10 @@ design rules under a new name.</description>
 <wire x1="3.937" y1="2.794" x2="5.588" y2="4.445" width="0.1524" layer="1"/>
 <wire x1="17.399" y1="4.445" x2="19.05" y2="2.794" width="0.1524" layer="1"/>
 <wire x1="5.588" y1="4.445" x2="17.399" y2="4.445" width="0.1524" layer="1"/>
-<wire x1="11.43" y1="25.781" x2="7.874" y2="22.225" width="0.1524" layer="1"/>
-<wire x1="7.874" y1="22.225" x2="2.54" y2="22.225" width="0.1524" layer="1"/>
-<wire x1="2.159" y1="4.572" x2="2.7305" y2="4.0005" width="0.1524" layer="1"/>
-<wire x1="2.7305" y1="4.0005" x2="3.937" y2="2.794" width="0.1524" layer="1"/>
+<wire x1="9.779" y1="26.416" x2="5.588" y2="22.225" width="0.1524" layer="1"/>
+<wire x1="5.588" y1="22.225" x2="2.54" y2="22.225" width="0.1524" layer="1"/>
 <wire x1="2.54" y1="22.225" x2="1.27" y2="20.955" width="0.1524" layer="1"/>
-<wire x1="1.27" y1="5.461" x2="2.159" y2="4.572" width="0.1524" layer="1"/>
+<wire x1="1.27" y1="5.461" x2="3.937" y2="2.794" width="0.1524" layer="1"/>
 <wire x1="1.27" y1="20.955" x2="1.27" y2="5.461" width="0.1524" layer="1"/>
 </signal>
 <signal name="N$5">

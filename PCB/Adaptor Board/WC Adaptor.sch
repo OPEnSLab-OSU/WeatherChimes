@@ -413,7 +413,7 @@ Source: &lt;a href="https://datasheet.datasheetarchive.com/originals/distributor
 </instance>
 <instance part="J1" gate="G$1" x="66.04" y="97.79" smashed="yes" rot="R180">
 <attribute name="NAME" x="49.53" y="90.17" size="1.778" layer="95" rot="R180" align="center-left"/>
-<attribute name="VALUE" x="49.53" y="92.71" size="1.778" layer="96" rot="R180" align="center-left"/>
+<attribute name="VALUE" x="57.15" y="92.71" size="1.778" layer="96" rot="R180" align="center-left"/>
 </instance>
 </instances>
 <busses>
