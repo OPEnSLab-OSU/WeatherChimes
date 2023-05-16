@@ -3,7 +3,7 @@
 <eagle version="9.6.2">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.005" altunitdist="inch" altunit="inch"/>
@@ -160,7 +160,7 @@
 <rectangle x1="0.889" y1="55.88" x2="6.477" y2="57.277" layer="21"/>
 <text x="0.889" y="54.61" size="1.016" layer="21">EZO pH</text>
 <text x="1.016" y="30.607" size="1.016" layer="21">EZO DO</text>
-<text x="0.635" y="7.493" size="1.016" layer="21">EZO RGB</text>
+<text x="0.635" y="7.493" size="1.016" layer="21">EZO C02</text>
 <text x="30.988" y="13.589" size="0.8128" layer="21">VCC</text>
 <text x="30.988" y="16.129" size="0.8128" layer="21">SDA</text>
 <text x="31.115" y="18.669" size="0.8128" layer="21">SCL</text>
