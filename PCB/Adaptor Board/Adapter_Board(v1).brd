@@ -3,7 +3,7 @@
 <eagle version="9.6.2">
 <drawing>
 <settings>
-<setting alwaysvectorfont="yes"/>
+<setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.005" altunitdist="inch" altunit="inch"/>
@@ -177,6 +177,22 @@
 <text x="7.493" y="16.129" size="0.8128" layer="21">PRB</text>
 <text x="7.493" y="38.989" size="0.8128" layer="21">PRB</text>
 <text x="7.493" y="63.119" size="0.8128" layer="21">PRB</text>
+<text x="13.97" y="15.24" size="0.762" layer="25">1 uF</text>
+<text x="12.7" y="10.16" size="0.762" layer="25" rot="R90">10K</text>
+<text x="34.29" y="8.89" size="0.762" layer="25">1 uF</text>
+<text x="34.29" y="2.54" size="0.762" layer="25">1 M</text>
+<text x="27.94" y="2.54" size="0.762" layer="25">NMOS</text>
+<text x="12.7" y="33.02" size="0.762" layer="25" rot="R90">10K</text>
+<text x="12.7" y="54.61" size="0.762" layer="25" rot="R90">10K</text>
+<text x="13.97" y="36.83" size="0.762" layer="25">1 uF</text>
+<text x="13.97" y="59.69" size="0.762" layer="25">1 uF</text>
+<text x="27.94" y="46.99" size="0.762" layer="25">NMOS</text>
+<text x="34.29" y="25.4" size="0.762" layer="25">1 M</text>
+<text x="33.02" y="46.99" size="0.762" layer="25">1 M</text>
+<text x="34.29" y="31.75" size="0.762" layer="25">1 uF</text>
+<text x="33.02" y="53.34" size="0.762" layer="25">1 uF</text>
+<dimension x1="0" y1="76.2" x2="48.26" y2="76.2" x3="24.13" y3="78.74" textsize="1.778" layer="20" unit="inch"/>
+<dimension x1="48.26" y1="76.2" x2="48.26" y2="-1.27" x3="52.07" y3="37.465" textsize="1.778" layer="20" unit="inch"/>
 </plain>
 <libraries>
 <library name="4pin_screw">
