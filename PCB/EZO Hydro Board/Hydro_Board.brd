@@ -181,13 +181,11 @@
 <wire x1="0" y1="76.2" x2="67.31" y2="76.2" width="0.1524" layer="20"/>
 <wire x1="0" y1="76.2" x2="0" y2="-1.27" width="0.1524" layer="20"/>
 <wire x1="0" y1="-1.27" x2="67.31" y2="-1.27" width="0.1524" layer="20"/>
-<text x="50.419" y="0.254" size="0.8128" layer="21">Chime Adaptor Board</text>
 <rectangle x1="0.762" y1="8.89" x2="6.35" y2="10.287" layer="21"/>
 <rectangle x1="1.016" y1="31.75" x2="6.35" y2="33.02" layer="21"/>
 <rectangle x1="0.889" y1="55.88" x2="6.477" y2="57.277" layer="21"/>
 <text x="0.889" y="54.61" size="1.016" layer="21">EZO pH</text>
 <text x="1.016" y="30.607" size="1.016" layer="21">EZO DO</text>
-<text x="0.635" y="7.493" size="1.016" layer="21">EZO RGB</text>
 <text x="30.988" y="13.589" size="0.8128" layer="21">VCC</text>
 <text x="30.988" y="16.129" size="0.8128" layer="21">SDA</text>
 <text x="31.115" y="18.669" size="0.8128" layer="21">SCL</text>
@@ -262,6 +260,8 @@ Vout:5V
 <text x="13.462" y="54.61" size="0.8128" layer="21" rot="R90">R3</text>
 <text x="18.034" y="54.737" size="0.8128" layer="21" rot="R90">R4</text>
 <text x="14.732" y="58.928" size="0.8128" layer="21">C6</text>
+<text x="1.27" y="7.62" size="1.016" layer="21">EZO CO2</text>
+<text x="40.64" y="0" size="1.778" layer="21">Chime Hydro Board</text>
 </plain>
 <libraries>
 <library name="4pin_screw">
