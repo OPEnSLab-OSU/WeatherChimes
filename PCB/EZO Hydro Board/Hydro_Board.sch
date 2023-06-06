@@ -2819,7 +2819,7 @@ Vishay IHLP
 <groups>
 <schematic_group name="EZO_PH"/>
 <schematic_group name="EZO_DO"/>
-<schematic_group name="EZO_RGB"/>
+<schematic_group name="EZO_CO2"/>
 <schematic_group name="LOGIC_LEVEL_CONVERTER"/>
 <schematic_group name="5V_POWER_BOOSTER"/>
 </groups>
@@ -2936,12 +2936,12 @@ Vishay IHLP
 <text x="205.74" y="157.48" size="1.778" layer="91" rot="R90" grouprefs="EZO_DO">1uF</text>
 <text x="203.2" y="198.12" size="1.778" layer="91" grouprefs="EZO_DO">1M</text>
 <text x="215.9" y="203.2" size="1.778" layer="91" grouprefs="EZO_DO">1M</text>
-<text x="115.57" y="75.946" size="1.778" layer="91" rot="R90" grouprefs="EZO_RGB">10K</text>
-<text x="107.696" y="83.312" size="1.778" layer="91" rot="R90" grouprefs="EZO_RGB">10K</text>
-<text x="116.84" y="114.3" size="1.778" layer="91" rot="R90" grouprefs="EZO_RGB">1uF</text>
-<text x="30.48" y="50.8" size="1.778" layer="91" rot="R90" grouprefs="EZO_RGB">1uF</text>
-<text x="27.94" y="91.44" size="1.778" layer="91" grouprefs="EZO_RGB">1M</text>
-<text x="40.64" y="96.52" size="1.778" layer="91" grouprefs="EZO_RGB">1M</text>
+<text x="115.57" y="75.946" size="1.778" layer="91" rot="R90" grouprefs="EZO_CO2">10K</text>
+<text x="107.696" y="83.312" size="1.778" layer="91" rot="R90" grouprefs="EZO_CO2">10K</text>
+<text x="116.84" y="114.3" size="1.778" layer="91" rot="R90" grouprefs="EZO_CO2">1uF</text>
+<text x="30.48" y="50.8" size="1.778" layer="91" rot="R90" grouprefs="EZO_CO2">1uF</text>
+<text x="27.94" y="91.44" size="1.778" layer="91" grouprefs="EZO_CO2">1M</text>
+<text x="40.64" y="96.52" size="1.778" layer="91" grouprefs="EZO_CO2">1M</text>
 <frame x1="0" y1="0" x2="515.62" y2="254" columns="8" rows="5" layer="91"/>
 <text x="278.384" y="87.884" size="3.302" layer="95" grouprefs="LOGIC_LEVEL_CONVERTER">High Voltage</text>
 <text x="235.966" y="87.63" size="3.302" layer="95" grouprefs="LOGIC_LEVEL_CONVERTER">Low Voltage</text>
@@ -3032,43 +3032,43 @@ Vishay IHLP
 <instance part="SUPPLY10" gate="GND" x="200.66" y="147.32" smashed="yes" grouprefs="EZO_DO">
 <attribute name="VALUE" x="198.755" y="144.145" size="1.778" layer="96"/>
 </instance>
-<instance part="JP3" gate="A" x="139.7" y="66.04" smashed="yes" rot="R180" grouprefs="EZO_RGB">
+<instance part="JP3" gate="A" x="139.7" y="66.04" smashed="yes" rot="R180" grouprefs="EZO_CO2">
 <attribute name="NAME" x="141.224" y="73.787" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="146.05" y="73.66" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="JP4" gate="A" x="132.08" y="66.04" smashed="yes" grouprefs="EZO_RGB">
+<instance part="JP4" gate="A" x="132.08" y="66.04" smashed="yes" grouprefs="EZO_CO2">
 <attribute name="NAME" x="125.73" y="71.755" size="1.778" layer="95"/>
 <attribute name="VALUE" x="125.73" y="58.42" size="1.778" layer="96"/>
 </instance>
-<instance part="X2" gate="G$1" x="170.434" y="68.072" smashed="yes" grouprefs="EZO_RGB">
+<instance part="X2" gate="G$1" x="170.434" y="68.072" smashed="yes" grouprefs="EZO_CO2">
 <attribute name="VALUE" x="178.054" y="68.072" size="1.27" layer="95"/>
 </instance>
-<instance part="IC2" gate="G$1" x="60.96" y="68.58" smashed="yes" grouprefs="EZO_RGB">
+<instance part="IC2" gate="G$1" x="60.96" y="68.58" smashed="yes" grouprefs="EZO_CO2">
 <attribute name="VALUE" x="66.04" y="72.898" size="1.778" layer="96" align="center-left"/>
 </instance>
-<instance part="PS1" gate="G$1" x="63.5" y="83.82" smashed="yes" rot="MR180" grouprefs="EZO_RGB">
+<instance part="PS1" gate="G$1" x="63.5" y="83.82" smashed="yes" rot="MR180" grouprefs="EZO_CO2">
 <attribute name="VALUE" x="69.85" y="96.52" size="1.778" layer="96" rot="MR180" align="center-left"/>
 </instance>
-<instance part="R3" gate="G$1" x="111.76" y="68.58" smashed="yes" rot="R90" grouprefs="EZO_RGB">
+<instance part="R3" gate="G$1" x="111.76" y="68.58" smashed="yes" rot="R90" grouprefs="EZO_CO2">
 <attribute name="NAME" x="108.712" y="76.454" size="1.778" layer="95" rot="R90" align="center-left"/>
 </instance>
-<instance part="R4" gate="G$1" x="104.14" y="76.2" smashed="yes" rot="R90" grouprefs="EZO_RGB">
+<instance part="R4" gate="G$1" x="104.14" y="76.2" smashed="yes" rot="R90" grouprefs="EZO_CO2">
 <attribute name="NAME" x="100.838" y="84.328" size="1.778" layer="95" rot="R90" align="center-left"/>
 </instance>
-<instance part="R11" gate="G$1" x="25.4" y="83.82" smashed="yes" rot="R90" grouprefs="EZO_RGB">
+<instance part="R11" gate="G$1" x="25.4" y="83.82" smashed="yes" rot="R90" grouprefs="EZO_CO2">
 <attribute name="NAME" x="22.606" y="92.202" size="1.778" layer="95" rot="R180" align="center-left"/>
 </instance>
-<instance part="R12" gate="G$1" x="38.1" y="88.9" smashed="yes" rot="R90" grouprefs="EZO_RGB">
+<instance part="R12" gate="G$1" x="38.1" y="88.9" smashed="yes" rot="R90" grouprefs="EZO_CO2">
 <attribute name="NAME" x="35.56" y="97.536" size="1.778" layer="95" rot="R180" align="center-left"/>
 </instance>
-<instance part="C5" gate="G$1" x="25.4" y="45.72" smashed="yes" rot="R90" grouprefs="EZO_RGB">
+<instance part="C5" gate="G$1" x="25.4" y="45.72" smashed="yes" rot="R90" grouprefs="EZO_CO2">
 <attribute name="NAME" x="20.828" y="50.8" size="1.778" layer="95" rot="R90" align="center-left"/>
 </instance>
-<instance part="C6" gate="G$1" x="111.76" y="109.22" smashed="yes" rot="R90" grouprefs="EZO_RGB">
+<instance part="C6" gate="G$1" x="111.76" y="109.22" smashed="yes" rot="R90" grouprefs="EZO_CO2">
 <attribute name="NAME" x="107.188" y="114.808" size="1.778" layer="95" rot="R90" align="center-left"/>
 </instance>
-<instance part="Q3" gate="G$1" x="30.48" y="73.66" smashed="yes" grouprefs="EZO_RGB"/>
-<instance part="SUPPLY15" gate="GND" x="25.4" y="40.64" smashed="yes" grouprefs="EZO_RGB">
+<instance part="Q3" gate="G$1" x="30.48" y="73.66" smashed="yes" grouprefs="EZO_CO2"/>
+<instance part="SUPPLY15" gate="GND" x="25.4" y="40.64" smashed="yes" grouprefs="EZO_CO2">
 <attribute name="VALUE" x="23.495" y="37.465" size="1.778" layer="96"/>
 </instance>
 <instance part="SUPPLY16" gate="GND" x="50.8" y="162.56" smashed="yes">
@@ -3318,38 +3318,38 @@ Vishay IHLP
 <pinref part="C3" gate="G$1" pin="2"/>
 </segment>
 <segment>
-<wire x1="129.54" y1="68.58" x2="119.38" y2="68.58" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="119.38" y="68.58" size="1.778" layer="95" grouprefs="EZO_RGB"/>
-<wire x1="119.38" y1="68.58" x2="119.38" y2="93.98" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<wire x1="119.38" y1="93.98" x2="111.76" y2="93.98" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<wire x1="111.76" y1="93.98" x2="104.14" y2="93.98" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<wire x1="111.76" y1="86.36" x2="111.76" y2="93.98" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<junction x="111.76" y="93.98" grouprefs="EZO_RGB"/>
-<wire x1="119.38" y1="96.52" x2="119.38" y2="93.98" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<junction x="119.38" y="93.98" grouprefs="EZO_RGB"/>
-<label x="119.38" y="96.52" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="129.54" y1="68.58" x2="119.38" y2="68.58" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="119.38" y="68.58" size="1.778" layer="95" grouprefs="EZO_CO2"/>
+<wire x1="119.38" y1="68.58" x2="119.38" y2="93.98" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<wire x1="119.38" y1="93.98" x2="111.76" y2="93.98" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<wire x1="111.76" y1="93.98" x2="104.14" y2="93.98" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<wire x1="111.76" y1="86.36" x2="111.76" y2="93.98" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<junction x="111.76" y="93.98" grouprefs="EZO_CO2"/>
+<wire x1="119.38" y1="96.52" x2="119.38" y2="93.98" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<junction x="119.38" y="93.98" grouprefs="EZO_CO2"/>
+<label x="119.38" y="96.52" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="JP4" gate="A" pin="1"/>
 <pinref part="R3" gate="G$1" pin="2"/>
 <pinref part="R4" gate="G$1" pin="2"/>
 </segment>
 <segment>
-<wire x1="60.96" y1="68.58" x2="53.34" y2="68.58" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="53.34" y="68.58" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="60.96" y1="68.58" x2="53.34" y2="68.58" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="53.34" y="68.58" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="IC2" gate="G$1" pin="AVDD"/>
 </segment>
 <segment>
-<wire x1="63.5" y1="86.36" x2="55.88" y2="86.36" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="53.34" y="86.36" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="63.5" y1="86.36" x2="55.88" y2="86.36" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="53.34" y="86.36" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="PS1" gate="G$1" pin="+VIN"/>
 </segment>
 <segment>
-<wire x1="25.4" y1="58.42" x2="25.4" y2="60.96" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="22.86" y="60.96" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="25.4" y1="58.42" x2="25.4" y2="60.96" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="22.86" y="60.96" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="C5" gate="G$1" pin="2"/>
 </segment>
 <segment>
-<wire x1="38.1" y1="106.68" x2="25.4" y2="106.68" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<wire x1="25.4" y1="106.68" x2="25.4" y2="101.6" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
+<wire x1="38.1" y1="106.68" x2="25.4" y2="106.68" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<wire x1="25.4" y1="106.68" x2="25.4" y2="101.6" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
 <pinref part="R11" gate="G$1" pin="2"/>
 <pinref part="R12" gate="G$1" pin="2"/>
 <wire x1="25.4" y1="106.68" x2="25.4" y2="109.22" width="0.1524" layer="91"/>
@@ -3439,28 +3439,28 @@ Vishay IHLP
 <pinref part="SUPPLY10" gate="GND" pin="GND"/>
 </segment>
 <segment>
-<wire x1="142.24" y1="63.5" x2="149.86" y2="63.5" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="148.59" y="63.5" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="142.24" y1="63.5" x2="149.86" y2="63.5" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="148.59" y="63.5" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="JP3" gate="A" pin="1"/>
 </segment>
 <segment>
-<wire x1="60.96" y1="60.96" x2="53.34" y2="60.96" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="53.34" y="60.96" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="60.96" y1="60.96" x2="53.34" y2="60.96" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="53.34" y="60.96" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="IC2" gate="G$1" pin="AGND"/>
 <wire x1="53.34" y1="60.96" x2="53.34" y2="58.42" width="0.1524" layer="91"/>
 <pinref part="SUPPLY17" gate="GND" pin="GND"/>
 </segment>
 <segment>
-<label x="53.34" y="83.82" size="1.778" layer="95" grouprefs="EZO_RGB"/>
-<wire x1="63.5" y1="83.82" x2="38.1" y2="83.82" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<wire x1="38.1" y1="88.9" x2="38.1" y2="83.82" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<junction x="38.1" y="83.82" grouprefs="EZO_RGB"/>
+<label x="53.34" y="83.82" size="1.778" layer="95" grouprefs="EZO_CO2"/>
+<wire x1="63.5" y1="83.82" x2="38.1" y2="83.82" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<wire x1="38.1" y1="88.9" x2="38.1" y2="83.82" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<junction x="38.1" y="83.82" grouprefs="EZO_CO2"/>
 <pinref part="PS1" gate="G$1" pin="-VIN"/>
 <pinref part="R12" gate="G$1" pin="1"/>
 <pinref part="Q3" gate="G$1" pin="D"/>
 </segment>
 <segment>
-<wire x1="25.4" y1="45.72" x2="25.4" y2="43.18" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
+<wire x1="25.4" y1="45.72" x2="25.4" y2="43.18" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
 <pinref part="C5" gate="G$1" pin="1"/>
 <pinref part="SUPPLY15" gate="GND" pin="GND"/>
 </segment>
@@ -3538,13 +3538,13 @@ Vishay IHLP
 <pinref part="X4" gate="G$1" pin="ANT"/>
 </segment>
 <segment>
-<wire x1="142.24" y1="66.04" x2="149.86" y2="66.04" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="153.416" y="68.326" size="1.778" layer="95" rot="R180" grouprefs="EZO_RGB"/>
+<wire x1="142.24" y1="66.04" x2="149.86" y2="66.04" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="153.416" y="68.326" size="1.778" layer="95" rot="R180" grouprefs="EZO_CO2"/>
 <pinref part="JP3" gate="A" pin="2"/>
 </segment>
 <segment>
-<wire x1="162.814" y1="68.072" x2="160.274" y2="68.072" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="160.274" y="68.072" size="1.778" layer="95" rot="R180" grouprefs="EZO_RGB"/>
+<wire x1="162.814" y1="68.072" x2="160.274" y2="68.072" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="160.274" y="68.072" size="1.778" layer="95" rot="R180" grouprefs="EZO_CO2"/>
 <pinref part="X2" gate="G$1" pin="ANT"/>
 </segment>
 </net>
@@ -3575,18 +3575,18 @@ Vishay IHLP
 <pinref part="X4" gate="G$1" pin="GND1"/>
 </segment>
 <segment>
-<wire x1="142.24" y1="68.58" x2="149.86" y2="68.58" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="154.94" y="71.12" size="1.778" layer="95" rot="R180" grouprefs="EZO_RGB"/>
+<wire x1="142.24" y1="68.58" x2="149.86" y2="68.58" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="154.94" y="71.12" size="1.778" layer="95" rot="R180" grouprefs="EZO_CO2"/>
 <pinref part="JP3" gate="A" pin="3"/>
 </segment>
 <segment>
-<wire x1="167.894" y1="75.692" x2="165.354" y2="75.692" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="161.29" y="76.708" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="167.894" y1="75.692" x2="165.354" y2="75.692" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="161.29" y="76.708" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="X2" gate="G$1" pin="GND1"/>
 </segment>
 <segment>
-<wire x1="167.894" y1="60.452" x2="165.354" y2="60.452" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="160.274" y="57.912" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="167.894" y1="60.452" x2="165.354" y2="60.452" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="160.274" y="57.912" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="X2" gate="G$1" pin="GND3"/>
 </segment>
 <segment>
@@ -3639,18 +3639,18 @@ Vishay IHLP
 <pinref part="C4" gate="G$1" pin="2"/>
 </segment>
 <segment>
-<wire x1="88.9" y1="68.58" x2="96.52" y2="68.58" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="91.44" y="68.58" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="88.9" y1="68.58" x2="96.52" y2="68.58" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="91.44" y="68.58" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="IC2" gate="G$1" pin="BVDD"/>
 </segment>
 <segment>
-<wire x1="63.5" y1="91.44" x2="55.88" y2="91.44" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="53.34" y="91.44" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="63.5" y1="91.44" x2="55.88" y2="91.44" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="53.34" y="91.44" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="PS1" gate="G$1" pin="+VOUT"/>
 </segment>
 <segment>
-<wire x1="111.76" y1="121.92" x2="111.76" y2="124.46" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="111.76" y="124.46" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="111.76" y1="121.92" x2="111.76" y2="124.46" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="111.76" y="124.46" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="C6" gate="G$1" pin="2"/>
 </segment>
 </net>
@@ -3684,16 +3684,16 @@ Vishay IHLP
 <pinref part="GND4" gate="1" pin="GND"/>
 </segment>
 <segment>
-<wire x1="88.9" y1="60.96" x2="96.52" y2="60.96" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="91.44" y="60.96" size="1.778" layer="95" grouprefs="EZO_RGB"/>
-<wire x1="96.52" y1="60.96" x2="96.52" y2="58.42" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
+<wire x1="88.9" y1="60.96" x2="96.52" y2="60.96" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="91.44" y="60.96" size="1.778" layer="95" grouprefs="EZO_CO2"/>
+<wire x1="96.52" y1="60.96" x2="96.52" y2="58.42" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
 <pinref part="IC2" gate="G$1" pin="BGND"/>
 <pinref part="GND9" gate="1" pin="GND"/>
 </segment>
 <segment>
-<label x="53.34" y="88.9" size="1.778" layer="95" grouprefs="EZO_RGB"/>
-<wire x1="63.5" y1="88.9" x2="48.26" y2="88.9" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<wire x1="48.26" y1="88.9" x2="48.26" y2="96.52" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
+<label x="53.34" y="88.9" size="1.778" layer="95" grouprefs="EZO_CO2"/>
+<wire x1="63.5" y1="88.9" x2="48.26" y2="88.9" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<wire x1="48.26" y1="88.9" x2="48.26" y2="96.52" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
 <pinref part="PS1" gate="G$1" pin="-VOUT"/>
 <pinref part="GND7" gate="1" pin="GND"/>
 </segment>
@@ -3728,20 +3728,20 @@ Vishay IHLP
 </net>
 <net name="N$4" class="0">
 <segment>
-<wire x1="172.974" y1="75.692" x2="175.514" y2="75.692" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
+<wire x1="172.974" y1="75.692" x2="175.514" y2="75.692" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
 <pinref part="X2" gate="G$1" pin="GND2"/>
 </segment>
 </net>
 <net name="N$5" class="0">
 <segment>
-<wire x1="172.974" y1="60.452" x2="175.514" y2="60.452" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
+<wire x1="172.974" y1="60.452" x2="175.514" y2="60.452" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
 <pinref part="X2" gate="G$1" pin="GND4"/>
 </segment>
 </net>
 <net name="N$8" class="0">
 <segment>
-<wire x1="25.4" y1="83.82" x2="25.4" y2="73.66" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<wire x1="25.4" y1="73.66" x2="30.48" y2="73.66" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
+<wire x1="25.4" y1="83.82" x2="25.4" y2="73.66" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<wire x1="25.4" y1="73.66" x2="30.48" y2="73.66" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
 <pinref part="R11" gate="G$1" pin="1"/>
 <pinref part="Q3" gate="G$1" pin="G"/>
 </segment>
@@ -3898,17 +3898,17 @@ Vishay IHLP
 <pinref part="IC4" gate="G$1" pin="ASCL"/>
 </segment>
 <segment>
-<wire x1="60.96" y1="63.5" x2="53.34" y2="63.5" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="53.34" y="63.5" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="60.96" y1="63.5" x2="53.34" y2="63.5" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="53.34" y="63.5" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="IC2" gate="G$1" pin="ASCL"/>
 </segment>
 <segment>
-<wire x1="88.9" y1="63.5" x2="104.14" y2="63.5" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="91.44" y="63.5" size="1.778" layer="95" grouprefs="EZO_RGB"/>
-<wire x1="104.14" y1="76.2" x2="104.14" y2="63.5" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="119.38" y="63.5" size="1.778" layer="95" grouprefs="EZO_RGB"/>
-<wire x1="104.14" y1="63.5" x2="129.54" y2="63.5" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<junction x="104.14" y="63.5" grouprefs="EZO_RGB"/>
+<wire x1="88.9" y1="63.5" x2="104.14" y2="63.5" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="91.44" y="63.5" size="1.778" layer="95" grouprefs="EZO_CO2"/>
+<wire x1="104.14" y1="76.2" x2="104.14" y2="63.5" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="119.38" y="63.5" size="1.778" layer="95" grouprefs="EZO_CO2"/>
+<wire x1="104.14" y1="63.5" x2="129.54" y2="63.5" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<junction x="104.14" y="63.5" grouprefs="EZO_CO2"/>
 <pinref part="JP4" gate="A" pin="3"/>
 <pinref part="IC2" gate="G$1" pin="BSCL"/>
 <pinref part="R4" gate="G$1" pin="1"/>
@@ -3969,19 +3969,19 @@ Vishay IHLP
 <pinref part="IC4" gate="G$1" pin="ASDA"/>
 </segment>
 <segment>
-<label x="119.38" y="66.04" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<label x="119.38" y="66.04" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="JP4" gate="A" pin="2"/>
-<label x="91.44" y="66.04" size="1.778" layer="95" grouprefs="EZO_RGB"/>
-<wire x1="111.76" y1="68.58" x2="111.76" y2="66.04" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<wire x1="111.76" y1="66.04" x2="88.9" y2="66.04" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<wire x1="111.76" y1="66.04" x2="129.54" y2="66.04" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<junction x="111.76" y="66.04" grouprefs="EZO_RGB"/>
+<label x="91.44" y="66.04" size="1.778" layer="95" grouprefs="EZO_CO2"/>
+<wire x1="111.76" y1="68.58" x2="111.76" y2="66.04" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<wire x1="111.76" y1="66.04" x2="88.9" y2="66.04" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<wire x1="111.76" y1="66.04" x2="129.54" y2="66.04" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<junction x="111.76" y="66.04" grouprefs="EZO_CO2"/>
 <pinref part="IC2" gate="G$1" pin="BSDA"/>
 <pinref part="R3" gate="G$1" pin="1"/>
 </segment>
 <segment>
-<wire x1="60.96" y1="66.04" x2="53.34" y2="66.04" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
-<label x="53.34" y="66.04" size="1.778" layer="95" grouprefs="EZO_RGB"/>
+<wire x1="60.96" y1="66.04" x2="53.34" y2="66.04" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
+<label x="53.34" y="66.04" size="1.778" layer="95" grouprefs="EZO_CO2"/>
 <pinref part="IC2" gate="G$1" pin="ASDA"/>
 </segment>
 <segment>
@@ -4128,7 +4128,7 @@ Vishay IHLP
 </net>
 <net name="N$6" class="0">
 <segment>
-<wire x1="111.76" y1="109.22" x2="111.76" y2="106.68" width="0.1524" layer="91" grouprefs="EZO_RGB"/>
+<wire x1="111.76" y1="109.22" x2="111.76" y2="106.68" width="0.1524" layer="91" grouprefs="EZO_CO2"/>
 <pinref part="C6" gate="G$1" pin="1"/>
 <pinref part="GND8" gate="1" pin="GND"/>
 </segment>
