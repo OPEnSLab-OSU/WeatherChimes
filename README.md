@@ -13,7 +13,10 @@ WeatherChimes is an Internet of Things (IoT) project that uses Loom from the OPE
 
 
 ## Before Installation
-Before code can be uploaded to the Feather, download the [Arduino IDE software](https://www.arduino.cc/en/software) and set up the board profile to include the necessary libraries such as Loom, TSL2591, SHT30 and SDI-12, instructions for completing these steps are present in our [Quick Start Guide](https://github.com/OPEnSLab-OSU/Loom-V4).
+Before code can be uploaded to the Feather, download the [Arduino IDE software](https://www.arduino.cc/en/software) and set up the board profile to include the necessary libraries such as Loom, TSL2591, SHT30 and SDI-12, instructions for completing these steps are present in our [Quick Start Guide](https://github.com/OPEnSLab-OSU/Loom-V4). 
+
+## Before Field Deployment
+Please refer to the [WeatherChimes Operation Manual](https://docs.google.com/document/d/1b8-toOKHrU17z7gMsPlmyjn5y7iMVSKRvPj8aUgFDfA/edit?usp=sharing) for best practices in understanding and deploying WeatherChimes in the field.
 
 ## Setting Up Mosquitto
 Mosquitto is an MQTT broker used for handling communication with remote devices over the MQTT protocol
