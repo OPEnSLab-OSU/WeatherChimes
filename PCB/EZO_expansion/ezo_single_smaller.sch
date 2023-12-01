@@ -3880,6 +3880,11 @@ Source: &lt;a href="https://datasheet.datasheetarchive.com/originals/distributor
 <pinref part="5V_I2C" gate="J1" pin="1"/>
 <label x="71.12" y="50.8" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="5V_I2C" gate="J1" pin="2"/>
+<wire x1="71.12" y1="53.34" x2="78.74" y2="53.34" width="0.1524" layer="91"/>
+<label x="71.12" y="53.34" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="3.3V" class="0">
 <segment>
